@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{27A0B7DC-2316-42AD-BA11-93395F2ACB04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "..\PetSitterFinder.SharedLibrary\SharedLibrary\SharedLibrary.csproj", "{8C98CCF5-0A2B-4226-8145-B31AAB92C522}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27A0B7DC-2316-42AD-BA11-93395F2ACB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A0B7DC-2316-42AD-BA11-93395F2ACB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A0B7DC-2316-42AD-BA11-93395F2ACB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A0B7DC-2316-42AD-BA11-93395F2ACB04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C98CCF5-0A2B-4226-8145-B31AAB92C522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C98CCF5-0A2B-4226-8145-B31AAB92C522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C98CCF5-0A2B-4226-8145-B31AAB92C522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C98CCF5-0A2B-4226-8145-B31AAB92C522}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
