@@ -125,3 +125,5 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.API/bin/Debug/net8.0/SharedLibrary.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.API/bin/Debug/net8.0/SharedLibrary.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.MvcApplicationPartsAssemblyInfo.cs
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.sourcelink.json
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.API/bin/Debug/net8.0/RabbitMQ.Client.dll

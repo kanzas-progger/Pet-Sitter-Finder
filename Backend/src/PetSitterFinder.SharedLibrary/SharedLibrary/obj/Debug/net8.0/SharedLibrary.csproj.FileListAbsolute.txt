@@ -10,3 +10,4 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/refint/SharedLibrary.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/ref/SharedLibrary.dll
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.sourcelink.json

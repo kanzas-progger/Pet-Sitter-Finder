@@ -6,4 +6,25 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\PetSitterFinder.SharedLibrary\SharedLibrary\SharedLibrary.csproj" />
+      <ProjectReference Include="..\UserProfiles.Application\UserProfiles.Application.csproj" />
+      <ProjectReference Include="..\UserProfiles.Core\UserProfiles.Core.csproj" />
+      <ProjectReference Include="..\UserProfiles.Infrastructure\UserProfiles.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Contracts\SitterProfiles\" />
+    </ItemGroup>
+
 </Project>

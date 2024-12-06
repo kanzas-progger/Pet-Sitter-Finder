@@ -4,6 +4,72 @@
     "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj": {}
   },
   "projects": {
+    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
+        "projectName": "SharedLibrary",
+        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
+        "packagesPath": "/home/nikolay/.nuget/packages/",
+        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "RabbitMQ.Client": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -12,6 +78,155 @@
         "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj",
         "packagesPath": "/home/nikolay/.nuget/packages/",
         "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj"
+              },
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj"
+              },
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
+              },
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj",
+        "projectName": "UserProfiles.Application",
+        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj",
+        "packagesPath": "/home/nikolay/.nuget/packages/",
+        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
+              },
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj",
+        "projectName": "UserProfiles.Core",
+        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj",
+        "packagesPath": "/home/nikolay/.nuget/packages/",
+        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/nikolay/.nuget/NuGet/NuGet.Config"
@@ -52,6 +267,92 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj",
+        "projectName": "UserProfiles.Infrastructure",
+        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj",
+        "packagesPath": "/home/nikolay/.nuget/packages/",
+        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj"
+              },
+              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "RabbitMQ.Client": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

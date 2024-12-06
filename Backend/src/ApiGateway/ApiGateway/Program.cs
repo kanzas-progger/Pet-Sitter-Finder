@@ -1,4 +1,5 @@
 using ApiGateway.Middlewares;
+using Microsoft.AspNetCore.CookiePolicy;
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -30,6 +31,14 @@ services.AddCors(options =>
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always
+});
+
 app.UseCors();
 app.UseMiddleware<AttachSignatureToRequest>();
 app.UseOcelot().Wait();

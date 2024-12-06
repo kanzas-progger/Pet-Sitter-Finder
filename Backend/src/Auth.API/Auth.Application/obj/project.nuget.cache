@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "l2JrVbv7eqA=",
+  "dgSpecHash": "0YeGTXzyYk0=",
   "success": true,
   "projectFilePath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.Application/Auth.Application.csproj",
   "expectedPackageFiles": [
@@ -27,7 +27,10 @@
     "/home/nikolay/.nuget/packages/microsoft.identitymodel.tokens/7.1.2/microsoft.identitymodel.tokens.7.1.2.nupkg.sha512",
     "/home/nikolay/.nuget/packages/npgsql/8.0.6/npgsql.8.0.6.nupkg.sha512",
     "/home/nikolay/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512",
-    "/home/nikolay/.nuget/packages/system.identitymodel.tokens.jwt/7.1.2/system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512"
+    "/home/nikolay/.nuget/packages/rabbitmq.client/7.0.0/rabbitmq.client.7.0.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/system.identitymodel.tokens.jwt/7.1.2/system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/system.threading.ratelimiting/8.0.0/system.threading.ratelimiting.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

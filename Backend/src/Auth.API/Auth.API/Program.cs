@@ -1,12 +1,14 @@
 using Auth.Application.Services;
 using Auth.Core.Abstractions;
 using Auth.Infrastructure;
+using Auth.Infrastructure.Publishers;
 using Auth.Infrastructure.Repositories;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Configurations;
 using SharedLibrary.DependencyInjection;
 using SharedLibrary.Middlewares;
+using SharedLibrary.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,11 +26,14 @@ services.AddDbContext<AuthDbContext>(options =>
 {
     options.UseNpgsql(configuration.GetConnectionString("AuthDbConnection"));
 });
+    
+services.AddSingleton<IRabbitMQService, RabbitMQService>();
 
 services.AddScoped<IUsersRepository, UsersRepository>();
 services.AddScoped<IPasswordHasher, PasswordHasher>();
 services.AddScoped<IJwtProvider, JwtProvider>();
 services.AddScoped<IUsersService, UsersService>();
+services.AddScoped<IRegisterUserPublisher, RegisterUserPublisher>();
 
 
 var app = builder.Build();

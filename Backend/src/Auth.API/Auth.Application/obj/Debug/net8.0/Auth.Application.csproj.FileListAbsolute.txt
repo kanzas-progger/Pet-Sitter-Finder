@@ -17,3 +17,4 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.Application/obj/Debug/net8.0/ref/Auth.Application.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.Application/bin/Debug/net8.0/SharedLibrary.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.Application/bin/Debug/net8.0/SharedLibrary.pdb
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.sourcelink.json

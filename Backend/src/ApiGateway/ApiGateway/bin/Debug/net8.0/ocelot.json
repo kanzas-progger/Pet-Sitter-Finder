@@ -40,7 +40,7 @@
     },
     
     {
-      "DownstreamPathTemplate": "/api/users/{everything}",
+      "DownstreamPathTemplate": "/api/owners/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -49,8 +49,8 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/api/users/{everything}",
-      "UpstreamHttpMethod": ["POST","PUT","DELETE"],
+      "UpstreamPathTemplate": "/api/owners/{everything}",
+      "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []

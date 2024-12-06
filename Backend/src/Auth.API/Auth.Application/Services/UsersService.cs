@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Auth.Core.Abstractions;
 using Auth.Core.Models;
+using SharedLibrary.RabbitMQ.DTOs;
 
 namespace Auth.Application.Services;
 
@@ -9,12 +10,15 @@ public class UsersService : IUsersService
     private readonly IUsersRepository _usersRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IRegisterUserPublisher _registerUserPublisher;
 
-    public UsersService(IUsersRepository usersRepository, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
+    public UsersService(IUsersRepository usersRepository, IPasswordHasher passwordHasher,
+        IJwtProvider jwtProvider, IRegisterUserPublisher registerUserPublisher)
     {
         _usersRepository = usersRepository;
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
+        _registerUserPublisher = registerUserPublisher;
     }
 
     public async Task<string> Register(string login, string password, string firstname, 
@@ -41,6 +45,10 @@ public class UsersService : IUsersService
         {
             throw new ValidationException("Role not added to user");
         }
+
+        var registerUserDto = new CreateUserProfileDTO(newUserId, login, firstname, lastname, age);
+
+        await _registerUserPublisher.SendMessage(registerUserDto, role);
 
         string jwtToken = await Login(login, password);
         
