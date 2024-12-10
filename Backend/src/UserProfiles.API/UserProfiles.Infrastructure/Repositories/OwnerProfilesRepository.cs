@@ -103,6 +103,17 @@ public class OwnerProfilesRepository : IOwnerProfilesRepository
         return count;
     }
 
+    public async Task<string> GetProfileImageUrl(Guid ownerId)
+    {
+        string? profileImage = await _userProfilesDbContext.OwnerProfiles
+            .AsNoTracking()
+            .Where(o => o.OwnerId == ownerId)
+            .Select(o => o.ProfileImagePath)
+            .FirstOrDefaultAsync();
+        
+        return profileImage ?? string.Empty;
+    }
+    
     public async Task CreateProfilePhotos(Guid ownerId, List<string> photoPaths)
     {
         Guid profileId = await _userProfilesDbContext.OwnerProfiles

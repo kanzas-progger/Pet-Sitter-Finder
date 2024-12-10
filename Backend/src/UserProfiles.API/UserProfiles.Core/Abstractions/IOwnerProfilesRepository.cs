@@ -12,4 +12,6 @@ public interface IOwnerProfilesRepository
     Task<int> GetProfilesPhotoCount(Guid ownerId);
     Task CreateProfilePhotos(Guid ownerId, List<string> photoPaths);
     Task<List<string>> GetAllProfilePhotos(Guid ownerId);
+    Task<string> GetProfileImageUrl(Guid ownerId);
+
 }

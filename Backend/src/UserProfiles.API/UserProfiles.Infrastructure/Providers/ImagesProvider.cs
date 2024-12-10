@@ -46,6 +46,17 @@ public class ImagesProvider : IImagesProvider
 
         return filePath;
     }
+
+    public string DeleteProfileImage(string imagePath)
+    {
+        if (File.Exists(imagePath))
+        {
+            File.Delete(imagePath);
+            return "Profile image deleted";
+        }
+
+        return String.Empty;
+    }
     
     public async Task<List<string>> SaveProfilePhotos(List<IFormFile> profilePhotos)
     {

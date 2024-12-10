@@ -21,4 +21,9 @@ public class ImagesService : IImagesService
     {
         return await _imagesProvider.SaveProfilePhotos(photos);
     }
+    
+    public string DeleteProfileImage(string imagePath)
+    {
+        return _imagesProvider.DeleteProfileImage(imagePath);
+    }
 }

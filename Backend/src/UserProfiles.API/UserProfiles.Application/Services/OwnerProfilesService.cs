@@ -49,4 +49,9 @@ public class OwnerProfilesService : IOwnerProfilesService
     {
         return await _ownerProfilesRepository.GetAllProfilePhotos(ownerId);
     }
+    
+    public async Task<string> GetOwnerProfileImageUrl(Guid ownerId)
+    {
+        return await _ownerProfilesRepository.GetProfileImageUrl(ownerId);
+    }
 }

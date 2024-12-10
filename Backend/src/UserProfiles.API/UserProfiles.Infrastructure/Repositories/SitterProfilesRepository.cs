@@ -43,20 +43,33 @@ public class SitterProfilesRepository : ISitterProfilesRepository
         return newProfileEntity.Id;
     }
 
+    public async Task<List<SitterProfile>> GetAll()
+    {
+        var entities = await _userProfilesDbContext.SitterProfiles
+            .AsNoTracking().ToListAsync();
+        
+        var profiles = entities.Select(p => SitterProfile.Create(p.Id,p.SitterId,p.Login,
+            p.Firstname,p.Lastname,p.Fathername,p.Age,p.Email,p.PhoneNumber,p.ProfileImagePath,
+            p.Country,p.City,p.Address,p.Rating,p.RateCount,p.About,p.PricePerDay).sitterProfile)
+            .ToList();
+        
+        return profiles;
+    }
+
     public async Task<SitterProfile> GetById(Guid sitterId)
     {
-        var sitterProfileEntity = await _userProfilesDbContext.SitterProfiles
+        var entity = await _userProfilesDbContext.SitterProfiles
             .AsNoTracking().FirstOrDefaultAsync(s => s.SitterId == sitterId);
-        if (sitterProfileEntity == null)
+        if (entity == null)
             throw new NullReferenceException($"Siter profile with id {sitterId} not found");
 
-        var profile = SitterProfile.Create(sitterProfileEntity.Id,
-            sitterProfileEntity.SitterId, sitterProfileEntity.Login, sitterProfileEntity.Firstname,
-            sitterProfileEntity.Lastname, sitterProfileEntity.Fathername, sitterProfileEntity.Age,
-            sitterProfileEntity.Email, sitterProfileEntity.PhoneNumber, sitterProfileEntity.ProfileImagePath,
-            sitterProfileEntity.Country, sitterProfileEntity.City, sitterProfileEntity.Address,
-            sitterProfileEntity.Rating, sitterProfileEntity.RateCount, sitterProfileEntity.About,
-            sitterProfileEntity.PricePerDay).sitterProfile;
+        var profile = SitterProfile.Create(entity.Id,
+            entity.SitterId, entity.Login, entity.Firstname,
+            entity.Lastname, entity.Fathername, entity.Age,
+            entity.Email, entity.PhoneNumber, entity.ProfileImagePath,
+            entity.Country, entity.City, entity.Address,
+            entity.Rating, entity.RateCount, entity.About,
+            entity.PricePerDay).sitterProfile;
         
         return profile;
     }
