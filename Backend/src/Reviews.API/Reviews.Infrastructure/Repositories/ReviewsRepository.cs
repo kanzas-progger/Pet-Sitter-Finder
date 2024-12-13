@@ -20,8 +20,8 @@ public class ReviewsRepository : IReviewsRepository
         var reviewEntities = await _context.Reviews.AsNoTracking()
             .Where(r => r.SitterId == sitterId).ToListAsync();
         
-        var reviews = reviewEntities.Select(r => Review.Create(r.Id, r.SenderId, r.SenderId,
-            r.Stars, r.Content).review).ToList();
+        var reviews = reviewEntities.Select(r => Review.Create(r.Id, r.SitterId, r.SenderId,
+            r.Stars, r.Content, r.CreationDate, r.ExpirationToUpdateAndDelete).review).ToList();
         
         return reviews;
     }
@@ -33,7 +33,8 @@ public class ReviewsRepository : IReviewsRepository
                            throw new KeyNotFoundException(); // It needs to be processed
 
         var review = Review.Create(reviewEntity.Id, reviewEntity.SitterId, reviewEntity.SenderId,
-            reviewEntity.Stars, reviewEntity.Content).review;
+            reviewEntity.Stars, reviewEntity.Content, reviewEntity.CreationDate,
+            reviewEntity.ExpirationToUpdateAndDelete).review;
 
         return review;
     }

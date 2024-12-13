@@ -29,7 +29,9 @@ public class ReviewsService : IReviewsService
         if (isReviewExists)
             throw new ValidationException("Review already exists");
         
-        var (review, error) = Review.Create(Guid.NewGuid(), sitterId, senderId, stars, content);
+        var (review, error) = Review.Create(Guid.NewGuid(), sitterId, senderId, stars, content,
+            DateTime.UtcNow, DateTime.UtcNow.AddDays(Review.EXPIRATION_DAYS_TO_UPDATE));
+        
         if (!string.IsNullOrEmpty(error))
             throw new ValidationException(error);
         
@@ -46,7 +48,8 @@ public class ReviewsService : IReviewsService
             throw new ValidationException("This review can no longer be updated");
 
         var (review, error) = Review.Create(existingReview.Id, existingReview.SitterId,
-            existingReview.SenderId, stars, content);
+            existingReview.SenderId, stars, content, existingReview.CreationDate,
+            existingReview.ExpirationToUpdateAndDelete);
         
         if (!string.IsNullOrEmpty(error))
             throw new ValidationException(error);

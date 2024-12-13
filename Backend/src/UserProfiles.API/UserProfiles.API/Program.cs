@@ -1,3 +1,4 @@
+using System.Net.Security;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Configurations;
@@ -8,6 +9,8 @@ using UserProfiles.Application.Services;
 using UserProfiles.Core.Abstractions;
 using UserProfiles.Infrastructure;
 using UserProfiles.Infrastructure.Consumers;
+using UserProfiles.Infrastructure.GrpcClients;
+using UserProfiles.Infrastructure.Protos;
 using UserProfiles.Infrastructure.Providers;
 using UserProfiles.Infrastructure.Repositories;
 
@@ -22,13 +25,23 @@ services.AddSwaggerGen(); //Swagger
 
 services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
-services.AddJwtAuthenticationScheme(configuration.GetSection(nameof(JwtOptions)));
+// services.AddJwtAuthenticationScheme(configuration.GetSection(nameof(JwtOptions)));
 
 services.AddDbContext<UserProfilesDbContext>(options =>
 {
     options.UseNpgsql(configuration.GetConnectionString("UserProfilesDbConnection"));
 });
 
+services.AddGrpcClient<ReviewsProtoService.ReviewsProtoServiceClient>(options =>
+{
+    options.Address = new Uri("https://localhost:7000");
+}).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
+{
+    var handler = new HttpClientHandler();
+    handler.ServerCertificateCustomValidationCallback = 
+        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+    return handler;
+});
 
 //Repositories
 services.AddScoped<IOwnerProfilesRepository, OwnerProfilesRepository>();
@@ -36,7 +49,7 @@ services.AddScoped<ISitterProfilesRepository, SitterProfilesRepository>();
 
 //Services
 services.AddScoped<IOwnerProfilesService, OwnerProfilesService>();
-
+services.AddScoped<ISitterProfileService, SitterProfileService>();
 services.AddScoped<IImagesService, ImagesService>();
 
 //Providers
@@ -47,10 +60,12 @@ services.AddSingleton<IRabbitMQService, RabbitMQService>();
 services.AddSingleton<ICreateUserProfileConsumer, CreateUserProfileConsumer>();
 services.AddHostedService<CreateUserProfileBackground>();
 
+//gRPC
+services.AddScoped<ReviewsGrpcClient>();
 
 var app = builder.Build();
 
-app.UseMiddleware<ListenToOnlyApiGateway>();
+//app.UseMiddleware<ListenToOnlyApiGateway>();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
@@ -60,7 +75,7 @@ app.UseSwaggerUI(options =>
     options.DocumentTitle = "My Swagger";
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 //app.UseExceptionMiddleware();
 
@@ -71,8 +86,8 @@ app.UseCookiePolicy(new CookiePolicyOptions
     Secure = CookieSecurePolicy.Always
 });
 
-app.UseAuthentication();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 app.MapControllers();
 

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserProfiles.Infrastructure.Protos";
+
+import "google/protobuf/timestamp.proto";
+
+package review;
+
+message SitterReviewsRequest {
+  string sitterId = 1;
+}
+
+message Review {
+  string reviewId = 1;
+  string sitterId = 2;
+  string senderId = 3;
+  int32 stars = 4;
+  string content = 5;
+  google.protobuf.Timestamp creationDate = 6;
+  google.protobuf.Timestamp expirationToUpdateAndDelete = 7;
+}
+
+message SitterReviewsResponse {
+  repeated Review reviews = 1;
+}
+
+service ReviewsProtoService {
+  rpc GetReviewsForSitter (SitterReviewsRequest) returns (SitterReviewsResponse);
+}
+

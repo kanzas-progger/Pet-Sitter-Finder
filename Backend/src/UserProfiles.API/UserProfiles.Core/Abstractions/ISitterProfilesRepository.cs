@@ -9,4 +9,5 @@ public interface ISitterProfilesRepository
     Task CreateProfilePhotos(Guid sitterId, List<string> photoPaths);
     Task<List<string>> GetAllProfilePhotos(Guid sitterId);
     Task<Guid> Create(SitterProfile profile);
+    Task<List<SitterProfile>> GetAll();
 }

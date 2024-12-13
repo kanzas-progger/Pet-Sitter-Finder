@@ -16,19 +16,20 @@ public class Review
     public DateTime CreationDate { get; }
     public DateTime ExpirationToUpdateAndDelete { get; }
 
-    private Review(Guid id, Guid sitterId, Guid senderId, int stars, string content)
+    private Review(Guid id, Guid sitterId, Guid senderId, int stars, string content, 
+        DateTime creationDate, DateTime expirationToUpdateAndDelete)
     {
         Id = id;
         SitterId = sitterId;
         SenderId = senderId;
         Stars = stars;
         Content = content;
-        CreationDate = DateTime.UtcNow;
-        ExpirationToUpdateAndDelete = DateTime.UtcNow.AddDays(EXPIRATION_DAYS_TO_UPDATE);
+        CreationDate = creationDate;
+        ExpirationToUpdateAndDelete = expirationToUpdateAndDelete;
     }
 
     public static (Review review, string error) Create(Guid id, Guid sitterId, Guid senderId,
-        int stars, string content)
+        int stars, string content, DateTime creationDate, DateTime expirationToUpdateAndDelete)
     {
         string error = string.Empty;
         
@@ -41,7 +42,8 @@ public class Review
         if (stars > MAX_STARS_VALUE)
             error += $"Stars must have maximum value {MAX_STARS_VALUE}";
         
-        Review newReview = new Review(id, sitterId, senderId, stars, content);
+        Review newReview = new Review(id, sitterId, senderId, stars, content, creationDate,
+            expirationToUpdateAndDelete);
         
         return (newReview, error);
     }

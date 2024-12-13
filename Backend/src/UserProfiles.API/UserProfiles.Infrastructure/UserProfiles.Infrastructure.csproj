@@ -7,6 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Google.Protobuf" Version="3.29.1" />
+      <PackageReference Include="Grpc.Net.Client" Version="2.67.0" />
+      <PackageReference Include="Grpc.Net.ClientFactory" Version="2.67.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.67.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
         <PrivateAssets>all</PrivateAssets>
@@ -23,6 +30,10 @@
     <ItemGroup>
       <ProjectReference Include="..\..\PetSitterFinder.SharedLibrary\SharedLibrary\SharedLibrary.csproj" />
       <ProjectReference Include="..\UserProfiles.Core\UserProfiles.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Protobuf Include="Protos\review.proto" GrpcServices="Client" />
     </ItemGroup>
 
 </Project>

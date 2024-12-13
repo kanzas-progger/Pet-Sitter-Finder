@@ -1,9 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "GLVaLv5aJb8=",
+  "dgSpecHash": "PmJh/9DIu1o=",
   "success": true,
   "projectFilePath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj",
   "expectedPackageFiles": [
+    "/home/nikolay/.nuget/packages/google.protobuf/3.29.1/google.protobuf.3.29.1.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.core.api/2.67.0/grpc.core.api.2.67.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.net.client/2.67.0/grpc.net.client.2.67.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.net.clientfactory/2.67.0/grpc.net.clientfactory.2.67.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.net.common/2.67.0/grpc.net.common.2.67.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.11/microsoft.aspnetcore.authentication.jwtbearer.8.0.11.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
@@ -25,6 +30,7 @@
     "/home/nikolay/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.1/microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.dependencymodel/8.0.2/microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/microsoft.extensions.http/6.0.0/microsoft.extensions.http.6.0.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.logging/8.0.1/microsoft.extensions.logging.8.0.1.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.2/microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",

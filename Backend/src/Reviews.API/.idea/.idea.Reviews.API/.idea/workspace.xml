@@ -9,68 +9,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8cac4fca-b6bc-4235-b819-db345657f6e0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Reviews.Core/Reviews.Core.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Contracts/Requests/UpdateProfileImageRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/ApiGateway.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/ApiGateway.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/ApiGateway.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/ApiGateway.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ApiGateway.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ref/ApiGateway.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/ref/ApiGateway.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/refint/ApiGateway.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/ApiGateway/obj/Debug/net8.0/refint/ApiGateway.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.API.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.API.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Infrastructure.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/Auth.Infrastructure.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/Auth.API.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/ref/Auth.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/ref/Auth.API.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/refint/Auth.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.API/obj/Debug/net8.0/refint/Auth.API.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Infrastructure.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/Auth.Infrastructure.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Application/obj/Debug/net8.0/Auth.Application.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/bin/Debug/net8.0/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/bin/Debug/net8.0/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/bin/Debug/net8.0/Auth.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/bin/Debug/net8.0/Auth.Core.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/Auth.Core.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/ref/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/ref/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/refint/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Core/obj/Debug/net8.0/refint/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Infrastructure.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/Auth.Infrastructure.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/Auth.Infrastructure.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/ref/Auth.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/ref/Auth.Infrastructure.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/refint/Auth.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth.API/Auth.Infrastructure/obj/Debug/net8.0/refint/Auth.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/Middlewares/ListenToOnlyApiGateway.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/Middlewares/ListenToOnlyApiGateway.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs" afterDir="false" />
@@ -80,16 +33,116 @@
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/ref/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/ref/SharedLibrary.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/refint/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/refint/SharedLibrary.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Contracts/OwnerProfiles/Requests/UpdateOwnerProfileImageRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Contracts/OwnerProfiles/Requests/UpdateOwnerProfileRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Contracts/Requests/UpdateOwnerProfileRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Contracts/OwnerProfiles/Responses/OwnerProfileByIdResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Contracts/Responses/OwnerProfileByIdResponse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Controllers/OwnerProfilesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Controllers/OwnerProfilesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Reviews.API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Reviews.API/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/Reviews.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/Reviews.API.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.API.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.API.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.API.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/Reviews.Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/bin/Debug/net8.0/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/Reviews.API.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/ref/Reviews.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/ref/Reviews.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/refint/Reviews.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Debug/net8.0/refint/Reviews.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Reviews.API.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Reviews.API.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Reviews.API.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Reviews.API.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/Reviews.API.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/Reviews.API.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.API/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.API/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/Services/ReviewsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/Services/ReviewsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Application.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Application.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/bin/Debug/net8.0/Reviews.Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/Reviews.Application.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/ref/Reviews.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/ref/Reviews.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/refint/Reviews.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Debug/net8.0/refint/Reviews.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Reviews.Application.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Reviews.Application.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Reviews.Application.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Reviews.Application.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/Reviews.Application.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/Reviews.Application.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Application/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Application/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/Models/Review.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/Models/Review.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/bin/Debug/net8.0/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/bin/Debug/net8.0/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/bin/Debug/net8.0/Reviews.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/bin/Debug/net8.0/Reviews.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/Reviews.Core.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/ref/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/ref/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/refint/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Debug/net8.0/refint/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/Reviews.Core.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/Reviews.Core.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Core/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Core/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/Repositories/ReviewsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/Repositories/ReviewsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/Reviews.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/Reviews.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.runtimeconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/bin/Debug/net8.0/Reviews.Infrastructure.runtimeconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/Reviews.Infrastructure.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/ref/Reviews.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/ref/Reviews.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/refint/Reviews.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Debug/net8.0/refint/Reviews.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Reviews.Infrastructure.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Reviews.Infrastructure.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Reviews.Infrastructure.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Reviews.Infrastructure.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Reviews.Infrastructure.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/Reviews.Infrastructure.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.Infrastructure/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.Infrastructure/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Controllers/SitterProfilesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Controllers/SitterProfilesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.API.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.API.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.API.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.API.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.Application.dll" afterDir="false" />
@@ -100,18 +153,23 @@
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/UserProfiles.API.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/ref/UserProfiles.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/ref/UserProfiles.API.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/refint/UserProfiles.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/Debug/net8.0/refint/UserProfiles.API.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/Services/ImagesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/Services/ImagesService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/Services/OwnerProfilesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/Services/OwnerProfilesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/UserProfiles.API.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/UserProfiles.API.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.API/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/Services/SitterProfileService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/Services/SitterProfileService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Application.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Application.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Application.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Application.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Core.dll" afterDir="false" />
@@ -120,6 +178,7 @@
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.dll" afterDir="false" />
@@ -127,11 +186,11 @@
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/UserProfiles.Application.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/ref/UserProfiles.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/ref/UserProfiles.Application.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/refint/UserProfiles.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/Debug/net8.0/refint/UserProfiles.Application.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IImagesProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IImagesProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IImagesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IImagesService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IOwnerProfilesRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IOwnerProfilesRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IOwnerProfilesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/IOwnerProfilesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/UserProfiles.Application.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/UserProfiles.Application.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Application/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/ISitterProfilesRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/Abstractions/ISitterProfilesRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.AssemblyInfo.cs" afterDir="false" />
@@ -142,18 +201,18 @@
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/ref/UserProfiles.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/ref/UserProfiles.Core.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/refint/UserProfiles.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/refint/UserProfiles.Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/Providers/ImagesProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/Providers/ImagesProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/Repositories/OwnerProfilesRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/Repositories/OwnerProfilesRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/Repositories/SitterProfilesRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/Repositories/SitterProfilesRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Core/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/SharedLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/SharedLibrary.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/SharedLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/SharedLibrary.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Core.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.dll" afterDir="false" />
@@ -161,37 +220,68 @@
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/ref/UserProfiles.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/ref/UserProfiles.Infrastructure.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/refint/UserProfiles.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/refint/UserProfiles.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/UserProfiles.Infrastructure.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/UserProfiles.Infrastructure.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/UserProfiles.Infrastructure.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/UserProfiles.Infrastructure.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/UserProfiles.Infrastructure.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/UserProfiles.Infrastructure.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../UserProfiles.API/UserProfiles.Infrastructure/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../PetSitterFinder.SharedLibrary/SharedLibrary/RabbitMQ/DTOs/CreateUserProfileDTO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.API/Contracts/Requests/CreateReviewRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.API/Contracts/Requests/UpdateReviewRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.API/Controllers/ReviewsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.API/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.API/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.API/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.Application/Services/ReviewsService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.Core/Abstractions/IReviewsRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.Core/Abstractions/IReviewsService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.Infrastructure/Entities/ReviewEntity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.Infrastructure/Repositories/ReviewsRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Reviews.Infrastructure/ReviewsDbContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$APPLICATION_HOME_DIR$/plugins/protoeditor/lib/protoeditor.jar!/include/google/protobuf/descriptor.proto" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2q1TFYMYJgeVF9MPbRU5a9sTwpe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.Reviews.API: http.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.Reviews.API: https.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Reviews.API: http">
     <configuration name="Reviews.API: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Reviews.API/Reviews.API.csproj" />
@@ -232,7 +322,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733828979401</updated>
-      <workItem from="1733828981762" duration="11287000" />
+      <workItem from="1733828981762" duration="11510000" />
+      <workItem from="1734011989957" duration="76000" />
+      <workItem from="1734012114850" duration="3964000" />
+      <workItem from="1734016111406" duration="4064000" />
+      <workItem from="1734028871318" duration="8785000" />
+      <workItem from="1734073921852" duration="20231000" />
     </task>
     <servers />
   </component>

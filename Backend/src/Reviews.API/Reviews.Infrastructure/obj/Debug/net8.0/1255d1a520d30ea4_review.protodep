@@ -1,0 +1,6 @@
+obj/Debug/net8.0/Review.cs \
+obj/Debug/net8.0/ReviewGrpc.cs: /home/nikolay/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/timestamp.proto\
+ Protos/google/api/http.proto\
+ /home/nikolay/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/descriptor.proto\
+ Protos/google/api/annotations.proto\
+ Protos/review.proto
