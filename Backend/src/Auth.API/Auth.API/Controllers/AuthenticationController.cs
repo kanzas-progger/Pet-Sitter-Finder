@@ -1,6 +1,7 @@
 using Auth.API.Contracts.Requests;
 using Auth.Core.Abstractions;
 using Auth.Core.Enums;
+using Auth.Infrastructure.GrpcClients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +20,22 @@ public class AuthenticationController : ControllerBase
     private readonly string SitterRole = Role.Sitter.ToString().ToLower();
     
     private readonly IUsersService _usersService;
+    
+    private readonly AnimalsGrpcClient _animalsGrpcClient;
 
-    public AuthenticationController(IUsersService usersService)
+    public AuthenticationController(IUsersService usersService, AnimalsGrpcClient animalsGrpcClient)
     {
         _usersService = usersService;
+        _animalsGrpcClient = animalsGrpcClient;
+    }
+
+    [HttpGet("test")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<string>>> GetAnimals()
+    {
+        var animals = await _animalsGrpcClient.GetListAnimals();
+        var response = animals.Animals.Select(a => a.Name).ToList();
+        return response;
     }
 
     [HttpPost("register")]
@@ -39,8 +52,20 @@ public class AuthenticationController : ControllerBase
         if (request.role.ToLower() != OwnerRole && request.role.ToLower() != SitterRole)
             return BadRequest("Invalid role");
         
+        List<int> animalIds = new List<int>();
+        var animals = await _animalsGrpcClient.GetListAnimals();
+
+        foreach (var animalName in request.animals)
+        {
+            var animal = animals.Animals.FirstOrDefault(a => a.Name.ToLower() == animalName.ToLower());
+            if (animal == null)
+                return BadRequest("Invalid animal name");
+            
+            animalIds.Add(animal.AnimalId);
+        }
+        
         string jwtToken = await _usersService.Register(request.login, request.password, request.firstname,
-            request.lastname, request.age, request.role);
+            request.lastname, request.age, animalIds, request.role);
         
         Response.Cookies.Append("coockies", jwtToken);
         

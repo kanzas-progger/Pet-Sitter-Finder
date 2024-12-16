@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "Animals.Infrastructure.Protos";
+
+package animal;
+
+message ListAnimalsRequest { }
+
+message ListAnimalsForUserRequest {
+  string userId = 1;
+}
+
+message Animal {
+  int32 animalId = 1;
+  string name = 2;
+}
+
+message AnimalForUser {
+  string name = 1;
+}
+
+message ListAnimalsResponse { 
+  repeated Animal animals = 1;
+}
+
+message ListAnimalsForUserResponse {
+  repeated AnimalForUser animalsForUser = 1;
+}
+
+service AnimalsProtoService {
+  rpc GetAnimalsList (ListAnimalsRequest) returns (ListAnimalsResponse);
+  rpc GetAnimalsListForUser (ListAnimalsForUserRequest) returns (ListAnimalsForUserResponse);
+}

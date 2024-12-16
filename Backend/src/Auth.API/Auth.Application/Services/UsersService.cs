@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Auth.Core.Abstractions;
 using Auth.Core.Models;
+using Auth.Infrastructure.GrpcClients;
 using SharedLibrary.RabbitMQ.DTOs;
 
 namespace Auth.Application.Services;
@@ -11,18 +12,21 @@ public class UsersService : IUsersService
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtProvider _jwtProvider;
     private readonly IRegisterUserPublisher _registerUserPublisher;
+    private readonly IUserAnimalsPublisher _userAnimalsPublisher;
 
     public UsersService(IUsersRepository usersRepository, IPasswordHasher passwordHasher,
-        IJwtProvider jwtProvider, IRegisterUserPublisher registerUserPublisher)
+        IJwtProvider jwtProvider, IRegisterUserPublisher registerUserPublisher, 
+        IUserAnimalsPublisher userAnimalsPublisher)
     {
         _usersRepository = usersRepository;
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
         _registerUserPublisher = registerUserPublisher;
+        _userAnimalsPublisher = userAnimalsPublisher;
     }
 
     public async Task<string> Register(string login, string password, string firstname, 
-        string lastname, int age, string role)
+        string lastname, int age, List<int> animalIds, string role)
     {
         bool isLoginExists = await _usersRepository.CheckLoginExistance(login);
         if (isLoginExists)
@@ -47,8 +51,16 @@ public class UsersService : IUsersService
         }
 
         var registerUserDto = new CreateUserProfileDTO(newUserId, login, firstname, lastname, age);
+        var registerUserAnimalsDto = new CreateUserAnimalsDTO(newUserId, animalIds);
 
-        await _registerUserPublisher.SendMessage(registerUserDto, role);
+        var sendMessagesTasks = new List<Task>
+        {
+            _registerUserPublisher.SendMessage(registerUserDto, role),
+            _userAnimalsPublisher.SendMessage(registerUserAnimalsDto)
+        };
+        
+        await Task.WhenAll(sendMessagesTasks);
+        
 
         string jwtToken = await Login(login, password);
         

@@ -52,6 +52,16 @@ public class RabbitMQService : IRabbitMQService, IDisposable
         var channel = await connection.CreateChannelAsync();
         return channel;
     }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_connection != null)
+        {
+            await _connection.CloseAsync();
+            await Task.Run(() => _connection.Dispose());
+        }
+        _semaphore.Dispose();
+    }
     
     public void Dispose()
     {

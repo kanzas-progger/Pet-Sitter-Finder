@@ -13,12 +13,14 @@ public class SitterProfilesController : ControllerBase
 {
     private readonly ReviewsGrpcClient _reviewsGrpcClient;
     private readonly ISitterProfileService _sitterProfileService;
+    private readonly AnimalsGrpcClient _animalsGrpcClient;
 
     public SitterProfilesController(ReviewsGrpcClient reviewsGrpcClient,
-        ISitterProfileService sitterProfileService)
+        ISitterProfileService sitterProfileService, AnimalsGrpcClient animalsGrpcClient)
     {
         _reviewsGrpcClient = reviewsGrpcClient;
         _sitterProfileService = sitterProfileService;
+        _animalsGrpcClient = animalsGrpcClient;
     }
 
     // [HttpGet("{sitterId}")]
@@ -37,11 +39,39 @@ public class SitterProfilesController : ControllerBase
     public async Task<ActionResult<List<SitterProfileResponseForAnnonymous>>> GetShortSitterProfiles()
     {
         var profiles = await _sitterProfileService.GetAllProfiles();
-        var response = profiles.Select(p => new SitterProfileResponseForAnnonymous(p.Id,p.SitterId,
-            p.Login, p.Firstname, p.Lastname, p.ProfileImagePath, p.Country, p.City, p.Address,
-            p.Rating, p.RateCount, p.PricePerDay)).ToList();
+        var tasks = profiles.Select(async p =>
+        {
+            var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(p.SitterId);
+            var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+            
+            return new SitterProfileResponseForAnnonymous(
+                p.Id,
+                p.SitterId,
+                p.Login, 
+                p.Firstname,
+                p.Lastname, 
+                p.ProfileImagePath,
+                p.Country, 
+                p.City,
+                p.Address,
+                p.Rating,
+                p.RateCount,
+                p.PricePerDay,
+                animalNames);
+        });
+        
+        var response = await Task.WhenAll(tasks);
         
         return Ok(response);
+    }
+    
+    [HttpGet("test")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<string>>> GetAnimals()
+    {
+        var animals = await _animalsGrpcClient.GetAnimalsList();
+        var response = animals.Animals.Select(a => a.Name).ToList();
+        return response;
     }
     
     

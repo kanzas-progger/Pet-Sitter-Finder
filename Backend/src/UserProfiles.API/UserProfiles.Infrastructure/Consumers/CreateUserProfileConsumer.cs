@@ -26,12 +26,15 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
 
     private IChannel? _channel;
     private IConnection? _connection;
+    
+    private volatile bool _isShuttingDown;
 
     public CreateUserProfileConsumer(IRabbitMQService rabbitMqService, 
         IServiceProvider serviceProvider)
     {
         _rabbitMqService = rabbitMqService;
         _serviceProvider = serviceProvider;
+        _isShuttingDown = false;
     }
 
     public async Task StartConsuming()
@@ -50,6 +53,21 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
             Console.WriteLine(ex.Message);
         }
         
+    }
+    
+    public async Task StopConsuming()
+    {
+        _isShuttingDown = true;
+        
+        if (_channel != null && _channel.IsOpen)
+        {
+            await _channel.CloseAsync();
+        }
+
+        if (_connection != null && _connection.IsOpen)
+        {
+            await _connection.CloseAsync();
+        }
     }
 
     private async Task SetConsumers()
@@ -74,14 +92,17 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
         if (_rabbitMqService.Connection != null)
         {
             _connection = _rabbitMqService.Connection;
-            _connection.ConnectionShutdownAsync += async (sender, ea) => await Reconnect();
+            _connection.ConnectionShutdownAsync += async (sender, ea) =>
+            {
+                if (!_isShuttingDown)
+                    await Reconnect();
+            };
         }
-        
     } 
 
     private async Task Reconnect()
     {
-        while (true)
+        while (!_isShuttingDown)
         {
             try
             {

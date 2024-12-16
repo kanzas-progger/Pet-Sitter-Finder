@@ -43,6 +43,17 @@ services.AddGrpcClient<ReviewsProtoService.ReviewsProtoServiceClient>(options =>
     return handler;
 });
 
+services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
+{
+    options.Address = new Uri("https://localhost:7001");
+}).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
+{
+    var handler = new HttpClientHandler();
+    handler.ServerCertificateCustomValidationCallback = 
+        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+    return handler;
+});
+
 //Repositories
 services.AddScoped<IOwnerProfilesRepository, OwnerProfilesRepository>();
 services.AddScoped<ISitterProfilesRepository, SitterProfilesRepository>();
@@ -58,10 +69,13 @@ services.AddScoped<IImagesProvider, ImagesProvider>();
 //RabbitMQ
 services.AddSingleton<IRabbitMQService, RabbitMQService>();
 services.AddSingleton<ICreateUserProfileConsumer, CreateUserProfileConsumer>();
+
+//Background Services
 services.AddHostedService<CreateUserProfileBackground>();
 
 //gRPC
 services.AddScoped<ReviewsGrpcClient>();
+services.AddScoped<AnimalsGrpcClient>();
 
 var app = builder.Build();
 

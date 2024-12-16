@@ -28,6 +28,11 @@ public class CreateUserProfileBackground : BackgroundService
                 await Task.Delay(5000, stoppingToken);
             }
         }
-        
+    }
+
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await _createUserProfileConsumer.StopConsuming();
+        await base.StopAsync(cancellationToken);
     }
 }
