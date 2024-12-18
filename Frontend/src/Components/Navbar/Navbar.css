@@ -1,0 +1,27 @@
+.navbar-header {
+    width: 100%;
+    padding: 15px 10%;
+    background: #D0EFB1;  
+}
+
+.navbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-items a {
+    margin-right: 15px;
+    font-size: 18px;
+    color:#6b7280;
+    font-weight: 700;
+}
+
+.nav-items a:hover {
+    color: #2b2b2b; 
+}
+
+.nav-items button {
+    margin-left: 15px;
+}

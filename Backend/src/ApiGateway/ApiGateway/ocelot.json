@@ -21,7 +21,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/users",
+      "DownstreamPathTemplate": "/api/sitters",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -30,12 +30,12 @@
         }
       ],
       
-      "UpstreamPathTemplate": "/api/users",
+      "UpstreamPathTemplate": "/sitters",
       "UpstreamHttpMethod": ["GET"],
       "FileCacheOptions": {
         "TtlSeconds": 60,
         "Region": "default",
-        "Header": "users-caching-control"
+        "Header": "sitters-caching-control"
       }
     },
     

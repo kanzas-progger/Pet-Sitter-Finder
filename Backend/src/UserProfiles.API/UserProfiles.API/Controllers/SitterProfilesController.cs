@@ -8,7 +8,7 @@ namespace UserProfiles.API.Controllers;
 
 [ApiController]
 [Route("/api/sitters")]
-//[Authorize]
+[Authorize]
 public class SitterProfilesController : ControllerBase
 {
     private readonly ReviewsGrpcClient _reviewsGrpcClient;
@@ -35,7 +35,7 @@ public class SitterProfilesController : ControllerBase
     // }
 
     [HttpGet]
-    //[AllowAnonymous]
+    [AllowAnonymous]
     public async Task<ActionResult<List<SitterProfileResponseForAnnonymous>>> GetShortSitterProfiles()
     {
         var profiles = await _sitterProfileService.GetAllProfiles();

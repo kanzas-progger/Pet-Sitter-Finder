@@ -1,0 +1,11 @@
+.header {
+    width: 100%;
+    padding: 10px 10%;
+    background: #4D7298;
+}
+
+.logo {
+    font-size: 25px;
+    color: #fff;
+    font-weight: 700;
+}

@@ -25,7 +25,7 @@ services.AddSwaggerGen(); //Swagger
 
 services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
-// services.AddJwtAuthenticationScheme(configuration.GetSection(nameof(JwtOptions)));
+services.AddJwtAuthenticationScheme(configuration.GetSection(nameof(JwtOptions)));
 
 services.AddDbContext<UserProfilesDbContext>(options =>
 {
@@ -79,7 +79,7 @@ services.AddScoped<AnimalsGrpcClient>();
 
 var app = builder.Build();
 
-//app.UseMiddleware<ListenToOnlyApiGateway>();
+app.UseMiddleware<ListenToOnlyApiGateway>();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
@@ -100,8 +100,8 @@ app.UseCookiePolicy(new CookiePolicyOptions
     Secure = CookieSecurePolicy.Always
 });
 
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
