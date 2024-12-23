@@ -2,22 +2,10 @@ import React from "react";
 import { useState } from "react";
 import './Registration.css'
 import MainHeader from '../../Components/MainHeader/MainHeader'
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import FormLabel from '@mui/material/FormLabel';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import { Typography, Link } from "@mui/material";
+import { Typography, Link, Button, Checkbox, ListItemText,
+     FormLabel, Select, MenuItem, InputLabel,OutlinedInput, FormControl, FormControlLabel, 
+     RadioGroup,Radio, Box,TextField, Paper, Container} from "@mui/material";
+import axios from 'axios'
 
 const Registration = () => {
 
@@ -68,7 +56,7 @@ const Registration = () => {
     })
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const translatedAnimals = animalName.map(name => animalTranslations[name]);
@@ -80,11 +68,20 @@ const Registration = () => {
             role: role,
         };
 
-        // Выписываем данные в консоль
         console.log("Отправляемые данные:", dataToSend);
 
-        // Здесь можно добавить логику отправки данных на бэкенд
-    };
+        try {
+            const response = await axios.post('https://localhost:5000/authentication/register', dataToSend, 
+                {withCredentials:true}
+            )
+            console.log("Успешная регистрация!")
+            //navigate("/sitters")
+        }
+        catch(error)
+        {
+            console.log("Произошла ошибка регистрации")
+        }
+    }
 
     const handleAnimalChange = (e) => {
         const {
@@ -104,6 +101,10 @@ const Registration = () => {
     return (
         <>
             <MainHeader />
+            <Container maxWidth="lg" sx ={{width:'100%',margin:'0,auto',
+                '&>*':{transform:'scale(var(--scale,1))', 
+                transformOrigin:'center', 
+                transition: 'transform 0.2s ease-in-out',}}}>
             <div className="registration-container">
                 <Paper elevation={3} sx={{ padding: '30px'}}>
                     <Box
@@ -204,7 +205,7 @@ const Registration = () => {
                             Уже зарегистрированы?
                         </Typography>
                         <Link
-                            href="#"
+                            href="/authentication/login"
                             underline="none"
                             sx={{
                                 extDecoration: 'none',
@@ -216,6 +217,7 @@ const Registration = () => {
                     </Box>
                 </Paper>
             </div>
+            </Container>
         </>
     )
 

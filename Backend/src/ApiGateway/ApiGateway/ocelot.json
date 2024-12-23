@@ -9,7 +9,7 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/api/authentication/{everything}",
+      "UpstreamPathTemplate": "/authentication/{everything}",
       "UpstreamHttpMethod": ["POST"],
       "RateLimitOptions": {
         "ClientWhitelist": [],

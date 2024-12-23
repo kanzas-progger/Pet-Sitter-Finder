@@ -10,17 +10,44 @@ import { GiGecko } from "react-icons/gi";
 
 
 //dog cat reptile fish bird farmPets smallPets   #D0EFB1
-const SitterCard = () => {
+const SitterCard = ({sitter}) => {
+
+  const about = "Всем привет! Меня зовут Даша! Я очень люблю домашних животных!"
+
+  const {
+    firstname,
+    lastname,
+    profileImagePath,
+    city,
+    address,
+    rating,
+    rateCount,
+    pricePerDay,
+    animals
+} = sitter;
+
+
+const animalInfo = {
+  Dog: { icon: faDog, title: 'Собаки', fontSize: '20px'},
+  Cat: { icon: faCat, title: 'Кошки', fontSize: '20px'},
+  Fish: { icon: faFishFins, title: 'Рыбки', fontSize: '20px'},
+  Bird: { icon: faDove, title: 'Птички', fontSize: '20px'},
+  Reptile: { icon: GiGecko, title: 'Рептилии', fontSize: '20px'},
+  Spider: { icon: faSpider, title: 'Пауки', fontSize: '20px'},
+  Horse: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px'},
+  SmallPets: { icon: PestControlRodentIcon, title: 'Грызуны', fontSize: '25px'},
+}
+
   return (
     <Card sx={{
-      display: 'flex', maxWidth: 600, boxShadow: 3,
+      display: 'flex', maxWidth: 800, boxShadow: 3,
       borderRadius: 3, margin: 2, backgroundColor: '#D0EFB1'
     }}>
       {/* Фото профиля */}
       <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Avatar
-          src="https://example.com/your-image-url.jpg"
-          alt="Дарья Л."
+          src={profileImagePath || '/placeholder.png'}
+          alt={`${firstname} ${lastname}`}
           sx={{ width: 150, height: 150, margin: 2 }}
         />
       </CardMedia>
@@ -39,13 +66,13 @@ const SitterCard = () => {
                 textDecoration: 'underline',
                 textDecorationColor: 'inherit',
               },
-            }}> Фамилия Имя
+            }}> {`${firstname} ${lastname}`}
           </Link>
 
         </Typography>
 
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontSize: '15px' }}>
-          Город, Улица
+        {city || "Город не указан"}, {address || "Адрес не указан"}
         </Typography>
 
         {/* Рейтинг */}
@@ -54,21 +81,18 @@ const SitterCard = () => {
             <StarIcon sx={{ fill: '#FFD700', stroke:'#9B2D20',strokeWidth: 1.5, fontSize: '20px', marginLeft: '-4px', marginBottom:'2.5px' }} />
           </Tooltip>
           <Typography variant="body2" sx={{ fontWeight: 'bold', ml: 0.5, fontSize: '16px' }}>
-            5.0
+          {rating.toFixed(1)}
           </Typography>
           <Typography variant="body2" color="warning" sx={{ fontWeight: 'bold', ml: 0.5, fontSize: '16px' }}>
-            2 отзыва
+          {rateCount} отзывов
           </Typography>
           
         </Box>
 
         {/* Приветствие и описание */}
-        <Typography variant="body2" sx={{ mt: 2, fontWeight: 'bold', fontSize: '16px' }}>
-          Всем привет Меня зовут Даша, и я очень люблю домашних животных,
-          сама всю жизнь прожила с ними в семейном доме!
-        </Typography>
+        {/* <Typography variant="body2" sx={{ mt: 2, fontWeight: 'bold', fontSize: '16px' }}>{about}</Typography> */}
 
-        <Box display="flex" alignItems="center" mt={1} gap={1}>
+        {/* <Box display="flex" alignItems="center" mt={1} gap={1}>
           <Tooltip title="Собаки" placement="top">
             <FontAwesomeIcon icon={faDog} style={{ color: '#4D7298', fontSize: 20 }} />
           </Tooltip>
@@ -93,9 +117,61 @@ const SitterCard = () => {
             </span>
           </Tooltip>
           <Tooltip title="Грызуны" placement="top">
-            <PestControlRodentIcon sx={{ color: '#4D7298', fontSize: 25 }} />
+            <PestControlRodentIcon sx={{ color: '#4D7298', fontSize: '25px' }} />
           </Tooltip>
-        </Box>
+        </Box> */}
+
+{/* <Box display="flex" alignItems="center" mt={1} gap={1}>
+                    {animals.map((animal, index) => (
+                        animalInfo[animal] ? (
+                            <Tooltip key={index} title={animalInfo[animal].title} placement="top">
+                                <FontAwesomeIcon icon={animalInfo[animal].icon} style={{ color: '#4D7298', fontSize: animalInfo[animal].fontSize }} />
+                            </Tooltip>
+                        ) : null
+                    ))}
+                </Box> */}
+
+{/* <Box display="flex" alignItems="center" mt={1} gap={1}>
+          {animals.map((animal, index) => {
+            const animalData = animalInfo[animal];
+            if (!animalData) return null;
+
+            const { icon, title, fontSize } = animalData;
+
+            return (
+              <Tooltip key={index} title={title} placement="top">
+                {React.isValidElement(icon) ? (
+                  <span style={{ display: 'flex', alignItems: 'center', fontSize }}>
+                    {React.cloneElement(icon, { style: { color: '#4D7298', fontSize } })}
+                  </span>
+                ) : (
+                  <FontAwesomeIcon icon={icon} style={{ color: '#4D7298', fontSize }} />
+                )}
+              </Tooltip>
+            );
+          })}
+        </Box> */}
+
+<Box display="flex" alignItems="center" mt={1} gap={1}>
+  {animals.map((animal, index) => {
+    const animalData = animalInfo[animal];
+    if (!animalData) return null;
+
+    const { icon, title, fontSize } = animalData;
+
+    return (
+      <Tooltip key={index} title={title} placement="top">
+        {typeof icon === 'function' ? (
+          <span style={{ display: 'flex', alignItems: 'center', fontSize }}>
+            {React.createElement(icon, { style: { color: '#4D7298', fontSize } })}
+          </span>
+        ) : (
+          <FontAwesomeIcon icon={icon} style={{ color: '#4D7298', fontSize }} />
+        )}
+      </Tooltip>
+    );
+  })}
+</Box>
 
 
 
@@ -106,14 +182,20 @@ const SitterCard = () => {
        flexDirection: 'column', 
         alignItems: 'center',
          justifyContent: 'center',
-          p: 2,
-          marginBottom:3.5 }}>
-        <Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
-          600 ₽
-        </Typography>
-        <Typography variant="body2" color="text.secondary" fontSize="14px">
+          p: 2}}>
+            {pricePerDay > 0 ? (
+              <>
+               <Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
+                {`${pricePerDay} ₽`}
+               </Typography>
+               <Typography variant="body2" color="text.secondary" fontSize="14px">
           за сутки
         </Typography>
+              </>
+            ) : (<Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
+              Цена не указана
+            </Typography>)}
+               
       </Box>
     </Card>
   );

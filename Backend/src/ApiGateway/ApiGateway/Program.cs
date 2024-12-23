@@ -22,9 +22,13 @@ services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
+        // builder.AllowAnyHeader()
+        //     .AllowAnyMethod()
+        //     .AllowAnyOrigin();
         builder.AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowAnyOrigin();
+            .AllowCredentials()
+            .WithOrigins("https://localhost:5173");
     });
 });
 
@@ -42,5 +46,7 @@ app.UseCookiePolicy(new CookiePolicyOptions
 app.UseCors();
 app.UseMiddleware<AttachSignatureToRequest>();
 app.UseOcelot().Wait();
+
+
 
 app.Run();

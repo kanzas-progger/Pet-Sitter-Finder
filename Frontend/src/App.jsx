@@ -1,7 +1,10 @@
 import './App.css'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Sitters from './Pages/Sitters/Sitters';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Sitters from './Pages/Sitters/Sitters'
 import Registration from './Pages/Registration/Registration'
+import Login from './Pages/Login/Login'
+import Personal from './Pages/Personal/Personal'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 const theme = createTheme({
   palette: {
@@ -32,8 +35,17 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        {/* <Sitters /> */}
-        <Registration />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Sitters isAuthenticated={false} />}></Route>
+            <Route path="/authentication/register" element={<Registration />}></Route>
+            <Route path="/authentication/login" element={<Login />}></Route>
+            <Route path="/personal" element={<Personal />}></Route>
+            {/* <Sitters isAuthenticated={false}/> */}
+            {/* <Registration /> */}
+            {/* <Login /> */}
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   )
