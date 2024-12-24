@@ -1,13 +1,12 @@
 import React from "react";
 import './Sitters.css'
-import MainHeader from '../../Components/MainHeader/MainHeader'
 import Navbar from '../../Components/Navbar/Navbar'
 import SitterCard from '../../Components/SitterCard/SitterCard'
 // import {Container} from "@mui/material";
 import { getSitters } from "../../api/userProfiles"
 import { useEffect, useState } from "react";
 
-const Sitters = ({isAuthenticated}) => {
+const Sitters = () => {
 
     const[sitters, setSitters] = useState([])
 
@@ -27,9 +26,8 @@ const Sitters = ({isAuthenticated}) => {
     return (
         <>
             {/* <div className="sitters-header-container"> */}
-                <MainHeader />
-                <Navbar isAuthenticated={isAuthenticated}/>
             {/* </div> */}
+            <Navbar />
             {/* <Container maxWidth="lg" sx ={{width:'100%',margin:'0,auto',
                 '&>*':{transform:'scale(var(--scale,1))', 
                 transformOrigin:'center', 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Animals.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+213d5a4a4b07c39dc4645dfece9855d95dc12da8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d57abf115550a82d7c64c88f5959bc037a73c77")]
 [assembly: System.Reflection.AssemblyProductAttribute("Animals.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Animals.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

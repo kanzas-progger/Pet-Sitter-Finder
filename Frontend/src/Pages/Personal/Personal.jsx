@@ -1,14 +1,11 @@
 import React from 'react'
-import MainHeader from '../../Components/MainHeader/MainHeader'
-import Navbar from '../../Components/Navbar/Navbar'
 import { Paper, Avatar, Box, Link, Typography } from "@mui/material"
+import Navbar from '../../Components/Navbar/Navbar'
 
-const Personal = (isAuthenticated) => {
+const Personal = () => {
   return (
     <>
-      <MainHeader />
-      <Navbar isAuthenticated={isAuthenticated} />
-
+      <Navbar />
       <Box sx={{
         padding: '20px 10%',
         display: 'flex',

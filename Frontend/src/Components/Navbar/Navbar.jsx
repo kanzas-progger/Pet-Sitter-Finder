@@ -6,7 +6,10 @@ import Logout from '@mui/icons-material/Logout';
 import { Avatar, Box, Badge, Tooltip, Link, Button, Container, IconButton, Menu, MenuItem, Divider, ListItemIcon } from '@mui/material';
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-const Navbar = ({ isAuthenticated }) => {
+import useAuth from "../../hooks/useAuth";
+const Navbar = () => {
+
+    const { auth, setAuth } = useAuth()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -21,13 +24,16 @@ const Navbar = ({ isAuthenticated }) => {
     const handleLogout = async () => {
         try {
             await axios.post('https://localhost:5000/authentication/logout', {}, { withCredentials: true });
-            console.log('Logout successful');
+            setAuth({})
+            localStorage.removeItem('auth')
             navigate("/")
-            //navigate to sitters newtestloginnn stringgggggggg
+            
+            // sitter newtestloginnn stringgggggggg
+            // owner ownerrrrFrontender  123456789
         } catch (error) {
             console.error('Ошибка выхода:', error);
         } finally {
-            handleClose(); // Закрываем меню
+            handleClose(); 
         }
     };
 
@@ -70,12 +76,18 @@ const Navbar = ({ isAuthenticated }) => {
                     }}
                 >
                     <Link href="/" sx={linkStyle}>Ситтеры</Link>
-                    {isAuthenticated && (
-                        <>
-                            <Link href="/personal" sx={linkStyle}>Личный кабинет</Link>
-                            <Link href="/" sx={linkStyle}>Заявки</Link>
-                        </>
-                    )}
+                        {auth?.role?.includes('Sitter') && (
+                            <>
+                                <Link href="/personal" sx={linkStyle}>Личный кабинет</Link>
+                                <Link href="/" sx={linkStyle}>Заявки</Link>
+                            </>
+                        )}
+                        {auth?.role?.includes('Owner') && (
+                            <>
+                                <Link href="/personal" sx={linkStyle}>Личный кабинет</Link>
+                                <Link href="/" sx={linkStyle}>Бронирование</Link>
+                            </>
+                        )}
                 </Box>
                 <Box
                     sx={{
@@ -84,7 +96,7 @@ const Navbar = ({ isAuthenticated }) => {
                         alignItems: 'center',
                     }}
                 >
-                    {isAuthenticated ? (
+                    {(auth?.role?.includes('Sitter') || auth?.role?.includes('Owner')) ? (
                         <>
                             <Badge color="error" badgeContent={0} max={99}>
                                 <Tooltip title="Уведомления" placement="right-end" enterDelay={1500}>

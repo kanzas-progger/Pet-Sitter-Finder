@@ -4,7 +4,9 @@ import Sitters from './Pages/Sitters/Sitters'
 import Registration from './Pages/Registration/Registration'
 import Login from './Pages/Login/Login'
 import Personal from './Pages/Personal/Personal'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
+import Layout from './Components/Layout/Layout'
+import RequireAuth from './Components/RequireAuth/RequireAuth'
 
 const theme = createTheme({
   palette: {
@@ -35,17 +37,20 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Sitters isAuthenticated={false} />}></Route>
-            <Route path="/authentication/register" element={<Registration />}></Route>
-            <Route path="/authentication/login" element={<Login />}></Route>
-            <Route path="/personal" element={<Personal />}></Route>
-            {/* <Sitters isAuthenticated={false}/> */}
-            {/* <Registration /> */}
-            {/* <Login /> */}
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Navigate to="/sitters" replace />} />
+            {/* public routes*/}
+            <Route path="sitters" element={<Sitters />} />
+            <Route path="/authentication/register" element={<Registration />} />
+            <Route path="/authentication/login" element={<Login />} />
+
+            {/* protected routes*/}
+            <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
+              <Route path="/personal" element={<Personal />}></Route>
+            </Route>
+          </Route>
+        </Routes>
       </ThemeProvider>
     </>
   )

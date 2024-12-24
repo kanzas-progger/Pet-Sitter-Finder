@@ -35,13 +35,16 @@ services.AddCors(options =>
 var app = builder.Build();
 
 app.UseHttpsRedirection();
-
+//app.UseCors();
 app.UseCookiePolicy(new CookiePolicyOptions
 {
     MinimumSameSitePolicy = SameSiteMode.Strict,
+    //MinimumSameSitePolicy = SameSiteMode.None,
     HttpOnly = HttpOnlyPolicy.Always,
     Secure = CookieSecurePolicy.Always
 });
+
+
 
 app.UseCors();
 app.UseMiddleware<AttachSignatureToRequest>();

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import './Login.css'
-import MainHeader from '../../Components/MainHeader/MainHeader'
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -9,8 +8,14 @@ import Button from '@mui/material/Button';
 import { Typography, Link, Container } from "@mui/material";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import useAuth from "../../hooks/useAuth";
+
 
 const Login = () => {
+
+    const { setAuth } = useAuth()
+
     const [formData, setFormData] = useState({
         login: '',
         password: '',
@@ -31,21 +36,26 @@ const Login = () => {
         }
 
         try {
-            await axios.post('https://localhost:5000/authentication/login', dataToSend, 
-                {withCredentials:true}
+            const response = await axios.post('https://localhost:5000/authentication/login', dataToSend,
+                { withCredentials: true }
             )
             console.log("Успешный вход!");
+
+            const token = response.data
+            const decodedToken = jwtDecode(token)
+            const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            const userId = decodedToken["id-"];
+            setAuth({ userId, role })
             navigate("/");
         }
-        catch(error)
-        {
-            console.log("Произошла ошибка входа")
+        catch (error) {
+            console.error("Произошла ошибка входа")
+            console.error(response.data)
         }
     };
 
     return (
         <>
-            <MainHeader />
             <Container maxWidth="lg" sx={{
                 width: '100%', margin: '0,auto',
                 '&>*': {
