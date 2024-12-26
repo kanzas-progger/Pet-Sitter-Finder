@@ -38,8 +38,8 @@ app.UseHttpsRedirection();
 //app.UseCors();
 app.UseCookiePolicy(new CookiePolicyOptions
 {
-    MinimumSameSitePolicy = SameSiteMode.Strict,
-    //MinimumSameSitePolicy = SameSiteMode.None,
+    //MinimumSameSitePolicy = SameSiteMode.Strict,
+    MinimumSameSitePolicy = SameSiteMode.None,
     HttpOnly = HttpOnlyPolicy.Always,
     Secure = CookieSecurePolicy.Always
 });

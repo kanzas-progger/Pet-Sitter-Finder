@@ -89,9 +89,13 @@ public class OwnerProfilesRepository : IOwnerProfilesRepository
 
     public async Task UpdateImage(Guid ownerId, string imagePath)
     {
-        await _userProfilesDbContext.OwnerProfiles.Where(o => o.OwnerId == ownerId)
+        var affectedRows = await _userProfilesDbContext.OwnerProfiles.Where(o => o.OwnerId == ownerId)
             .ExecuteUpdateAsync(s => s
                 .SetProperty(o => o.ProfileImagePath, imagePath));
+        if (affectedRows == 0)
+        {
+            throw new NullReferenceException($"Owner profile with id {ownerId} not found");
+        }
     }
 
 

@@ -31,6 +31,7 @@ public class OwnerProfilesController : ControllerBase
     {
         Guid userId = GetUserIdFromClaim();
         var existingProfile = await _ownerProfilesService.GetOwnerProfileById(userId);
+        
         var (profileToUpdate, error) = OwnerProfile.Create(
             existingProfile.Id, 
             existingProfile.OwnerId,
@@ -112,11 +113,29 @@ public class OwnerProfilesController : ControllerBase
         var ownerId = GetUserIdFromClaim();
         var ownerProfile = await _ownerProfilesService.GetOwnerProfileById(ownerId);
         var ownerProfilePhotos = await _ownerProfilesService.GetAllOwnerProfilePhotos(ownerId);
+
+        string profileImagePath = string.Empty;
+        if (!string.IsNullOrEmpty(ownerProfile.ProfileImagePath))
+        {
+            string profileImage = Path.GetFileName(ownerProfile.ProfileImagePath);
+            profileImagePath = $"/uploads/img/{profileImage}";
+        }
         
-        var response = new OwnerProfileByIdResponse(ownerProfile.Id, ownerProfile.Login, 
-            ownerProfile.Firstname, ownerProfile.Lastname,ownerProfile.Fathername,
-            ownerProfile.Age, ownerProfile.ProfileImagePath, ownerProfile.Email, ownerProfile.PhoneNumber,
-            ownerProfile.Country, ownerProfile.City, ownerProfile.Address, ownerProfile.About, ownerProfilePhotos);
+        var response = new OwnerProfileByIdResponse(
+            ownerProfile.Id, 
+            ownerProfile.Login, 
+            ownerProfile.Firstname, 
+            ownerProfile.Lastname,
+            ownerProfile.Fathername,
+            ownerProfile.Age, 
+            profileImagePath, 
+            ownerProfile.Email, 
+            ownerProfile.PhoneNumber,
+            ownerProfile.Country, 
+            ownerProfile.City, 
+            ownerProfile.Address, 
+            ownerProfile.About, 
+            ownerProfilePhotos);
         
         return Ok(response);
     }

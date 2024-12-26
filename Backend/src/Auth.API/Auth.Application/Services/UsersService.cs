@@ -50,16 +50,16 @@ public class UsersService : IUsersService
             throw new ValidationException("Role not added to user");
         }
 
-        // var registerUserDto = new CreateUserProfileDTO(newUserId, login, firstname, lastname, age);
-        // var registerUserAnimalsDto = new CreateUserAnimalsDTO(newUserId, animalIds);
-        //
-        // var sendMessagesTasks = new List<Task>
-        // {
-        //     _registerUserPublisher.SendMessage(registerUserDto, role),
-        //     _userAnimalsPublisher.SendMessage(registerUserAnimalsDto)
-        // };
-        //
-        // await Task.WhenAll(sendMessagesTasks);
+        var registerUserDto = new CreateUserProfileDTO(newUserId, login, firstname, lastname, age);
+        var registerUserAnimalsDto = new CreateUserAnimalsDTO(newUserId, animalIds);
+        
+        var sendMessagesTasks = new List<Task>
+        {
+            _registerUserPublisher.SendMessage(registerUserDto, role),
+            _userAnimalsPublisher.SendMessage(registerUserAnimalsDto)
+        };
+        
+        await Task.WhenAll(sendMessagesTasks);
         
 
         string jwtToken = await Login(login, password);

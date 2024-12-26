@@ -55,6 +55,20 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
+    },
+    
+    {
+      "DownstreamPathTemplate": "/uploads/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      
+      "UpstreamPathTemplate": "/uploads/{everything}",
+      "UpstreamHttpMethod": ["GET"]
     }
   ],
   "GlobalConfiguration": {

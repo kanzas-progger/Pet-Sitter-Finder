@@ -30,6 +30,8 @@ const Navbar = () => {
             
             // sitter newtestloginnn stringgggggggg
             // owner ownerrrrFrontender  123456789
+            // full sitter   sitterohsitter  stringgg
+            // full owner    ownerohowner   stringgg
         } catch (error) {
             console.error('Ошибка выхода:', error);
         } finally {
@@ -78,13 +80,13 @@ const Navbar = () => {
                     <Link href="/" sx={linkStyle}>Ситтеры</Link>
                         {auth?.role?.includes('Sitter') && (
                             <>
-                                <Link href="/personal" sx={linkStyle}>Личный кабинет</Link>
+                                <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
                                 <Link href="/" sx={linkStyle}>Заявки</Link>
                             </>
                         )}
                         {auth?.role?.includes('Owner') && (
                             <>
-                                <Link href="/personal" sx={linkStyle}>Личный кабинет</Link>
+                                <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
                                 <Link href="/" sx={linkStyle}>Бронирование</Link>
                             </>
                         )}

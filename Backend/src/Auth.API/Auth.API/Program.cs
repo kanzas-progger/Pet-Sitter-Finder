@@ -58,7 +58,7 @@ services.AddScoped<AnimalsGrpcClient>();
 
 var app = builder.Build();
 
-app.UseMiddleware<ListenToOnlyApiGateway>();
+//app.UseMiddleware<ListenToOnlyApiGateway>();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
@@ -74,8 +74,8 @@ app.UseSwaggerUI(options =>
 
 app.UseCookiePolicy(new CookiePolicyOptions
 {
-    MinimumSameSitePolicy = SameSiteMode.Strict,
-    //MinimumSameSitePolicy = SameSiteMode.None,
+    //MinimumSameSitePolicy = SameSiteMode.Strict,
+    MinimumSameSitePolicy = SameSiteMode.None,
     HttpOnly = HttpOnlyPolicy.Always,
     Secure = CookieSecurePolicy.Always
 });

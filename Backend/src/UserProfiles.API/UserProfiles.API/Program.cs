@@ -1,6 +1,7 @@
 using System.Net.Security;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using SharedLibrary.Configurations;
 using SharedLibrary.DependencyInjection;
 using SharedLibrary.Middlewares;
@@ -93,9 +94,20 @@ app.UseSwaggerUI(options =>
 
 //app.UseExceptionMiddleware();
 
+string infrastructurePath = Path.Combine(Directory
+        .GetParent(builder.Environment.ContentRootPath).FullName,
+        "UserProfiles.Infrastructure");
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(infrastructurePath,"uploads")),
+    RequestPath = "/uploads"
+});
+
 app.UseCookiePolicy(new CookiePolicyOptions
 {
-    MinimumSameSitePolicy = SameSiteMode.Strict,
+    // MinimumSameSitePolicy = SameSiteMode.Strict,
+    MinimumSameSitePolicy = SameSiteMode.None,
     HttpOnly = HttpOnlyPolicy.Always,
     Secure = CookieSecurePolicy.Always
 });
