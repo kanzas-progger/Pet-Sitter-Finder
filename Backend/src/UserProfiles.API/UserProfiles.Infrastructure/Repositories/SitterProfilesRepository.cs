@@ -75,11 +75,22 @@ public class SitterProfilesRepository : ISitterProfilesRepository
     }
     
     
-    public async Task UpdateImage(Guid sitterProfileId, string imagePath)
+    public async Task UpdateImage(Guid sitterId, string imagePath)
     {
-        await _userProfilesDbContext.SitterProfiles.Where(o => o.SitterId == sitterProfileId)
+        await _userProfilesDbContext.SitterProfiles.Where(o => o.SitterId == sitterId)
             .ExecuteUpdateAsync(s => s
                 .SetProperty(o => o.ProfileImagePath, imagePath));
+    }
+    
+    public async Task<string> GetProfileImageUrl(Guid sitterId)
+    {
+        string? profileImage = await _userProfilesDbContext.SitterProfiles
+            .AsNoTracking()
+            .Where(o => o.SitterId == sitterId)
+            .Select(o => o.ProfileImagePath)
+            .FirstOrDefaultAsync();
+        
+        return profileImage ?? string.Empty;
     }
 
     public async Task<int> GetProfilesPhotoCount(Guid sitterId)
@@ -112,10 +123,28 @@ public class SitterProfilesRepository : ISitterProfilesRepository
     
     public async Task<List<string>> GetAllProfilePhotos(Guid sitterId)
     {
-        var ownerPhotos = await _userProfilesDbContext.OwnerProfilePhotos
-            .Where(p => p.OwnerId == sitterId).ToListAsync();
+        var sitterPhotos = await _userProfilesDbContext.SitterProfilePhotos
+            .Where(p => p.SitterId == sitterId).ToListAsync();
         
-        var photoUrls = ownerPhotos.Select(p => p.PhotoUrl).ToList();
+        var photoUrls = sitterPhotos.Select(p => p.PhotoUrl).ToList();
         return photoUrls;
+    }
+
+    public async Task<Guid> UpdateProfile(SitterProfile profile)
+    {
+        await _userProfilesDbContext.SitterProfiles.Where(s => s.SitterId == profile.SitterId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(s => s.Firstname, profile.Firstname)
+                .SetProperty(s => s.Lastname, profile.Lastname)
+                .SetProperty(s => s.Fathername, profile.Fathername)
+                .SetProperty(s => s.Email, profile.Email)
+                .SetProperty(s => s.PhoneNumber, profile.PhoneNumber)
+                .SetProperty(s => s.Country, profile.Country)
+                .SetProperty(s => s.City, profile.City)
+                .SetProperty(s => s.Address, profile.Address)
+                .SetProperty(s => s.About, profile.About)
+                .SetProperty(p => p.PricePerDay, profile.PricePerDay));
+        
+        return profile.Id;
     }
 }

@@ -62,12 +62,18 @@ public class ImagesProvider : IImagesProvider
         
         string[] allowedExtensions = {".jpg", ".jpeg", ".png"};
         
+        // string folderPath = Path.Combine("uploads", "img");
+        // string contentRootPath = _environment.ContentRootPath;
+        // string backendPath = Directory.GetParent(Directory.GetParent(
+        //     Directory.GetParent(contentRootPath!).FullName).FullName).FullName;
+        //
+        // string imgPath = Path.Combine(backendPath, folderPath);
+        
         string folderPath = Path.Combine("uploads", "img");
         string contentRootPath = _environment.ContentRootPath;
-        string backendPath = Directory.GetParent(Directory.GetParent(
-            Directory.GetParent(contentRootPath!).FullName).FullName).FullName;
-        
-        string imgPath = Path.Combine(backendPath, folderPath);
+        string infrastructurePath = Path.Combine(Directory.GetParent(contentRootPath).FullName, 
+            "UserProfiles.Infrastructure");
+        string imgPath = Path.Combine(infrastructurePath, folderPath);
         
         if(!Directory.Exists(imgPath))
             Directory.CreateDirectory(imgPath);

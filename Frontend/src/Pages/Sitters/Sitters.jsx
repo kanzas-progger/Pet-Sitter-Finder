@@ -3,7 +3,7 @@ import './Sitters.css'
 import Navbar from '../../Components/Navbar/Navbar'
 import SitterCard from '../../Components/SitterCard/SitterCard'
 // import {Container} from "@mui/material";
-import { getSitters } from "../../api/userProfiles"
+import { getSitters } from "../../api/sitters"
 import { useEffect, useState } from "react";
 
 const Sitters = () => {

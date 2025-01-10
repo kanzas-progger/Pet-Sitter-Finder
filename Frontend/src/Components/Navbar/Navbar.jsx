@@ -22,7 +22,7 @@ const Navbar = () => {
     };
 
     const handleLogout = async () => {
-        try {
+ 
             await axios.post('https://localhost:5000/authentication/logout', {}, { withCredentials: true });
             setAuth({})
             localStorage.removeItem('auth')
@@ -32,11 +32,8 @@ const Navbar = () => {
             // owner ownerrrrFrontender  123456789
             // full sitter   sitterohsitter  stringgg
             // full owner    ownerohowner   stringgg
-        } catch (error) {
-            console.error('Ошибка выхода:', error);
-        } finally {
+
             handleClose(); 
-        }
     };
 
     const linkStyle = {

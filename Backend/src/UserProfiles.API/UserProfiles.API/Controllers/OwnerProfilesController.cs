@@ -25,7 +25,7 @@ public class OwnerProfilesController : ControllerBase
         _imagesService = imagesService;
     }
 
-    [HttpPut("profile/personal/edit/")]
+    [HttpPut("profile/personal/edit")]
     [Authorize(Roles = "Owner")]
     public async Task<ActionResult<Guid>> UpdateOwnerProfilePersonal(UpdateOwnerProfileRequest request)
     {

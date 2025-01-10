@@ -4,10 +4,12 @@ import Sitters from './Pages/Sitters/Sitters'
 import Registration from './Pages/Registration/Registration'
 import Login from './Pages/Login/Login'
 import Personal from './Pages/Personal/Personal'
-import { Routes, Route, Navigate } from "react-router-dom"
+import Animals from './Pages/Animals/Animals'
+import { Routes, Route, Navigate, Outlet } from "react-router-dom"
 import Layout from './Components/Layout/Layout'
 import RequireAuth from './Components/RequireAuth/RequireAuth'
 import Contact from './Pages/Contact/Contact'
+import { ProfileProvider } from './context/ProfileProvider'
 
 const theme = createTheme({
   palette: {
@@ -48,10 +50,14 @@ function App() {
 
             {/* protected routes*/}
             <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
-            <Route path="profile">
-            <Route index element={<Navigate to="/profile/personal/edit" replace />} />
-              <Route path="personal/edit" element={<Personal />}></Route>
-              <Route path="contact/edit" element={<Contact />}></Route>
+              <Route path="profile" element=
+                {<ProfileProvider>
+                  <Outlet />
+                </ProfileProvider>}>
+                <Route index element={<Navigate to="/profile/personal/edit" replace />} />
+                <Route path="personal/edit" element={<Personal />}></Route>
+                <Route path="contact/edit" element={<Contact />}></Route>
+                <Route path="animals/edit" element={<Animals />}></Route>
               </Route>
             </Route>
           </Route>

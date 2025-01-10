@@ -38,6 +38,24 @@
         "Header": "sitters-caching-control"
       }
     },
+
+    {
+      "DownstreamPathTemplate": "/api/sitters/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+
+      "UpstreamPathTemplate": "/api/sitters/{everything}",
+      "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
     
     {
       "DownstreamPathTemplate": "/api/owners/{everything}",
