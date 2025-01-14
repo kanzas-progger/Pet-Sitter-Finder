@@ -1,11 +1,14 @@
 import React from 'react'
 import { Paper, Box, Typography, Divider, Button, TextField, InputAdornment } from "@mui/material"
 import { updateOwnerPersonal } from "../../api/owners"
+import { updateSitterPersonal } from '../../api/sitters'
 import { useNavigate } from 'react-router'
 import useProfile from '../../hooks/useProfile'
+import useAuth from '../../hooks/useAuth'
 
 const EditContact = () => {
 
+    const { auth, setAuth } = useAuth()
     const { profile, setProfile } = useProfile()
     const navigate = useNavigate()
 
@@ -17,10 +20,19 @@ const EditContact = () => {
     const handleSubmit = async () => {
         try {
 
-            const response = await updateOwnerPersonal(profile)
-            if (response?.data) {
-                console.log(response.data)
+            if (auth?.role?.includes('Owner')) {
+                const response = await updateOwnerPersonal(profile)
+                if (response?.data) {
+                    console.log(response.data)
+                }
             }
+            else if (auth?.role?.includes('Sitter')) {
+                const response = await updateSitterPersonal(profile)
+                if (response?.data) {
+                    console.log(response.data)
+                }
+            }
+
             navigate(0)
         } catch (e) {
             console.error(e)

@@ -21,6 +21,11 @@ public class UserAnimalsRepository : IUserAnimalsRepository
         return animals;
     }
 
+    public async Task<Dictionary<string, int>> GetAllAnimals()
+    {
+        return await _animalsDbContext.Animals.ToDictionaryAsync(a => a.Name.ToLower(), a => a.Id);
+    }
+
     public async Task AddAnimalsForUser(Guid userId, List<int> animalIds)
     {
         var userAnimalsEntities = animalIds.Select(animalId => new UserAnimalsEntity
@@ -31,5 +36,34 @@ public class UserAnimalsRepository : IUserAnimalsRepository
         
         await _animalsDbContext.UserAnimals.AddRangeAsync(userAnimalsEntities);
         await _animalsDbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateAnimalsForUser(Guid userId, List<int> animalIds)
+    {
+        var currentAnimalsIds = await _animalsDbContext.UserAnimals
+            .Where(u => u.UserId == userId)
+            .Select(u => u.AnimalId)
+            .ToListAsync();
+        
+        var animalsToAdd = animalIds.Except(currentAnimalsIds).ToList(); 
+        var animalsToRemove = currentAnimalsIds.Except(animalIds).ToList();
+
+        if (animalsToRemove.Any())
+        {
+            await DeleteAnimalsForUser(userId, animalsToRemove);
+        }
+
+        if (animalsToAdd.Any())
+        {
+            await AddAnimalsForUser(userId, animalsToAdd);
+        }
+        
+    }
+
+    private async Task DeleteAnimalsForUser(Guid userId, List<int> animalIds)
+    {
+        await _animalsDbContext.UserAnimals
+            .Where(u => u.UserId == userId && animalIds.Contains(u.AnimalId))
+            .ExecuteDeleteAsync();
     }
 }

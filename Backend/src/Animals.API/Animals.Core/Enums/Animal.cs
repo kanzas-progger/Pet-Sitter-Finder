@@ -1,5 +1,5 @@
 namespace Animals.Core.Enums;
-
+// Spider add
 public enum Animal
 {
     Cat = 1,

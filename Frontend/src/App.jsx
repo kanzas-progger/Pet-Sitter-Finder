@@ -10,6 +10,7 @@ import Layout from './Components/Layout/Layout'
 import RequireAuth from './Components/RequireAuth/RequireAuth'
 import Contact from './Pages/Contact/Contact'
 import { ProfileProvider } from './context/ProfileProvider'
+import AnimalProfiles from './Pages/AnimalProfiles/AnimalProfiles'
 
 const theme = createTheme({
   palette: {
@@ -58,8 +59,11 @@ function App() {
                 <Route path="personal/edit" element={<Personal />}></Route>
                 <Route path="contact/edit" element={<Contact />}></Route>
                 <Route path="animals/edit" element={<Animals />}></Route>
+                <Route path="animals/profiles" element={<AnimalProfiles />}></Route>
               </Route>
             </Route>
+            {/* Sitter protected routes */}
+
           </Route>
         </Routes>
       </ThemeProvider>

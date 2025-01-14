@@ -24,7 +24,7 @@ const Registration = () => {
     const animalTranslations = {
         "Собаки": "Dog",
         "Кошки": "Cat",
-        "Фермерские животные": "FarmPets",
+        "Фермерские животные": "FarmPet",
         "Пауки": "Spider",
         "Рептилии": "Reptile",
         "Грызуны": "SmallPet",
@@ -43,7 +43,7 @@ const Registration = () => {
         },
     };
 
-    const [animalName, setAnimalName] = React.useState([]);
+    const [animalName, setAnimalName] = useState([]);
     const [animalIsValid, setAnimalIsValid] = useState(false);
     const [role, setRole] = useState("owner")
     const [formData, setFormData] = useState({

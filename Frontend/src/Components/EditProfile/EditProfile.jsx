@@ -2,12 +2,15 @@ import React from 'react'
 import { Paper, Avatar, Box, Typography, Divider, Button, TextField, TextareaAutosize } from "@mui/material"
 import { useState, useRef } from 'react'
 import { updateOwnerPersonal, updateOwnerProfileImage, deleteOwnerProfileImage } from "../../api/owners"
+import { updateSitterPersonal, updateSitterProfileImage, deleteSitterProfileImage } from '../../api/sitters'
 import { useNavigate } from 'react-router'
 import useProfile from '../../hooks/useProfile'
+import useAuth from '../../hooks/useAuth'
 
 const EditProfile = () => {
 
   const { profile, setProfile } = useProfile()
+  const { auth, setAuth } = useAuth()
 
   const [image, setImage] = useState(null)
   const imageRef = useRef(null)
@@ -57,7 +60,8 @@ const EditProfile = () => {
   const handleSubmit = async () => {
     try {
 
-      const response = await updateOwnerPersonal(profile)
+      if(auth?.role?.includes('Owner')) {
+        const response = await updateOwnerPersonal(profile)
       if (response?.data) {
         console.log(response.data)
       }
@@ -71,6 +75,26 @@ const EditProfile = () => {
         const deleteProfileImageResponse = await deleteOwnerProfileImage()
         if (deleteProfileImageResponse?.data) {
           console.log(deleteProfileImageResponse.data)
+        }
+      }
+      }
+      else if (auth?.role?.includes('Sitter')) {
+        const response = await updateSitterPersonal(profile)
+        if (response?.data) {
+          console.log(response.data)
+        }
+        if (image) {
+          const updateProfileImageResponse = await updateSitterProfileImage(image.file)
+          console.log('Avatar is updating')
+          if (updateProfileImageResponse?.data) {
+            console.log(updateProfileImageResponse.data)
+          }
+        }
+        if (profile.profileImage === '' && !image) {
+          const deleteProfileImageResponse = await deleteSitterProfileImage()
+          if (deleteProfileImageResponse?.data) {
+            console.log(deleteProfileImageResponse.data)
+          }
         }
       }
       navigate(0)
@@ -195,7 +219,7 @@ const EditProfile = () => {
           />
 
           <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '30px' }}>О себе</Typography>
-          <Typography sx={{ color: '#6b7280' }}>Расскажите подробнее о себе. Максимальное количество символов — 50</Typography>
+          <Typography sx={{ color: '#6b7280' }}>Расскажите подробнее о себе. Минимальное количество символов — 50</Typography>
           <TextareaAutosize
             id='about'
             value={`${profile.about}`}

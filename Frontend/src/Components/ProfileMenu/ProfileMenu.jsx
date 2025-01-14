@@ -2,14 +2,18 @@ import React from 'react'
 import { Paper, Avatar, Box, Link, Typography, Divider } from "@mui/material"
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import useProfile from '../../hooks/useProfile'
+import useAuth from '../../hooks/useAuth'
 
 const ProfileMenu = () => {
 
+  const {auth, setAuth} = useAuth()
   const { profile } = useProfile()
 
   const dividerRefs = {
     personal: React.createRef(),
     animals: React.createRef(),
+    animalProfiles: React.createRef(),
+    pricePerDay: React.createRef(),
     contact: React.createRef(),
   };
 
@@ -103,11 +107,30 @@ const ProfileMenu = () => {
               lowerDividerRef={dividerRefs.personal}  >
               Личная информация</ProfileMenuLink>
             <Divider ref={dividerRefs.personal} variant="middle" />
+
             <ProfileMenuLink to={'/profile/animals/edit'}
               lowerDividerRef={dividerRefs.animals}
               upperDividerRef={dividerRefs.personal} >
               Мои животные</ProfileMenuLink>
             <Divider ref={dividerRefs.animals} variant="middle" />
+
+              {(auth?.role?.includes('Owner')) ? (
+                <>
+                <ProfileMenuLink to={'/profile/animals/profiles'}
+              lowerDividerRef={dividerRefs.animalProfiles}
+              upperDividerRef={dividerRefs.animals} >
+              Профили моих животных</ProfileMenuLink>
+            <Divider ref={dividerRefs.animals} variant="middle" />
+               </> ) : (
+                <>
+                <ProfileMenuLink to={'/profile/animals/profiles'}
+              lowerDividerRef={dividerRefs.pricePerDay}
+              upperDividerRef={dividerRefs.animals} >
+              Цена за сутки</ProfileMenuLink>
+            <Divider ref={dividerRefs.pricePerDay} variant="middle" />
+                </>)}
+            
+
             <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.animals}
             >Контакты</ProfileMenuLink>
           </Box>

@@ -4,6 +4,7 @@ using UserProfiles.API.Contracts.Requests;
 using UserProfiles.API.Contracts.Responses;
 using UserProfiles.Core.Abstractions;
 using UserProfiles.Core.Models;
+using UserProfiles.Infrastructure.GrpcClients;
 
 namespace UserProfiles.API.Controllers;
 
@@ -15,14 +16,16 @@ public class OwnerProfilesController : ControllerBase
 {
     private readonly IOwnerProfilesService _ownerProfilesService;
     private readonly IImagesService _imagesService;
+    private readonly AnimalsGrpcClient _animalsGrpcClient;
 
     private const int MAX_PHOTO_PROFILE_COUNT = 20;
 
     public OwnerProfilesController(IOwnerProfilesService ownerProfilesService,
-        IImagesService imagesService)
+        IImagesService imagesService, AnimalsGrpcClient animalsGrpcClient)
     {
         _ownerProfilesService = ownerProfilesService;
         _imagesService = imagesService;
+        _animalsGrpcClient = animalsGrpcClient;
     }
 
     [HttpPut("profile/personal/edit")]
@@ -113,6 +116,9 @@ public class OwnerProfilesController : ControllerBase
         var ownerId = GetUserIdFromClaim();
         var ownerProfile = await _ownerProfilesService.GetOwnerProfileById(ownerId);
         var ownerProfilePhotos = await _ownerProfilesService.GetAllOwnerProfilePhotos(ownerId);
+        
+        var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(ownerId);
+        var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
 
         string profileImagePath = string.Empty;
         if (!string.IsNullOrEmpty(ownerProfile.ProfileImagePath))
@@ -135,7 +141,8 @@ public class OwnerProfilesController : ControllerBase
             ownerProfile.City, 
             ownerProfile.Address, 
             ownerProfile.About, 
-            ownerProfilePhotos);
+            ownerProfilePhotos,
+            animalNames);
         
         return Ok(response);
     }
