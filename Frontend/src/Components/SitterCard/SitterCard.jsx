@@ -9,8 +9,8 @@ import { GiGecko } from "react-icons/gi";
 
 
 
-//dog cat reptile fish bird farmPets smallPets   #D0EFB1
-const SitterCard = ({sitter}) => {
+//dog cat reptile fish bird farmPets smallPet   #D0EFB1
+const SitterCard = ({ sitter }) => {
 
   const about = "Всем привет! Меня зовут Даша! Я очень люблю домашних животных!"
 
@@ -24,19 +24,19 @@ const SitterCard = ({sitter}) => {
     rateCount,
     pricePerDay,
     animals
-} = sitter;
+  } = sitter;
 
 
-const animalInfo = {
-  Dog: { icon: faDog, title: 'Собаки', fontSize: '20px'},
-  Cat: { icon: faCat, title: 'Кошки', fontSize: '20px'},
-  Fish: { icon: faFishFins, title: 'Рыбки', fontSize: '20px'},
-  Bird: { icon: faDove, title: 'Птички', fontSize: '20px'},
-  Reptile: { icon: GiGecko, title: 'Рептилии', fontSize: '20px'},
-  Spider: { icon: faSpider, title: 'Пауки', fontSize: '20px'},
-  Horse: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px'},
-  SmallPets: { icon: PestControlRodentIcon, title: 'Грызуны', fontSize: '25px'},
-}
+  const animalInfo = {
+    Dog: { icon: faDog, title: 'Собаки', fontSize: '20px' },
+    Cat: { icon: faCat, title: 'Кошки', fontSize: '20px' },
+    Fish: { icon: faFishFins, title: 'Рыбки', fontSize: '20px' },
+    Bird: { icon: faDove, title: 'Птички', fontSize: '20px' },
+    Reptile: { icon: GiGecko, title: 'Рептилии', fontSize: '20px' },
+    Spider: { icon: faSpider, title: 'Пауки', fontSize: '20px' },
+    Horse: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px' },
+    SmallPet: { icon: PestControlRodentIcon, title: 'Грызуны', fontSize: '25px' },
+  }
 
   return (
     <Card sx={{
@@ -72,66 +72,24 @@ const animalInfo = {
         </Typography>
 
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontSize: '15px' }}>
-        {city || "Город не указан"}, {address || "Адрес не указан"}
+          {city || "Город не указан"}, {address || "Адрес не указан"}
         </Typography>
 
         {/* Рейтинг */}
         <Box display="flex" alignItems="center" mt={1} gap={1}>
           <Tooltip title="Средняя оценка пользователей" placement="top">
-            <StarIcon sx={{ fill: '#FFD700', stroke:'#9B2D20',strokeWidth: 1.5, fontSize: '20px', marginLeft: '-4px', marginBottom:'2.5px' }} />
+            <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, fontSize: '20px', marginLeft: '-4px', marginBottom: '2.5px' }} />
           </Tooltip>
           <Typography variant="body2" sx={{ fontWeight: 'bold', ml: 0.5, fontSize: '16px' }}>
-          {rating.toFixed(1)}
+            {rating.toFixed(1)}
           </Typography>
           <Typography variant="body2" color="warning" sx={{ fontWeight: 'bold', ml: 0.5, fontSize: '16px' }}>
-          {rateCount} отзывов
+            {rateCount} отзывов
           </Typography>
-          
+
         </Box>
 
-        {/* Приветствие и описание */}
-        {/* <Typography variant="body2" sx={{ mt: 2, fontWeight: 'bold', fontSize: '16px' }}>{about}</Typography> */}
-
-        {/* <Box display="flex" alignItems="center" mt={1} gap={1}>
-          <Tooltip title="Собаки" placement="top">
-            <FontAwesomeIcon icon={faDog} style={{ color: '#4D7298', fontSize: 20 }} />
-          </Tooltip>
-          <Tooltip title="Кошки" placement="top">
-            <FontAwesomeIcon icon={faCat} style={{ color: '#4D7298', fontSize: 20 }} />
-          </Tooltip>
-          <Tooltip title="Рыбки" placement="top">
-            <FontAwesomeIcon icon={faFishFins} style={{ color: '#4D7298', fontSize: 20 }} />
-          </Tooltip>
-          <Tooltip title="Фермерские животные" placement="top">
-            <FontAwesomeIcon icon={faHorse} style={{ color: '#4D7298', fontSize: 20 }} />
-          </Tooltip>
-          <Tooltip title="Птички" placement="top">
-            <FontAwesomeIcon icon={faDove} style={{ color: '#4D7298', fontSize: 20 }} />
-          </Tooltip>
-          <Tooltip title="Пауки" placement="top">
-            <FontAwesomeIcon icon={faSpider} style={{ color: '#4D7298', fontSize: 20 }} />
-          </Tooltip>
-          <Tooltip title="Рептилии" placement="top">
-            <span style={{ display: 'flex', alignItems: 'center' }}>
-              <GiGecko style={{ color: '#4D7298', fontSize: '20px' }} />
-            </span>
-          </Tooltip>
-          <Tooltip title="Грызуны" placement="top">
-            <PestControlRodentIcon sx={{ color: '#4D7298', fontSize: '25px' }} />
-          </Tooltip>
-        </Box> */}
-
-{/* <Box display="flex" alignItems="center" mt={1} gap={1}>
-                    {animals.map((animal, index) => (
-                        animalInfo[animal] ? (
-                            <Tooltip key={index} title={animalInfo[animal].title} placement="top">
-                                <FontAwesomeIcon icon={animalInfo[animal].icon} style={{ color: '#4D7298', fontSize: animalInfo[animal].fontSize }} />
-                            </Tooltip>
-                        ) : null
-                    ))}
-                </Box> */}
-
-{/* <Box display="flex" alignItems="center" mt={1} gap={1}>
+        <Box display="flex" alignItems="center" mt={1} gap={1}>
           {animals.map((animal, index) => {
             const animalData = animalInfo[animal];
             if (!animalData) return null;
@@ -140,9 +98,9 @@ const animalInfo = {
 
             return (
               <Tooltip key={index} title={title} placement="top">
-                {React.isValidElement(icon) ? (
+                {typeof icon === 'function' ? (
                   <span style={{ display: 'flex', alignItems: 'center', fontSize }}>
-                    {React.cloneElement(icon, { style: { color: '#4D7298', fontSize } })}
+                    {React.createElement(icon, { style: { color: '#4D7298', fontSize } })}
                   </span>
                 ) : (
                   <FontAwesomeIcon icon={icon} style={{ color: '#4D7298', fontSize }} />
@@ -150,52 +108,31 @@ const animalInfo = {
               </Tooltip>
             );
           })}
-        </Box> */}
-
-<Box display="flex" alignItems="center" mt={1} gap={1}>
-  {animals.map((animal, index) => {
-    const animalData = animalInfo[animal];
-    if (!animalData) return null;
-
-    const { icon, title, fontSize } = animalData;
-
-    return (
-      <Tooltip key={index} title={title} placement="top">
-        {typeof icon === 'function' ? (
-          <span style={{ display: 'flex', alignItems: 'center', fontSize }}>
-            {React.createElement(icon, { style: { color: '#4D7298', fontSize } })}
-          </span>
-        ) : (
-          <FontAwesomeIcon icon={icon} style={{ color: '#4D7298', fontSize }} />
-        )}
-      </Tooltip>
-    );
-  })}
-</Box>
-
-
+        </Box>
 
       </CardContent>
 
       {/* Цена */}
-      <Box sx={{ display: 'flex',
-       flexDirection: 'column', 
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-         justifyContent: 'center',
-          p: 2}}>
-            {pricePerDay > 0 ? (
-              <>
-               <Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
-                {`${pricePerDay} ₽`}
-               </Typography>
-               <Typography variant="body2" color="text.secondary" fontSize="14px">
-          за сутки
-        </Typography>
-              </>
-            ) : (<Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
-              Цена не указана
-            </Typography>)}
-               
+        justifyContent: 'center',
+        p: 2
+      }}>
+        {pricePerDay > 0 ? (
+          <>
+            <Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
+              {`${pricePerDay} ₽`}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" fontSize="14px">
+              за сутки
+            </Typography>
+          </>
+        ) : (<Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
+          Цена не указана
+        </Typography>)}
+
       </Box>
     </Card>
   );

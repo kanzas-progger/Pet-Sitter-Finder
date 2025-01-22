@@ -72,6 +72,62 @@ public class SitterProfilesController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("login_sitter")]
+    [AllowAnonymous]
+    public async Task<ActionResult<SitterFullProfileResponse>> GetFullSitterProfile()
+    {
+        var sitterId = GetUserIdFromClaim(); // temporary hard core
+        var sitterProfile = await _sitterProfileService.GetProfileById(sitterId);
+        var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(sitterId);
+        var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+        var sitterProfilePhotos = await _sitterProfileService.GetAllProfilePhotos(sitterId);
+        //
+        
+        string profileImagePath = string.Empty;
+        if (!string.IsNullOrEmpty(sitterProfile.ProfileImagePath))
+        {
+            string profileImage = Path.GetFileName(sitterProfile.ProfileImagePath);
+            profileImagePath = $"/uploads/img/{profileImage}";
+        }
+        
+        List<string> profilePhotos = new List<string>();
+        if (sitterProfilePhotos.Count > 0)
+        {
+            string photoUrl;
+            foreach (var photo in sitterProfilePhotos)
+            {
+                string photoName = Path.GetFileName(photo);
+                photoUrl = $"/uploads/img/{photoName}";
+                profilePhotos.Add(photoUrl);
+            }
+        }
+        
+        
+        
+        var response = new SitterFullProfileResponse(
+            sitterProfile.Id,
+            sitterProfile.SitterId,
+            sitterProfile.Login,
+            sitterProfile.Firstname,
+            sitterProfile.Lastname,
+            sitterProfile.Age,
+            sitterProfile.Email,
+            sitterProfile.PhoneNumber,
+            profileImagePath,
+            sitterProfile.Country,
+            sitterProfile.City,
+            sitterProfile.Address,
+            sitterProfile.Rating,
+            sitterProfile.RateCount,
+            sitterProfile.About,
+            sitterProfile.PricePerDay,
+            profilePhotos,
+            animalNames
+            );
+        
+        return Ok(response);
+    }
+
     [HttpGet("profile/personal/edit")]
     [Authorize(Roles = "Sitter")]
     public async Task<ActionResult<EditSitterProfileById>> GetEditSitterProfileById()

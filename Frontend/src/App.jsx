@@ -11,6 +11,7 @@ import RequireAuth from './Components/RequireAuth/RequireAuth'
 import Contact from './Pages/Contact/Contact'
 import { ProfileProvider } from './context/ProfileProvider'
 import AnimalProfiles from './Pages/AnimalProfiles/AnimalProfiles'
+import FullProfile from './Pages/FullProfile/FullProfile'
 
 const theme = createTheme({
   palette: {
@@ -46,6 +47,7 @@ function App() {
             <Route index element={<Navigate to="/sitters" replace />} />
             {/* public routes*/}
             <Route path="sitters" element={<Sitters />} />
+            <Route path="login_sitter" element={<FullProfile />} />
             <Route path="/authentication/register" element={<Registration />} />
             <Route path="/authentication/login" element={<Login />} />
 

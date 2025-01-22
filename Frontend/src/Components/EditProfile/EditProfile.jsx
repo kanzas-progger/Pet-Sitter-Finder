@@ -105,7 +105,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+      <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1',padding: '20px', width: '100%', boxSizing: 'border-box' }}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Личная информация</Typography>
         <Divider sx={{ marginTop: '20px' }} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>

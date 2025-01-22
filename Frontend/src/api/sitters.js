@@ -68,3 +68,17 @@ export const deleteSitterProfileImage = async () => {
         console.error(e)
     }
 }
+
+export const getFullSitterProfile = async () => {
+    try {
+        const response = await axios.get(
+            "https://localhost:5000/api/sitters/login_sitter",
+            {
+                withCredentials: true
+            }
+        )
+        return response
+    } catch (e) {
+        console.error(e)
+    }
+}

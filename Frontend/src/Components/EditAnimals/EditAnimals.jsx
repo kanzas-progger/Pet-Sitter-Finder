@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import {
   Paper, Typography, Divider, Box, Button, FormControl, Select, MenuItem, Checkbox,
-  InputLabel, OutlinedInput, ListItemText
+  OutlinedInput, ListItemText
 } from '@mui/material'
 import useProfile from '../../hooks/useProfile';
 import { useNavigate } from 'react-router'
@@ -83,7 +83,7 @@ const EditAnimals = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+      <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Информация о ваших животных</Typography>
         <Divider sx={{ marginTop: '20px' }} />
 
@@ -92,7 +92,7 @@ const EditAnimals = () => {
 
           <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '30px' }}>Животные <span style={{ color: '#c70000' }}>*</span></Typography>
 
-          <FormControl sx={{ width: '70%', marginTop: '10px' }}>
+          <FormControl sx={{ width: '70%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
             <Select
               id="demo-multiple-checkbox"
               multiple

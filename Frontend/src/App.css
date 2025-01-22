@@ -1,2 +1,8 @@
+/* body {
+    background-image: url('/path-to-your-image.jpg');
+    background-size: cover;
+} */
 
-
+body {
+    background-color: #b3d89c;
+}

@@ -35,7 +35,7 @@ const ProfileMenu = () => {
         onMouseEnter={(e) => {
           if (!isActive) {
             e.target.style.color = '#2b2b2b';
-            e.target.style.backgroundColor = '#e0e0e0';
+            e.target.style.backgroundColor = '#b3d89c';
             if (upperDividerRef?.current) {
               upperDividerRef.current.style.opacity = '0';
             }
@@ -76,7 +76,7 @@ const ProfileMenu = () => {
         width: '340px',
         flexShrink: 0
       }}>
-        <Paper elevation={3} sx={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+        <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link href="#" underline="none">
               <Avatar
@@ -99,7 +99,7 @@ const ProfileMenu = () => {
         </Paper>
 
         {/* <Paper elevation={3} sx={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}> */}
-        <Paper elevation={3} sx={{ width: '100%', boxSizing: 'border-box' }}>
+        <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1', width: '100%', boxSizing: 'border-box' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
 
