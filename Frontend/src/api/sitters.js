@@ -56,6 +56,31 @@ export const updateSitterProfileImage = async (profileImage) => {
     }
 }
 
+export const uploadSitterProfilePhotos = async (profilePhotos) => {
+    try {
+        const formData = new FormData();
+
+        profilePhotos.forEach((photo) => {
+            formData.append(`profilePhotos`, photo); 
+        });
+
+        const response = await axios.post(
+            "https://localhost:5000/api/sitters/profile/personal/edit/photos", 
+            formData,
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+
+        return response;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export const deleteSitterProfileImage = async () => {
     try {
         const response = await axios.delete(

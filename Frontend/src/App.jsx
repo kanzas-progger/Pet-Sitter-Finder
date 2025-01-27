@@ -12,6 +12,7 @@ import Contact from './Pages/Contact/Contact'
 import { ProfileProvider } from './context/ProfileProvider'
 import AnimalProfiles from './Pages/AnimalProfiles/AnimalProfiles'
 import FullProfile from './Pages/FullProfile/FullProfile'
+import PhotoGallery from './Pages/PhotoGallery/PhotoGallery'
 
 const theme = createTheme({
   palette: {
@@ -62,6 +63,7 @@ function App() {
                 <Route path="contact/edit" element={<Contact />}></Route>
                 <Route path="animals/edit" element={<Animals />}></Route>
                 <Route path="animals/profiles" element={<AnimalProfiles />}></Route>
+                <Route path="photos/edit" element={<PhotoGallery />}></Route>
               </Route>
             </Route>
             {/* Sitter protected routes */}

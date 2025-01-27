@@ -51,4 +51,9 @@ public class SitterProfileService : ISitterProfileService
     {
         await _sitterProfilesRepository.CreateProfilePhotos(sitterId, photoPaths);
     }
+
+    public async Task DeleteSitterProfilePhoto(Guid sitterId, string photoPath)
+    {
+        await _sitterProfilesRepository.DeleteProfilePhoto(sitterId, photoPath);
+    }
 }

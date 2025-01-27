@@ -12,5 +12,6 @@ public interface ISitterProfileService
     Task UpdateSitterProfileImage(Guid sitterId, string imagePath);
     Task<string> GetSitterImageUrl(Guid sitterId);
     Task AddSitterProfilePhotos(Guid sitterId, List<string> photoPaths);
+    Task DeleteSitterProfilePhoto(Guid sitterId, string photoPath);
 
 }

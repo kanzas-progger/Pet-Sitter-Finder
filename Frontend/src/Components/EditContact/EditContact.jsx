@@ -66,34 +66,7 @@ const EditContact = () => {
                         onChange={handleChange}
                         sx={{ width: '70%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}
                     />
-                    {/* <TextField
-                        id="phoneNumber"
-                        size="small"
-                        type='number'
-                        value={`${profile.phoneNumber}`}
-                        onChange={handleChange}
-                        sx={{
-                            width: '70%', 
-                            marginTop: '10px', 
-                            '& .MuiOutlinedInput-root': { background: '#e0e0e0' }, '& input[type=number]': {
-                                MozAppearance: 'textfield'
-                            },
-                            '& input[type=number]::-webkit-outer-spin-button': {
-                                WebkitAppearance: 'none',
-                                margin: 0
-                            },
-                            '& input[type=number]::-webkit-inner-spin-button': {
-                                WebkitAppearance: 'none',
-                                margin: 0
-                            }
-                        }}
-                        slotProps={{
-                            input: {
-                                startAdornment: <InputAdornment position="start">+7</InputAdornment>,
-                            },
-                        }}
-                    /> */}
-
+                    
                 </Box>
 
                 <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ marginTop: '30px' }}>

@@ -26,4 +26,9 @@ public class ImagesService : IImagesService
     {
         return _imagesProvider.DeleteProfileImage(imagePath);
     }
+
+    public string DeleteProfilePhoto(string photoUrl)
+    {
+        return _imagesProvider.DeleteProfilePhoto(photoUrl);
+    }
 }

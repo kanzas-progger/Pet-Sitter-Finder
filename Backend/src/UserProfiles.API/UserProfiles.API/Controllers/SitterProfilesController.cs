@@ -102,8 +102,6 @@ public class SitterProfilesController : ControllerBase
             }
         }
         
-        
-        
         var response = new SitterFullProfileResponse(
             sitterProfile.Id,
             sitterProfile.SitterId,
@@ -144,6 +142,16 @@ public class SitterProfilesController : ControllerBase
             string profileImage = Path.GetFileName(sitterProfile.ProfileImagePath);
             profileImagePath = $"/uploads/img/{profileImage}";
         }
+
+        List<string> profilePhotos = new List<string>();
+        if (sitterProfilePhotos.Count > 0)
+        {
+            foreach (var photo in sitterProfilePhotos)
+            {
+                string photoUrl = $"/uploads/img/{Path.GetFileName(photo)}";
+                profilePhotos.Add(photoUrl);
+            }
+        }
         
         var response = new EditSitterProfileById(
             sitterProfile.Id, 
@@ -154,7 +162,7 @@ public class SitterProfilesController : ControllerBase
             sitterProfile.Email, 
             sitterProfile.PhoneNumber,
             profileImagePath,
-            sitterProfilePhotos,
+            profilePhotos, 
             sitterProfile.Country, 
             sitterProfile.City, 
             sitterProfile.Address, 
@@ -231,7 +239,7 @@ public class SitterProfilesController : ControllerBase
 
     [HttpPost("profile/personal/edit/photos")]
     [Authorize(Roles = "Sitter")]
-    public async Task<ActionResult> AddOwnerProfilePhotos([FromForm] UpdateProfilePhotosRequest request)
+    public async Task<ActionResult> AddSitterProfilePhotos([FromForm] UpdateProfilePhotosRequest request)
     {
         Guid sitterId = GetUserIdFromClaim();
         int currentCountProfilePhotos = await _sitterProfileService.GetProfilePhotoCount(sitterId);
@@ -243,6 +251,24 @@ public class SitterProfilesController : ControllerBase
         
         List<string> photoPaths = await _imagesService.UploadProfilePhotos(request.profilePhotos);
         await _sitterProfileService.AddSitterProfilePhotos(sitterId, photoPaths);
+        
+        return Ok();
+    }
+
+    [HttpDelete("profile/personal/delete/photo")]
+    [Authorize(Roles = "Sitter")]
+    public async Task<ActionResult> DeleteSitterProfilePhoto([FromBody] string photoUrl)
+    {
+        Guid userId = GetUserIdFromClaim();
+        
+        string photoName = Path.GetFileName(photoUrl); //////// подумать над этим. Можно сделать
+                                                       /// дополнительный метод из репозитория
+                                                       /// который будет выдавать путь по названию файла
+                                                       /// а можно сделать на фронтенде два списка
+        
+        await _sitterProfileService.DeleteSitterProfilePhoto(userId, photoUrl);
+        
+        _imagesService.DeleteProfilePhoto(photoUrl);
         
         return Ok();
     }

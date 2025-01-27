@@ -130,6 +130,14 @@ public class SitterProfilesRepository : ISitterProfilesRepository
         return photoUrls;
     }
 
+    public async Task DeleteProfilePhoto(Guid sitterId, string photoUrl)
+    {
+        await _userProfilesDbContext.SitterProfilePhotos
+            .Where(p => p.SitterId == sitterId && p.PhotoUrl == photoUrl)
+            .ExecuteDeleteAsync();
+        
+    }
+
     public async Task<Guid> UpdateProfile(SitterProfile profile)
     {
         await _userProfilesDbContext.SitterProfiles.Where(s => s.SitterId == profile.SitterId)

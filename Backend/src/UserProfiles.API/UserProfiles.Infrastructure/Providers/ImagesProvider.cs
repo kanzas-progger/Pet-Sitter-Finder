@@ -97,4 +97,16 @@ public class ImagesProvider : IImagesProvider
 
         return photoPaths;
     }
+
+    public string DeleteProfilePhoto(string photoUrl)
+    {
+        if (File.Exists(photoUrl))
+        {
+            File.Delete(photoUrl);
+            return "Profile photo deleted";
+        }
+
+        return String.Empty;
+    }
+    
 }

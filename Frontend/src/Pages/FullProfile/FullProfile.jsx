@@ -42,26 +42,26 @@ const FullProfile = () => {
     ];
 
     const [openSlider, setOpenSlider] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleOpenSlider = (index) => {
-    setCurrentIndex(index);
-    setOpenSlider(true);
-  };
+    const handleOpenSlider = (index) => {
+        setCurrentIndex(index);
+        setOpenSlider(true);
+    };
 
-  const handleCloseSlider = () => {
-    setOpenSlider(false);
-  };
+    const handleCloseSlider = () => {
+        setOpenSlider(false);
+    };
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
-  };
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+    };
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? photos.length - 1 : prevIndex - 1
-    );
-  };
+    const handlePrev = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? photos.length - 1 : prevIndex - 1
+        );
+    };
 
     return (
         <>
@@ -197,10 +197,25 @@ const FullProfile = () => {
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'center' }}>Мои фото</Typography>
 
-                        <ImageList variant="quilted" cols={3} gap={8} sx={{ marginTop: '20px', borderRadius: 4, overflow: 'hidden' }}>
+                        <ImageList
+                            cols={3}
+                            gap={8}
+                            sx={{
+                                marginTop: '20px',
+                                maxWidth: '100%',
+                                height: 'auto',
+                            }}
+                        >
                             {photos.map((photo, index) => (
                                 photos.length > 6 && index === 5 ? (
-                                    <ImageListItem key={index} cols={1} rows={1}>
+                                    <ImageListItem
+                                        key={index}
+                                        cols={1}
+                                        rows={1}
+                                        sx={{
+                                            aspectRatio: '1 / 1',
+                                        }}
+                                    >
                                         <Box
                                             sx={{
                                                 width: '100%',
@@ -233,11 +248,11 @@ const FullProfile = () => {
                                         key={index}
                                         cols={1}
                                         rows={1}
-                                        onClick={() => handleOpenSlider(index)}
                                         sx={{
                                             position: 'relative',
-                                            overflow: 'hidden',
                                             borderRadius: 4,
+                                            overflow: 'hidden',
+                                            aspectRatio: '1 / 1', // Квадратное соотношение сторон
                                             '&:hover': {
                                                 '& img': {
                                                     filter: 'brightness(70%)',
@@ -250,6 +265,7 @@ const FullProfile = () => {
                                                 },
                                             },
                                         }}
+                                        onClick={() => handleOpenSlider(index)}
                                     >
                                         <img
                                             src={photo}
@@ -288,6 +304,7 @@ const FullProfile = () => {
                                                 color: 'white',
                                             }}
                                         >
+
                                             <VisibilityIcon sx={{ fontSize: 40 }} />
                                         </Box>
                                     </ImageListItem>
@@ -374,13 +391,13 @@ const FullProfile = () => {
                                     </Typography>
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>23.04.22</Typography>
-                                        <DeleteIcon sx={{ fill: '#f44336', fontSize:'30px', '&:hover':{fill: '#c9372c'}}} />
+                                        <DeleteIcon sx={{ fill: '#f44336', cursor:'pointer', fontSize: '30px', '&:hover': { fill: '#c9372c' } }} />
                                     </Box>
                                 </Box>
                             </Box>
                         </Box>
 
-                        
+
 
                     </Paper>
                 </Box>
