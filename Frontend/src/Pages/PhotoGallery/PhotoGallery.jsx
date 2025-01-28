@@ -11,7 +11,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { uploadSitterProfilePhotos } from '../../api/sitters';
+import { uploadSitterProfilePhotos, deleteSitterProfilePhoto } from '../../api/sitters';
 import useProfile from '../../hooks/useProfile';
 import { useNavigate } from 'react-router';
 
@@ -20,52 +20,43 @@ const PhotoGallery = () => {
     const { profile, setProfile } = useProfile()
     const navigate = useNavigate()
 
-    //const [photos, setPhotos] = useState(profile.profilePhotos)
-    const [photos, setPhotos] = useState(profile?.profilePhotos || []);
+    const [photos, setPhotos] = useState(profile?.profilePhotos || [])
 
     useEffect(() => {
         if (profile?.profilePhotos) {
             setPhotos(profile.profilePhotos)
             console.log("Set photo")
         }
-    }, [profile]);
+    }, [profile])
 
 
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const fileInputRef = useRef(null);
+    const [selectedFiles, setSelectedFiles] = useState([])
+    const fileInputRef = useRef(null)
 
-    // const photos = [
-    //     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    //     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    //     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    //     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    //     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    //     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    //     'https://images.unsplash.com/photo-1737467026661-31b5a87098fe?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    // ];
-
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleOpenSlider = (index) => {
         setCurrentIndex(index);
         setOpen(true);
-    };
+    }
 
     const handleCloseSlider = () => {
         setOpen(false);
-    };
+    }
 
     const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? photos.length - 1 : prevIndex - 1));
-    };
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? photos.length - 1 : prevIndex - 1))
+    }
 
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === photos.length - 1 ? 0 : prevIndex + 1));
-    };
+        setCurrentIndex((prevIndex) => (prevIndex === photos.length - 1 ? 0 : prevIndex + 1))
+    }
 
-    const handleDeletePhoto = () => {
-        console.log("Фото удалено")
+    const formatPhotoPath = (photo) => {
+        if (!photo) return ''
+        const fileName = photo.split('/').pop()
+        return `/uploads/img/${fileName}`
     }
 
     // upload and delete photos
@@ -77,17 +68,31 @@ const PhotoGallery = () => {
 
 
     const handleUploadPhotos = async (event) => {
-        const files = Array.from(event.target.files); // Получаем выбранные файлы
-        if (files.length === 0) return; // Если файлов нет, ничего не делаем
+        const files = Array.from(event.target.files); 
+        if (files.length === 0) return; 
 
         try {
-            const response = await uploadSitterProfilePhotos(files); // Загружаем файлы на сервер
+            const response = await uploadSitterProfilePhotos(files); 
             console.log('Загрузка успешна:', response.data);
-            navigate(0); // Обновляем страницу
+            navigate(0); 
         } catch (error) {
             console.error('Ошибка при загрузке:', error);
         }
-    };
+    }
+
+    const handleDeletePhoto = async () => {
+        const photoUrl = photos[currentIndex]; 
+        console.log(photoUrl);
+        if (!photoUrl) return;
+
+        try {
+            const response = await deleteSitterProfilePhoto(photoUrl)
+            setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo !== photoUrl))
+            setOpen(false)
+        } catch (error) {
+            console.error('Ошибка при удалении фото:', error);
+        }
+    }
 
     return (
         <>
@@ -126,7 +131,7 @@ const PhotoGallery = () => {
                                     sx={{
                                         aspectRatio: '1 / 1',
                                     }}
-                                    onClick={() => handleOpenSlider(6)}
+                                    onClick={() => handleOpenSlider(5)}
                                 >
                                     <Box
                                         sx={{
@@ -180,7 +185,7 @@ const PhotoGallery = () => {
                                     onClick={() => handleOpenSlider(index)}
                                 >
                                     <img
-                                        src={`https://localhost:5000${photo}`}
+                                        src={`https://localhost:5000${formatPhotoPath(photo)}`}
                                         alt={`Фото ${index + 1}`}
                                         style={{
                                             width: '100%',
@@ -299,7 +304,7 @@ const PhotoGallery = () => {
                             <ArrowBackIosIcon />
                         </IconButton>
                         <img
-                            src={`https://localhost:5000${photos[currentIndex]}`}
+                            src={`https://localhost:5000${formatPhotoPath(photos[currentIndex])}`}
                             alt={`Фото ${currentIndex + 1}`}
                             style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain' }}
                         />

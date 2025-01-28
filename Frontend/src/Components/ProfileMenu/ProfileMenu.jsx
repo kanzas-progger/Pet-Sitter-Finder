@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth'
 
 const ProfileMenu = () => {
 
-  const {auth, setAuth} = useAuth()
+  const { auth, setAuth } = useAuth()
   const { profile } = useProfile()
 
   const dividerRefs = {
@@ -15,6 +15,7 @@ const ProfileMenu = () => {
     animalProfiles: React.createRef(),
     pricePerDay: React.createRef(),
     contact: React.createRef(),
+    photos: React.createRef(),
   };
 
   const linkStyle = (isActive) => ({
@@ -76,7 +77,7 @@ const ProfileMenu = () => {
         width: '340px',
         flexShrink: 0
       }}>
-        <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+        <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link href="#" underline="none">
               <Avatar
@@ -99,7 +100,7 @@ const ProfileMenu = () => {
         </Paper>
 
         {/* <Paper elevation={3} sx={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}> */}
-        <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1', width: '100%', boxSizing: 'border-box' }}>
+        <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
 
@@ -114,25 +115,44 @@ const ProfileMenu = () => {
               Мои животные</ProfileMenuLink>
             <Divider ref={dividerRefs.animals} variant="middle" />
 
-              {(auth?.role?.includes('Owner')) ? (
-                <>
+            {(auth?.role?.includes('Owner')) ? (
+              <>
                 <ProfileMenuLink to={'/profile/animals/profiles'}
-              lowerDividerRef={dividerRefs.animalProfiles}
-              upperDividerRef={dividerRefs.animals} >
-              Профили моих животных</ProfileMenuLink>
-            <Divider ref={dividerRefs.animals} variant="middle" />
-               </> ) : (
-                <>
-                <ProfileMenuLink to={'/profile/animals/profiles'}
+                  lowerDividerRef={dividerRefs.animalProfiles}
+                  upperDividerRef={dividerRefs.animals} >
+                  Профили моих животных</ProfileMenuLink>
+                <Divider ref={dividerRefs.animalProfiles} variant="middle" />
+
+                <ProfileMenuLink to={'/profile/photos/edit'}
+                  lowerDividerRef={dividerRefs.photos}
+                  upperDividerRef={dividerRefs.animalProfiles} >
+                  Фотогаллерея</ProfileMenuLink>
+                <Divider ref={dividerRefs.photos} variant="middle" />
+
+                <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.photos}
+            >Контакты</ProfileMenuLink>
+
+              </>) : (
+              <>
+                {/* <ProfileMenuLink to={'/profile/animals/profiles'}
               lowerDividerRef={dividerRefs.pricePerDay}
               upperDividerRef={dividerRefs.animals} >
               Цена за сутки</ProfileMenuLink>
-            <Divider ref={dividerRefs.pricePerDay} variant="middle" />
-                </>)}
-            
+            <Divider ref={dividerRefs.pricePerDay} variant="middle" /> */}
 
-            <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.animals}
+                <ProfileMenuLink to={'/profile/photos/edit'}
+                  lowerDividerRef={dividerRefs.photos}
+                  upperDividerRef={dividerRefs.animals} >
+                  Фотогаллерея</ProfileMenuLink>
+                <Divider ref={dividerRefs.photos} variant="middle" />
+
+                <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.photos}
             >Контакты</ProfileMenuLink>
+
+              </> )}
+
+
+            
           </Box>
         </Paper>
       </Box>

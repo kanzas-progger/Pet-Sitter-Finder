@@ -135,7 +135,6 @@ public class SitterProfilesRepository : ISitterProfilesRepository
         await _userProfilesDbContext.SitterProfilePhotos
             .Where(p => p.SitterId == sitterId && p.PhotoUrl == photoUrl)
             .ExecuteDeleteAsync();
-        
     }
 
     public async Task<Guid> UpdateProfile(SitterProfile profile)

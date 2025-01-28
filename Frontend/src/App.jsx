@@ -48,7 +48,7 @@ function App() {
             <Route index element={<Navigate to="/sitters" replace />} />
             {/* public routes*/}
             <Route path="sitters" element={<Sitters />} />
-            <Route path="login_sitter" element={<FullProfile />} />
+            <Route path=":login" element={<FullProfile />} />
             <Route path="/authentication/register" element={<Registration />} />
             <Route path="/authentication/login" element={<Login />} />
 

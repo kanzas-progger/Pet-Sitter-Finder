@@ -10,4 +10,5 @@ public interface IUsersRepository
     Task<bool> AddAdminRole(Guid userId);
     Task<List<string>> GetRoles(Guid userId);
     Task<bool> CheckLoginExistance(string login);
+    Task<(Guid userId, List<string> roles)> GetUserIdWithRolesByLogin(string login);
 }

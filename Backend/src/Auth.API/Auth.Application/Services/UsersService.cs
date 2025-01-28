@@ -81,4 +81,9 @@ public class UsersService : IUsersService
         
         return jwtToken;
     }
+
+    public async Task<(Guid userId, List<string> roles)> GetUserIdWithRolesByLogin(string login)
+    {
+        return await _usersRepository.GetUserIdWithRolesByLogin(login);
+    }
 }

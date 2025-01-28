@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/authentication/{everything}",
-      "UpstreamHttpMethod": ["POST"],
+      "UpstreamHttpMethod": ["POST","GET"],
       "RateLimitOptions": {
         "ClientWhitelist": [],
         "EnableRateLimiting": true,

@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../Components/Navbar/Navbar'
-import { Box, Paper, Link, Avatar, Typography, Button, ImageList, ImageListItem } from '@mui/material'
+import { Box, Paper, Link, Avatar, Typography, Button, ImageList, ImageListItem, Rating, TextareaAutosize } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
@@ -10,16 +10,40 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { getFullSitterProfile } from '../../api/sitters'
 import useAuth from '../../hooks/useAuth'
 import { useState, useEffect } from 'react'
+import { useParams } from "react-router-dom"
+import { getUserIdWithRoles } from '../../api/authentication';
 
 const FullProfile = () => {
 
+    const { login } = useParams();
+    const [userIdWithRoles, setUserIdWithRoles] = useState([]);
     const { auth, setAuth } = useAuth()
-    const [sitter, setSitter] = useState([])
+    const [sitter, setSitter] = useState([]) //////////////////////// user (sitter or owner)
+    const [value, setValue] = React.useState(1);
+
+    useEffect(() => {
+        const fetchUserIdWithRoles = async () => {
+            try {
+                const response = await getUserIdWithRoles(login)
+                console.log(response.data)
+                if(response.data.roles.length === 0) {
+                    console.log("Пользователя с логином ", login, " не существует") // make logic for page
+                }
+                else {
+                    setUserIdWithRoles({ userId: response.data.userId, roles: response.data.roles })
+                }
+                
+            } catch(e) {
+                console.error("Error of receiving user by login: ", e)
+            }
+        }
+        fetchUserIdWithRoles()
+    }, [login])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getFullSitterProfile()
+                const response = await getFullSitterProfile(userIdWithRoles.userId)
                 setSitter(response.data)
                 console.log(response.data)
             } catch (e) {
@@ -28,7 +52,7 @@ const FullProfile = () => {
         }
 
         fetchData()
-    }, [])
+    }, [userIdWithRoles])
 
     const photos = [
         "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
@@ -39,7 +63,18 @@ const FullProfile = () => {
         "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
         "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
 
-    ];
+    ]
+
+    const animalTranslations = {
+        Dog: "Собаки",
+        Cat: "Кошки",
+        FarmPet: "Фермерские животные",
+        Spider: "Пауки",
+        Reptile: "Рептилии",
+        SmallPet: "Грызуны",
+        Bird: "Птички",
+        Fish: "Рыбки",
+    }
 
     const [openSlider, setOpenSlider] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -102,10 +137,10 @@ const FullProfile = () => {
 
                                 <Typography sx={{ color: '#6b7280', marginTop: '10px' }}>Ситтер, {sitter.age} лет</Typography>
                                 <Typography sx={{ color: '#6b7280' }}>{sitter.country}, {sitter.city}, {sitter.address}</Typography>
-                                {(auth?.role?.includes('Sitter') || auth?.role?.includes('Owner')) ? (
-                                    <>
+                                {auth?.role?.includes('Sitter') || auth?.role?.includes('Owner') ? (
+                                    auth?.userId !== sitter?.sitterId ? (
                                         <Button variant="contained" sx={{ marginTop: '10px' }}>Отправить сообщение</Button>
-                                    </>
+                                    ) : null
                                 ) : (
                                     <>
                                         <Typography sx={{
@@ -138,14 +173,11 @@ const FullProfile = () => {
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Передержка животных</Typography>
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px', padding: '0 10px', marginLeft: '10px' }}>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>Собаки</Typography>
+                            {sitter.animals?.map((animal, index) => (
+                <Typography key={index} sx={{ color: '#6b7280', marginTop: '5px' }}>
+                    {animalTranslations[animal] || animal}
+                </Typography>
+            ))}
                             </Box>
                         </Box>
                     </Paper>
@@ -195,7 +227,7 @@ const FullProfile = () => {
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'center' }}>Мои фото</Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Мои фото</Typography>
 
                         <ImageList
                             cols={3}
@@ -350,7 +382,7 @@ const FullProfile = () => {
                     </Paper>
 
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'center' }}>Обо мне</Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Обо мне</Typography>
                         <Typography sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '16px', textAlign: 'left' }}>
                             Добрый день, меня зовут Лера я очень люблю животных и готова позаботиться о ваших любимцах пока вы занимаетесь делами✨
 
@@ -366,7 +398,59 @@ const FullProfile = () => {
                     </Paper>
 
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'center' }}>Отзывы</Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Отзывы</Typography>
+                        {(auth?.role?.includes('Owner') && auth?.userId !== sitter?.sitterId) &&
+                            <>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px', marginLeft: '83px', marginBottom: '30px' }}>
+
+                                    <Rating
+                                        sx={{ marginBottom: '10px' }}
+                                        name="rate-from-owner"
+                                        value={1}
+                                        onChange={(event, newValue) => {
+                                            setValue(newValue);
+                                        }}
+                                        icon={
+                                            <StarIcon
+                                                sx={{
+                                                    fill: '#FFD700',
+                                                    stroke: '#9B2D20',
+                                                    strokeWidth: 1.5,
+                                                    marginRight: '5px',
+                                                }} />
+                                        }
+                                        emptyIcon={
+                                            <StarIcon
+                                                sx={{
+                                                    fill: 'transparent',
+                                                    stroke: '#6b7280',
+                                                    strokeWidth: 1.5,
+                                                    marginRight: '5px',
+                                                }}
+                                            />
+                                        }
+                                    />
+
+                                    <TextareaAutosize
+                                        id='review'
+                                        minRows={4}
+                                        placeholder="Оставить отзыв ситтеру..."
+                                        style={{
+                                            width: '90%',
+                                            marginTop: '10px',
+                                            fontSize: '16px',
+                                            padding: '8px 15px',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            resize: 'none',
+                                            background: '#e0e0e0'
+                                        }}
+                                    />
+
+                                    <Button variant="contained" sx={{ marginTop: '20px', alignSelf: 'center', alignSelf: 'flex-start' }}>Отправить</Button>
+
+                                </Box>
+                            </>}
 
                         <Box sx={{ marginTop: '20px' }}>
                             <Box sx={{ display: 'flex', gap: '20px' }}>
@@ -376,28 +460,38 @@ const FullProfile = () => {
                                     alt="Н"
                                     sx={{ width: 64, height: 64 }}
                                 />
-                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', width: '100%' }}>
                                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Иван Иванов</Typography>
-                                    <Typography>
-                                        <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, marginRight: '5px' }} />
-                                        <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, marginRight: '5px' }} />
-                                        <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, marginRight: '5px' }} />
-                                        <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, marginRight: '5px' }} />
-                                        <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, marginRight: '5px' }} />
-                                    </Typography>
+                                    <Rating name="review-rating" value={4} readOnly icon={<StarIcon
+                                        sx={{
+                                            fill: '#FFD700',
+                                            stroke: '#9B2D20',
+                                            strokeWidth: 1.5,
+                                            marginRight: '5px',
+                                        }} />}
+                                        emptyIcon={
+                                            <StarIcon
+                                                sx={{
+                                                    fill: 'transparent',
+                                                    stroke: '#6b7280',
+                                                    strokeWidth: 1.5,
+                                                    marginRight: '5px',
+                                                }}
+                                            />
+                                        }
+                                    />
+
                                     <Typography>
                                         Мне кажется моя маленькая капризная Марфа обрела настоящую добрую няню.
                                         С первого дня контакт. Постоянные отчеты. Отличная добрая атмосфера. Очень рекомендую
                                     </Typography>
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>23.04.22</Typography>
-                                        <DeleteIcon sx={{ fill: '#f44336', cursor:'pointer', fontSize: '30px', '&:hover': { fill: '#c9372c' } }} />
+                                        <DeleteIcon sx={{ fill: '#f44336', cursor: 'pointer', fontSize: '30px', '&:hover': { fill: '#c9372c' } }} />
                                     </Box>
                                 </Box>
                             </Box>
                         </Box>
-
-
 
                     </Paper>
                 </Box>

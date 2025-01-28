@@ -89,5 +89,21 @@ public class UsersRepository : IUsersRepository
     {
         return await _context.Users.AsNoTracking().AnyAsync(u => u.Login.ToLower() == login.ToLower());
     }
+
+    public async Task<(Guid userId, List<string> roles)> GetUserIdWithRolesByLogin(string login)
+    {
+        var userId = await _context.Users
+            .Where(u => u.Login.ToLower() == login.ToLower())
+            .Select(u => u.Id)
+            .FirstOrDefaultAsync();
+        
+        if (userId == Guid.Empty)
+            return (Guid.Empty, new List<string>());
+
+        var roles = await GetRoles(userId);
+
+        return (userId, roles);
+
+    }
     
 }

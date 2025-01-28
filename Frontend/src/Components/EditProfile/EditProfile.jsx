@@ -60,23 +60,23 @@ const EditProfile = () => {
   const handleSubmit = async () => {
     try {
 
-      if(auth?.role?.includes('Owner')) {
+      if (auth?.role?.includes('Owner')) {
         const response = await updateOwnerPersonal(profile)
-      if (response?.data) {
-        console.log(response.data)
-      }
-      if (image) {
-        const updateProfileImageResponse = await updateOwnerProfileImage(image.file)
-        if (updateProfileImageResponse?.data) {
-          console.log(updateProfileImageResponse.data)
+        if (response?.data) {
+          console.log(response.data)
         }
-      }
-      if (profile.profileImage === '' && !image) {
-        const deleteProfileImageResponse = await deleteOwnerProfileImage()
-        if (deleteProfileImageResponse?.data) {
-          console.log(deleteProfileImageResponse.data)
+        if (image) {
+          const updateProfileImageResponse = await updateOwnerProfileImage(image.file)
+          if (updateProfileImageResponse?.data) {
+            console.log(updateProfileImageResponse.data)
+          }
         }
-      }
+        if (profile.profileImage === '' && !image) {
+          const deleteProfileImageResponse = await deleteOwnerProfileImage()
+          if (deleteProfileImageResponse?.data) {
+            console.log(deleteProfileImageResponse.data)
+          }
+        }
       }
       else if (auth?.role?.includes('Sitter')) {
         const response = await updateSitterPersonal(profile)
@@ -105,7 +105,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{ backgroundColor:'#D0EFB1',padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+      <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Личная информация</Typography>
         <Divider sx={{ marginTop: '20px' }} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>

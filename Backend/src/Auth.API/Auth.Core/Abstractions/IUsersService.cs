@@ -6,4 +6,5 @@ public interface IUsersService
         string lastname, int age, List<int> animalIds, string role);
 
     Task<string> Login(string login, string password);
+    Task<(Guid userId, List<string> roles)> GetUserIdWithRolesByLogin(string login);
 }

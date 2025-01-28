@@ -1,4 +1,5 @@
 using Auth.API.Contracts.Requests;
+using Auth.API.Contracts.Responses;
 using Auth.Core.Abstractions;
 using Auth.Core.Enums;
 using Auth.Infrastructure.GrpcClients;
@@ -29,14 +30,14 @@ public class AuthenticationController : ControllerBase
         _animalsGrpcClient = animalsGrpcClient;
     }
 
-    [HttpGet("test")]
-    [AllowAnonymous]
-    public async Task<ActionResult<List<string>>> GetAnimals()
-    {
-        var animals = await _animalsGrpcClient.GetListAnimals();
-        var response = animals.Animals.Select(a => a.Name).ToList();
-        return response;
-    }
+    // [HttpGet("test")]
+    // [AllowAnonymous]
+    // public async Task<ActionResult<List<string>>> GetAnimals()
+    // {
+    //     var animals = await _animalsGrpcClient.GetListAnimals();
+    //     var response = animals.Animals.Select(a => a.Name).ToList();
+    //     return response;
+    // }
 
     [HttpPost("register")]
     [AllowAnonymous]
@@ -84,11 +85,22 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost("logout")]
-    [Authorize(Roles = "Admin,Sitter,Owner")]
+    [AllowAnonymous]
     public async Task<ActionResult> Logout()
     {
         Response.Cookies.Delete("coockies");
         return Ok("Logged out");
+    }
+
+    [HttpGet("{login}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<UserIdWithRolesResponse>> GetUserByLogin(string login)
+    {
+        var user = await _usersService.GetUserIdWithRolesByLogin(login);
+        
+        var response = new UserIdWithRolesResponse(user.userId, user.roles);
+
+        return Ok(response);
     }
 
 }
