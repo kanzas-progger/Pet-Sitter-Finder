@@ -27,7 +27,7 @@ const Sitters = () => {
         <>
             {/* <div className="sitters-header-container"> */}
             {/* </div> */}
-            <Navbar />
+            {/* <Navbar /> */}
             {/* <Container maxWidth="lg" sx ={{width:'100%',margin:'0,auto',
                 '&>*':{transform:'scale(var(--scale,1))', 
                 transformOrigin:'center', 

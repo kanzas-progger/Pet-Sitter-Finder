@@ -76,12 +76,41 @@ public class SitterProfilesController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<SitterFullProfileResponse>> GetFullSitterProfile(Guid sitterId)
     {
-        //var sitterId = GetUserIdFromClaim(); // temporary hard core
+        List<string> animalNames = new List<string>();
+        List<SitterReviewResponse> reviewsResponse = new List<SitterReviewResponse>();
+        
         var sitterProfile = await _sitterProfileService.GetProfileById(sitterId);
-        var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(sitterId);
-        var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+
+        try
+        {
+            var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(sitterId);
+            animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error of receiving animals");
+            Console.WriteLine(ex.Message);
+        }
+
+        try
+        {
+            var reviews = await _reviewsGrpcClient.GetReviews(sitterId);
+            reviewsResponse = reviews.Reviews.Select(r => new SitterReviewResponse(
+                Guid.Parse(r.ReviewId), 
+                Guid.Parse(r.SitterId),
+                Guid.Parse(r.SenderId), 
+                r.Stars, 
+                r.Content,
+                r.CreationDate.ToDateTime(), 
+                r.ExpirationToUpdateAndDelete.ToDateTime())).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error of receiving reviews");
+            Console.WriteLine(ex.Message);
+        }
+        
         var sitterProfilePhotos = await _sitterProfileService.GetAllProfilePhotos(sitterId);
-        //
         
         string profileImagePath = string.Empty;
         if (!string.IsNullOrEmpty(sitterProfile.ProfileImagePath))
@@ -120,7 +149,8 @@ public class SitterProfilesController : ControllerBase
             sitterProfile.About,
             sitterProfile.PricePerDay,
             profilePhotos,
-            animalNames
+            animalNames,
+            reviewsResponse
             );
         
         return Ok(response);
@@ -130,17 +160,27 @@ public class SitterProfilesController : ControllerBase
     [Authorize(Roles = "Sitter")]
     public async Task<ActionResult<EditSitterProfileById>> GetEditSitterProfileById()
     {
+        List<string> animalNames = new List<string>();
         var sitterId = GetUserIdFromClaim();
         var sitterProfile = await _sitterProfileService.GetProfileById(sitterId);
-        var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(sitterId);
-        var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
         var sitterProfilePhotos = await _sitterProfileService.GetAllProfilePhotos(sitterId);
-
+        
         string profileImagePath = string.Empty;
         if (!string.IsNullOrEmpty(sitterProfile.ProfileImagePath))
         {
             string profileImage = Path.GetFileName(sitterProfile.ProfileImagePath);
             profileImagePath = $"/uploads/img/{profileImage}";
+        }
+
+        try
+        {
+            var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(sitterId);
+            animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error of receiving animals");
+            Console.WriteLine(ex.Message);
         }
 
         // List<string> profilePhotos = new List<string>();

@@ -7,11 +7,14 @@ import { Avatar, Box, Badge, Tooltip, Link, Button, Container, IconButton, Menu,
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { getShortOwnerProfile } from "../../api/owners";
+import { useState, useEffect } from "react";
 const Navbar = () => {
 
     const { auth, setAuth } = useAuth()
+    const [shortOwnerProfile, setShortOwnerProfile] = useState([])
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
     const handleClick = (event) => {
@@ -34,7 +37,20 @@ const Navbar = () => {
             // full owner    ownerohowner   stringgg
 
             handleClose(); 
-    };
+    }
+
+    useEffect(() => {
+            const fetchShortOwnerProfile = async () => {
+                try {
+                    const response = await getShortOwnerProfile(auth?.userId)
+                    setShortOwnerProfile(response.data)
+                    console.log("dfsssssssssssssss", response.data)
+                } catch (e) {
+                    console.error("Error of receiving short owner profile: ", e)
+                }
+            }
+            fetchShortOwnerProfile()
+        }, [auth?.userId])
 
     const linkStyle = {
         fontSize: '18px',
@@ -128,7 +144,7 @@ const Navbar = () => {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar src="https://example.com/your-image-url.jpg" sx={{ width: 32, height: 32 }}>Н</Avatar>
+                                    <Avatar src="" sx={{ width: 32, height: 32 }}>Н</Avatar>
                                 </IconButton>
                             </Tooltip>
                             {/* </Box> */}

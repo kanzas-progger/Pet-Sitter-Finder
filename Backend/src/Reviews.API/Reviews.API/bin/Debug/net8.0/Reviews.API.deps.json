@@ -808,7 +808,8 @@
           "Microsoft.AspNetCore.Grpc.JsonTranscoding": "8.0.11",
           "Microsoft.EntityFrameworkCore": "8.0.11",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.11",
-          "Reviews.Core": "1.0.0"
+          "Reviews.Core": "1.0.0",
+          "SharedLibrary": "1.0.0"
         },
         "runtime": {
           "Reviews.Infrastructure.dll": {}

@@ -24,7 +24,7 @@ public class CreateUserProfileBackground : BackgroundService
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while starting consumer: " + ex.Message);
+                Console.WriteLine("Error while starting createUserProfile consumer: " + ex.Message);
                 await Task.Delay(5000, stoppingToken);
             }
         }

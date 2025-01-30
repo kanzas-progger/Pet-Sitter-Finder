@@ -16,3 +16,5 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Application/obj/Debug/net8.0/refint/Reviews.Application.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Application/obj/Debug/net8.0/Reviews.Application.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Application/obj/Debug/net8.0/ref/Reviews.Application.dll
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Application/bin/Debug/net8.0/SharedLibrary.dll
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Application/bin/Debug/net8.0/SharedLibrary.pdb

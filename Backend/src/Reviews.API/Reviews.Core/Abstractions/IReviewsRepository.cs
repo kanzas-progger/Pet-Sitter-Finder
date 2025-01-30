@@ -10,4 +10,5 @@ public interface IReviewsRepository
     Task<Guid> Delete(Guid reviewId);
     Task<Guid> Update(Review review);
     Task<bool> Exists(Guid sitterId, Guid senderId);
+    Task<(decimal totalRating, int rateCount)> GetTotalRatingAndRateCount(Guid sitterId);
 }

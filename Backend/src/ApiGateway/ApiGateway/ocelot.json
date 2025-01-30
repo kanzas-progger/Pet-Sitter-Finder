@@ -21,6 +21,20 @@
     },
 
     {
+      "DownstreamPathTemplate": "/api/authentication/user/{login}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+
+      "UpstreamPathTemplate": "/authentication/user/{login}",
+      "UpstreamHttpMethod": ["GET"]
+    },
+
+    {
       "DownstreamPathTemplate": "/api/sitters",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -40,6 +54,20 @@
     },
 
     {
+      "DownstreamPathTemplate": "/api/sitters/{sitterId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+
+      "UpstreamPathTemplate": "/api/sitters/{sitterId}",
+      "UpstreamHttpMethod": ["GET"]
+    },
+
+    {
       "DownstreamPathTemplate": "/api/sitters/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -55,6 +83,20 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
+    },
+    
+    {
+      "DownstreamPathTemplate": "/api/owners/anonymous/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+
+      "UpstreamPathTemplate": "/api/owners/anonymous/{everything}",
+      "UpstreamHttpMethod": ["GET"]
     },
     
     {
@@ -105,7 +147,26 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/reviews/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+
+      "UpstreamPathTemplate": "/api/reviews/{everything}",
+      "UpstreamHttpMethod": ["GET","POST", "PUT", "DELETE"],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
+    
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:5000",

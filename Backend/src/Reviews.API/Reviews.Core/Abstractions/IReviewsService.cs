@@ -10,4 +10,5 @@ public interface IReviewsService
     Task<Guid> Update(Guid reviewId, Guid senderId, int stars, string content);
     Task<Guid> Delete(Guid reviewId);
     Task<bool> IsReviewExistsForSitter(Guid sitterId, Guid senderId);
+    Task UpdateSitterRating(Guid sitterId);
 }

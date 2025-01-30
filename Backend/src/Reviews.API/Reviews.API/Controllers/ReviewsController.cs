@@ -7,7 +7,7 @@ namespace Reviews.API.Controllers;
 
 [ApiController]
 [Route("api/reviews")]
-[Authorize(Roles="Admin,Sitter,Owner")]
+[Authorize]
 public class ReviewsController : ControllerBase
 {
     private readonly IReviewsService _reviewsService;
@@ -16,17 +16,21 @@ public class ReviewsController : ControllerBase
     {
         _reviewsService = reviewsService;
     }
-
-    [HttpPost("api/reviews/create")]
+    
+    [HttpPost("create")]
+    [Authorize(Roles = "Owner, Admin")]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateReviewRequest request)
     {
         var response = await _reviewsService.Create(request.sitterId, request.senderId,
             request.stars, request.content);
+
+        await _reviewsService.UpdateSitterRating(request.sitterId);
         
         return Ok(response);
     }
 
-    [HttpPut("api/reviews/update")]
+    [HttpPut("update")]
+    [Authorize(Roles = "Owner, Admin")]
     public async Task<ActionResult<Guid>> Update([FromBody] UpdateReviewRequest request)
     {
         var senderId = GetUserIdFromClaim();
@@ -37,10 +41,13 @@ public class ReviewsController : ControllerBase
         return Ok(response);
     }
 
-    [HttpDelete("api/reviews/delete/{reviewId:guid}")]
-    public async Task<ActionResult<Guid>> Delete(Guid reviewId)
+    [HttpDelete("delete")]
+    [Authorize(Roles = "Owner, Admin, Sitter")]
+    public async Task<ActionResult<Guid>> Delete([FromBody] DeleteReviewRequest request)
     {
-        var response = await _reviewsService.Delete(reviewId);
+        var response = await _reviewsService.Delete(request.reviewId);
+        await _reviewsService.UpdateSitterRating(request.sitterId);
+        
         return Ok(response);
     }
     

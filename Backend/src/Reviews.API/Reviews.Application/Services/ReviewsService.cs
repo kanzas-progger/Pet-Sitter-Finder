@@ -1,16 +1,20 @@
 using System.ComponentModel.DataAnnotations;
 using Reviews.Core.Abstractions;
 using Reviews.Core.Models;
+using SharedLibrary.RabbitMQ.DTOs;
 
 namespace Reviews.Application.Services;
 
 public class ReviewsService : IReviewsService
 {
     private readonly IReviewsRepository _reviewsRepository;
+    private readonly ISitterUpdateRatingPublisher _sitterUpdateRatingPublisher;
 
-    public ReviewsService(IReviewsRepository reviewsRepository)
+    public ReviewsService(IReviewsRepository reviewsRepository,
+        ISitterUpdateRatingPublisher sitterUpdateRatingPublisher)
     {
         _reviewsRepository = reviewsRepository;
+        _sitterUpdateRatingPublisher = sitterUpdateRatingPublisher;
     }
 
     public async Task<List<Review>> GetAllReviewsForSitter(Guid sitterId)
@@ -60,9 +64,9 @@ public class ReviewsService : IReviewsService
 
     public async Task<Guid> Delete(Guid reviewId)
     {
-        var existingReview = await _reviewsRepository.GetById(reviewId);
-        if (existingReview.ExpirationToUpdateAndDelete < DateTime.UtcNow)
-            throw new ValidationException("This review can no longer be deleted");
+        // var existingReview = await _reviewsRepository.GetById(reviewId);
+        // if (existingReview.ExpirationToUpdateAndDelete < DateTime.UtcNow)
+        //     throw new ValidationException("This review can no longer be deleted");
         
         return await _reviewsRepository.Delete(reviewId);
     }
@@ -70,6 +74,13 @@ public class ReviewsService : IReviewsService
     public async Task<bool> IsReviewExistsForSitter(Guid sitterId, Guid senderId)
     {
         return await _reviewsRepository.Exists(sitterId, senderId);
+    }
+
+    public async Task UpdateSitterRating(Guid sitterId)
+    {
+        var (rating, rateCount) = await _reviewsRepository.GetTotalRatingAndRateCount(sitterId);
+        UpdateSitterRatingDTO updateSitterRatingDto = new UpdateSitterRatingDTO(sitterId, rating, rateCount);
+        await _sitterUpdateRatingPublisher.SendMessage(updateSitterRatingDto);
     }
     
     

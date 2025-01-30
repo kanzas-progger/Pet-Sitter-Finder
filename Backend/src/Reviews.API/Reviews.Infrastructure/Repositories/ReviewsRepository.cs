@@ -25,6 +25,20 @@ public class ReviewsRepository : IReviewsRepository
         
         return reviews;
     }
+    
+    public async Task<(decimal totalRating, int rateCount)> GetTotalRatingAndRateCount(Guid sitterId)
+    {
+        var totalStars = await _context.Reviews.Where(r => r.SitterId == sitterId)
+            .SumAsync(r => r.Stars);
+        var rateCount = await _context.Reviews.CountAsync(r => r.SitterId == sitterId);
+
+        decimal totalRating = 0;
+        
+        if (rateCount != 0)
+            totalRating = Math.Round((decimal)totalStars / rateCount, 2);
+
+        return (totalRating, rateCount);
+    }
 
     public async Task<Review> GetById(Guid senderId)
     {

@@ -5,10 +5,12 @@ using Reviews.Application.Services;
 using Reviews.Core.Abstractions;
 using Reviews.Infrastructure;
 using Reviews.Infrastructure.GrpcServices;
+using Reviews.Infrastructure.Publishers;
 using Reviews.Infrastructure.Repositories;
 using SharedLibrary.Configurations;
 using SharedLibrary.DependencyInjection;
 using SharedLibrary.Middlewares;
+using SharedLibrary.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,12 +30,16 @@ services.AddDbContext<ReviewsDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("ReviewsDbConnection"));
 });
 
+services.AddSingleton<IRabbitMQService, RabbitMQService>();
+
 services.AddScoped<IReviewsRepository, ReviewsRepository>();
 services.AddScoped<IReviewsService, ReviewsService>();
 
+services.AddScoped<ISitterUpdateRatingPublisher, SitterUpdateRatingPublisher>();
+
 var app = builder.Build();
 
-app.UseMiddleware<ListenToOnlyApiGateway>();
+//app.UseMiddleware<ListenToOnlyApiGateway>();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {

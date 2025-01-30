@@ -13,6 +13,7 @@ import { ProfileProvider } from './context/ProfileProvider'
 import AnimalProfiles from './Pages/AnimalProfiles/AnimalProfiles'
 import FullProfile from './Pages/FullProfile/FullProfile'
 import PhotoGallery from './Pages/PhotoGallery/PhotoGallery'
+import NavbarLayout from './Components/Layout/NavbarLayout'
 
 const theme = createTheme({
   palette: {
@@ -45,30 +46,40 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/sitters" replace />} />
-            {/* public routes*/}
-            <Route path="sitters" element={<Sitters />} />
-            <Route path=":login" element={<FullProfile />} />
-            <Route path="/authentication/register" element={<Registration />} />
-            <Route path="/authentication/login" element={<Login />} />
+            <Route element={<NavbarLayout />}>
+              <Route index element={<Navigate to="/sitters" replace />} />
+              {/* public routes*/}
 
-            {/* protected routes*/}
-            <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
-              <Route path="profile" element=
-                {<ProfileProvider>
-                  <Outlet />
-                </ProfileProvider>}>
-                <Route index element={<Navigate to="/profile/personal/edit" replace />} />
-                <Route path="personal/edit" element={<Personal />}></Route>
-                <Route path="contact/edit" element={<Contact />}></Route>
-                <Route path="animals/edit" element={<Animals />}></Route>
-                <Route path="animals/profiles" element={<AnimalProfiles />}></Route>
-                <Route path="photos/edit" element={<PhotoGallery />}></Route>
+              <Route path="sitters" element={<Sitters />} />
+              <Route path=":login" element={<FullProfile />} />
+
+
+              {/* protected routes*/}
+              <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
+                <Route path="profile" element=
+                  {<ProfileProvider>
+                    <Outlet />
+                  </ProfileProvider>}>
+                  <Route index element={<Navigate to="/profile/personal/edit" replace />} />
+                  <Route path="personal/edit" element={<Personal />}></Route>
+                  <Route path="contact/edit" element={<Contact />}></Route>
+                  <Route path="animals/edit" element={<Animals />}></Route>
+                  <Route path="animals/profiles" element={<AnimalProfiles />}></Route>
+                  <Route path="photos/edit" element={<PhotoGallery />}></Route>
+                </Route>
               </Route>
+              {/* Sitter protected routes */}
+              
             </Route>
-            {/* Sitter protected routes */}
 
+            {/* public auth routes without Navbar*/}
+            <Route path="authentication">
+              <Route path="register" element={<Registration />} />
+              <Route path="login" element={<Login />} />
+            </Route>
           </Route>
+
+
         </Routes>
       </ThemeProvider>
     </>

@@ -113,12 +113,23 @@ public class OwnerProfilesController : ControllerBase
     [Authorize(Roles = "Owner")]
     public async Task<ActionResult<OwnerProfileByIdResponse>> GetOwnerProfileById()
     {
+        List<string> animalNames = new List<string>();
+        
         var ownerId = GetUserIdFromClaim();
         var ownerProfile = await _ownerProfilesService.GetOwnerProfileById(ownerId);
         var ownerProfilePhotos = await _ownerProfilesService.GetAllOwnerProfilePhotos(ownerId);
+
+        try
+        {
+            var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(ownerId);
+            animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error of receiving owner animals");
+            Console.WriteLine(ex.Message);
+        }
         
-        var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(ownerId);
-        var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
 
         string profileImagePath = string.Empty;
         if (!string.IsNullOrEmpty(ownerProfile.ProfileImagePath))
@@ -143,6 +154,79 @@ public class OwnerProfilesController : ControllerBase
             ownerProfile.About, 
             ownerProfilePhotos,
             animalNames);
+        
+        return Ok(response);
+    }
+    
+    //[HttpGet("{ownerId:guid}")]
+    //[Authorize(Roles="Owner,Sitter,Admin")]
+    [HttpGet("anonymous/profile/full/{ownerId:guid}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<OwnerProfileByIdResponse>> GetFullOwnerProfile(Guid ownerId)
+    {
+        List<string> animalNames = new List<string>();
+        
+        var ownerProfile = await _ownerProfilesService.GetOwnerProfileById(ownerId);
+        var ownerProfilePhotos = await _ownerProfilesService.GetAllOwnerProfilePhotos(ownerId);
+
+        try
+        {
+            var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(ownerId);
+            animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error of receiving owner animals");
+            Console.WriteLine(ex.Message);
+        }
+        
+
+        string profileImagePath = string.Empty;
+        if (!string.IsNullOrEmpty(ownerProfile.ProfileImagePath))
+        {
+            string profileImage = Path.GetFileName(ownerProfile.ProfileImagePath);
+            profileImagePath = $"/uploads/img/{profileImage}";
+        }
+        
+        var response = new OwnerProfileByIdResponse(
+            ownerProfile.Id, 
+            ownerProfile.Login, 
+            ownerProfile.Firstname, 
+            ownerProfile.Lastname,
+            ownerProfile.Fathername,
+            ownerProfile.Age, 
+            profileImagePath, 
+            ownerProfile.Email, 
+            ownerProfile.PhoneNumber,
+            ownerProfile.Country, 
+            ownerProfile.City, 
+            ownerProfile.Address, 
+            ownerProfile.About, 
+            ownerProfilePhotos,
+            animalNames);
+        
+        return Ok(response);
+    }
+
+    [HttpGet("anonymous/profile/short/{ownerId:guid}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ShortOwnerProfileResponse>> GetShortOwnerProfile(Guid ownerId)
+    {
+        string profileImagePath = string.Empty;
+        var ownerProfile = await _ownerProfilesService.GetOwnerProfileById(ownerId);
+        
+        if (!string.IsNullOrEmpty(ownerProfile.ProfileImagePath))
+        {
+            string profileImage = Path.GetFileName(ownerProfile.ProfileImagePath);
+            profileImagePath = $"/uploads/img/{profileImage}";
+        }
+
+        var response = new ShortOwnerProfileResponse(
+            ownerId,
+            ownerProfile.Firstname,
+            ownerProfile.Lastname,
+            ownerProfile.Login,
+            profileImagePath);
         
         return Ok(response);
     }

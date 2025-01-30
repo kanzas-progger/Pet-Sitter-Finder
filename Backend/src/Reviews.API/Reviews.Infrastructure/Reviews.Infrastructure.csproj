@@ -27,6 +27,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\..\PetSitterFinder.SharedLibrary\SharedLibrary\SharedLibrary.csproj" />
       <ProjectReference Include="..\Reviews.Core\Reviews.Core.csproj" />
     </ItemGroup>
     

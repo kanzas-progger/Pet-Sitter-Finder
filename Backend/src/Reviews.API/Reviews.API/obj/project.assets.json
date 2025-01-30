@@ -1306,7 +1306,8 @@
           "Microsoft.AspNetCore.Grpc.JsonTranscoding": "8.0.11",
           "Microsoft.EntityFrameworkCore": "8.0.11",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.11",
-          "Reviews.Core": "1.0.0"
+          "Reviews.Core": "1.0.0",
+          "SharedLibrary": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Reviews.Infrastructure.dll": {}
@@ -3626,7 +3627,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.111/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.112/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -14,4 +14,6 @@ public interface ISitterProfilesRepository
     Task<Guid> UpdateProfile(SitterProfile profile);
     Task<string> GetProfileImageUrl(Guid sitterId);
     Task DeleteProfilePhoto(Guid sitterId, string photoUrl);
+
+    Task UpdateRating(Guid sitterId, decimal rating, int rateCount);
 }

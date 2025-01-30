@@ -85,7 +85,7 @@ export const deleteSitterProfilePhoto = async (photoUrl) => {
     try {
         const response = await axios.delete("https://localhost:5000/api/sitters/profile/delete/photo", 
         {
-            data: { photoUrl }, // Указываем тело запроса
+            data: { photoUrl },
             withCredentials: true,
         });
         return response

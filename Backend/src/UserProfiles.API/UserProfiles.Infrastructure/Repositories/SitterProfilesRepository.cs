@@ -154,4 +154,12 @@ public class SitterProfilesRepository : ISitterProfilesRepository
         
         return profile.Id;
     }
+
+    public async Task UpdateRating(Guid sitterId, decimal rating, int rateCount)
+    {
+        await _userProfilesDbContext.SitterProfiles.Where(s => s.SitterId == sitterId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(s => s.Rating, rating)
+                .SetProperty(s => s.RateCount, rateCount));
+    }
 }

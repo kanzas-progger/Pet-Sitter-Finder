@@ -79,7 +79,7 @@ const ProfileMenu = () => {
       }}>
         <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Link href="#" underline="none">
+            <Link href={`https://localhost:5173/${profile.login}`} underline="none">
               <Avatar
 
                 src={`https://localhost:5000${profile.profileImage}`}
@@ -88,7 +88,7 @@ const ProfileMenu = () => {
               />
             </Link>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Link href={`https://localhost:5000/${profile.login}`} underline="none" sx={{
+              <Link href={`https://localhost:5173/${profile.login}`} underline="none" sx={{
                 fontWeight: 'bold', fontSize: '18px', color: 'black', '&:hover': {
                   textDecoration: 'underline',
                   textDecorationColor: 'inherit',

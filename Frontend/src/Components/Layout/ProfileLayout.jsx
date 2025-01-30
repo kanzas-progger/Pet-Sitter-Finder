@@ -6,7 +6,7 @@ import { Box } from '@mui/material'
 const ProfileLayout = ({ children }) => {
   return (
     <>
-    <Navbar />
+    {/* <Navbar /> */}
     <Box sx={{
         padding: '20px 10%',
         display: 'flex',

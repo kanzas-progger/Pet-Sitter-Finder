@@ -92,7 +92,7 @@ public class AuthenticationController : ControllerBase
         return Ok("Logged out");
     }
 
-    [HttpGet("{login}")]
+    [HttpGet("user/{login}")]
     [AllowAnonymous]
     public async Task<ActionResult<UserIdWithRolesResponse>> GetUserByLogin(string login)
     {

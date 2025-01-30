@@ -1,6 +1,9 @@
 import React from 'react'
 import Navbar from '../../Components/Navbar/Navbar'
-import { Box, Paper, Link, Avatar, Typography, Button, ImageList, ImageListItem, Rating, TextareaAutosize } from '@mui/material'
+import {
+    Box, Paper, Link, Avatar, Typography, Button, IconButton,
+    ImageList, ImageListItem, Rating, TextareaAutosize, CircularProgress, Dialog, DialogContent
+} from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
@@ -12,28 +15,46 @@ import useAuth from '../../hooks/useAuth'
 import { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import { getUserIdWithRoles } from '../../api/authentication';
+import { createReview, deleteReview } from '../../api/reviews';
+import Review from '../../Components/Review/Review';
+import { useNavigate } from 'react-router-dom';
+import { getFullOwnerProfile } from '../../api/owners';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import CloseIcon from '@mui/icons-material/Close';
 
 const FullProfile = () => {
 
     const { login } = useParams();
-    const [userIdWithRoles, setUserIdWithRoles] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [userIdWithRoles, setUserIdWithRoles] = useState(null);
     const { auth, setAuth } = useAuth()
-    const [sitter, setSitter] = useState([]) //////////////////////// user (sitter or owner)
-    const [value, setValue] = React.useState(1);
+    const [profile, setProfile] = useState(null)
+    const [starsValue, setStarsValue] = React.useState(1);
+    const [reviewFormData, setReviewFormData] = useState({
+        sitterId: '',
+        senderId: '',
+        stars: '',
+        content: ''
+    })
+    const navigate = useNavigate()
+    const [open, setOpen] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         const fetchUserIdWithRoles = async () => {
             try {
                 const response = await getUserIdWithRoles(login)
                 console.log(response.data)
-                if(response.data.roles.length === 0) {
+                if (response.data.roles.length === 0) {
                     console.log("Пользователя с логином ", login, " не существует") // make logic for page
                 }
                 else {
                     setUserIdWithRoles({ userId: response.data.userId, roles: response.data.roles })
                 }
-                
-            } catch(e) {
+
+            } catch (e) {
                 console.error("Error of receiving user by login: ", e)
             }
         }
@@ -41,18 +62,94 @@ const FullProfile = () => {
     }, [login])
 
     useEffect(() => {
+        if (!userIdWithRoles?.userId) return
+
         const fetchData = async () => {
+            setIsLoading(true);
             try {
-                const response = await getFullSitterProfile(userIdWithRoles.userId)
-                setSitter(response.data)
-                console.log(response.data)
+                if (userIdWithRoles.roles.includes('Sitter')) {
+                    const response = await getFullSitterProfile(userIdWithRoles.userId)
+                    setProfile(response.data)
+                    console.log(response.data)
+                }
+                else if (userIdWithRoles.roles.includes('Owner')) {
+                    const response = await getFullOwnerProfile(userIdWithRoles.userId)
+                    setProfile(response.data)
+                    console.log(response.data)
+                }
+                else {
+                    console.log('Another role')
+                }
+
             } catch (e) {
-                console.error("Error of receiving sitters: ", e)
+                console.error("Error of receiving profile: ", e)
+            } finally {
+                setIsLoading(false);
             }
         }
 
         fetchData()
     }, [userIdWithRoles])
+
+    const handleReviewContentChange = (e) => {
+        const { id, value } = e.target;
+        setReviewFormData((prevData) => ({ ...prevData, [id]: value }));
+    }
+
+    const handleCreateReview = async () => {
+        const dataToSend = {
+            ...reviewFormData,
+            sitterId: `${profile?.sitterId}`,
+            senderId: `${auth?.userId}`,
+            stars: parseInt(starsValue, 10),
+        }
+        console.log("Review data is ", dataToSend);
+        try {
+            const response = await createReview(dataToSend)
+            console.log(response.data)
+        } catch (e) {
+            console.error(e)
+        }
+        navigate(0)
+    }
+
+    const handleDeleteReview = async ({ sitterId, reviewId }) => {
+
+        const dataToSend = { sitterId, reviewId }
+        try {
+            await deleteReview(dataToSend)
+            setProfile((prevState) => ({
+                ...prevState,
+                reviews: prevState.reviews.filter(review => review.reviewId !== reviewId),
+            }));
+        } catch (e) {
+            console.error("Error of deleting review ", e)
+        }
+        //navigate(0)
+    }
+
+    const navigateToProfilePersonal = () => {
+        navigate('/profile/personal/edit')
+    }
+
+
+
+    const handleOpenSlider = (index) => {
+        setCurrentIndex(index);
+        setOpen(true);
+    }
+
+    const handleCloseSlider = () => {
+        setOpen(false);
+    }
+
+    const handlePrev = () => {
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? photos.length - 1 : prevIndex - 1))
+    }
+
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex === photos.length - 1 ? 0 : prevIndex + 1))
+    }
 
     const photos = [
         "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
@@ -76,31 +173,26 @@ const FullProfile = () => {
         Fish: "Рыбки",
     }
 
-    const [openSlider, setOpenSlider] = useState(false);
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    const handleOpenSlider = (index) => {
-        setCurrentIndex(index);
-        setOpenSlider(true);
-    };
-
-    const handleCloseSlider = () => {
-        setOpenSlider(false);
-    };
-
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
-    };
-
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? photos.length - 1 : prevIndex - 1
+    if (isLoading) {
+        return (
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    backgroundColor: '#b3d89c',
+                }}
+            >
+                <CircularProgress />
+                <Typography sx={{ marginLeft: '20px', fontSize: '18px' }}>Идет загрузка...</Typography>
+            </Box>
         );
-    };
+    }
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Box sx={{
                 padding: '20px 10%',
                 display: 'flex',
@@ -117,28 +209,36 @@ const FullProfile = () => {
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
                         <Box sx={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <Link href="#" underline="none">
+                                <Link href={`https://localhost:5173/${profile?.login}`} underline="none">
                                     <Avatar
 
-                                        src={`https://localhost:5000${sitter.profileImage}`}
+                                        src={`https://localhost:5000${profile?.profileImage}`}
                                         alt="Н"
                                         sx={{ width: 128, height: 128 }}
                                     />
                                 </Link>
                             </Box>
                             <Box sx={{ padding: '0 20px', display: 'flex', flexDirection: 'column', marginTop: '10px' }}>
-                                <Link href={`https://localhost:5000/${sitter.login}`} underline="none" sx={{
+                                <Link href={`https://localhost:5173/${profile?.login}`} underline="none" sx={{
                                     fontWeight: 'bold', fontSize: '25px', color: 'black', '&:hover': {
                                         textDecoration: 'underline',
                                         textDecorationColor: 'inherit',
                                     },
-                                }}>{sitter.firstname} {sitter.lastname}</Link>
+                                }}>{profile?.firstname} {profile?.lastname}</Link>
 
+                                {(userIdWithRoles?.roles?.includes('Sitter')) ? (
+                                    <>
+                                        <Typography sx={{ color: '#6b7280', marginTop: '10px' }}>Ситтер, {profile?.age} лет</Typography>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Typography sx={{ color: '#6b7280', marginTop: '10px' }}>Владелец животного, {profile?.age} лет</Typography>
+                                    </>
+                                )}
 
-                                <Typography sx={{ color: '#6b7280', marginTop: '10px' }}>Ситтер, {sitter.age} лет</Typography>
-                                <Typography sx={{ color: '#6b7280' }}>{sitter.country}, {sitter.city}, {sitter.address}</Typography>
+                                <Typography sx={{ color: '#6b7280' }}>{profile?.country}, {profile?.city}, {profile?.address}</Typography>
                                 {auth?.role?.includes('Sitter') || auth?.role?.includes('Owner') ? (
-                                    auth?.userId !== sitter?.sitterId ? (
+                                    (auth?.userId !== userIdWithRoles.userId) ? (
                                         <Button variant="contained" sx={{ marginTop: '10px' }}>Отправить сообщение</Button>
                                     ) : null
                                 ) : (
@@ -171,329 +271,380 @@ const FullProfile = () => {
 
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Передержка животных</Typography>
+                            {(userIdWithRoles?.roles?.includes('Sitter')) ? (
+                                <>
+                                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Передержка животных</Typography>
+                                </>
+                            ) : (
+                                <>
+                                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Мои животные</Typography>
+                                </>
+                            )
+                            }
+
+
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px', padding: '0 10px', marginLeft: '10px' }}>
-                            {sitter.animals?.map((animal, index) => (
-                <Typography key={index} sx={{ color: '#6b7280', marginTop: '5px' }}>
-                    {animalTranslations[animal] || animal}
-                </Typography>
-            ))}
-                            </Box>
-                        </Box>
-                    </Paper>
-
-                    <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Средний рейтинг</Typography>
-                            <Box sx={{ display: 'flex', gap: '10px', marginTop: '10px', marginLeft: '8px' }}>
-
-
-                                <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, fontSize: '40px', marginLeft: '10px' }} />
-                                <Typography sx={{ fontSize: '25px', fontWeight: 'bold', marginTop: '5px' }}>4.68</Typography>
-                                <Typography sx={{ color: '#6b7280', marginTop: '13px' }}>Количество отзывов: {sitter.rateCount}</Typography>
-                            </Box>
-                        </Box>
-                    </Paper>
-
-                    <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', padding: '0 20px' }}>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Контакты</Typography>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '15px', gap: '10px', marginLeft: '1px' }}>
-                                <Box sx={{ display: 'flex', gap: '10px' }}>
-                                    <PhoneRoundedIcon sx={{
-                                        color: 'white',
-                                        backgroundColor: '#4D7298',
-                                        borderRadius: '50%',
-                                        fontSize: '30px',
-                                        padding: '6px'
-                                    }} />
-                                    <Typography sx={{ marginTop: '2px' }}>{sitter.phoneNumber}</Typography>
-                                </Box>
-
-                                <Box sx={{ display: 'flex', gap: '10px' }}>
-                                    <EmailRoundedIcon sx={{
-                                        color: 'white',
-                                        backgroundColor: '#4D7298',
-                                        borderRadius: '50%',
-                                        fontSize: '30px',
-                                        padding: '6px'
-                                    }} />
-                                    <Typography sx={{ marginTop: '2px' }}>{sitter.email}</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Paper>
-                </Box>
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Мои фото</Typography>
-
-                        <ImageList
-                            cols={3}
-                            gap={8}
-                            sx={{
-                                marginTop: '20px',
-                                maxWidth: '100%',
-                                height: 'auto',
-                            }}
-                        >
-                            {photos.map((photo, index) => (
-                                photos.length > 6 && index === 5 ? (
-                                    <ImageListItem
-                                        key={index}
-                                        cols={1}
-                                        rows={1}
-                                        sx={{
-                                            aspectRatio: '1 / 1',
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                width: '100%',
-                                                height: '100%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                backgroundColor: '#4D7298',
-                                                borderRadius: 4,
-                                                '&:hover': {
-                                                    backgroundColor: '#3B5A75',
-                                                },
-                                            }}
-                                        >
-                                            <CameraAltIcon sx={{ fontSize: 40, color: 'white' }} />
-                                            <Typography
-                                                sx={{
-                                                    marginLeft: 1,
-                                                    fontWeight: 'bold',
-                                                    fontSize: '16px',
-                                                    color: 'white',
-                                                }}
-                                            >
-                                                {photos.length} фото
-                                            </Typography>
-                                        </Box>
-                                    </ImageListItem>
-                                ) : index < 6 ? (
-                                    <ImageListItem
-                                        key={index}
-                                        cols={1}
-                                        rows={1}
-                                        sx={{
-                                            position: 'relative',
-                                            borderRadius: 4,
-                                            overflow: 'hidden',
-                                            aspectRatio: '1 / 1', // Квадратное соотношение сторон
-                                            '&:hover': {
-                                                '& img': {
-                                                    filter: 'brightness(70%)',
-                                                },
-                                                '& .hover-overlay': {
-                                                    opacity: 0.8,
-                                                },
-                                                '& .visibility-icon': {
-                                                    opacity: 1,
-                                                },
-                                            },
-                                        }}
-                                        onClick={() => handleOpenSlider(index)}
-                                    >
-                                        <img
-                                            src={photo}
-                                            alt={`Фото ${index + 1}`}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                transition: 'filter 0.2s ease',
-                                            }}
-                                        />
-                                        {/* Overlay for background color */}
-                                        <Box
-                                            className="hover-overlay"
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                width: '100%',
-                                                height: '100%',
-                                                backgroundColor: '#3B5A75',
-                                                opacity: 0,
-                                                transition: 'opacity 0.2s ease',
-                                            }}
-                                        />
-                                        {/* Visibility Icon */}
-                                        <Box
-                                            className="visibility-icon"
-                                            sx={{
-                                                position: 'absolute',
-                                                top: '50%',
-                                                left: '50%',
-                                                transform: 'translate(-50%, -50%)',
-                                                opacity: 0,
-                                                transition: 'opacity 0.2s ease',
-                                                color: 'white',
-                                            }}
-                                        >
-
-                                            <VisibilityIcon sx={{ fontSize: 40 }} />
-                                        </Box>
-                                    </ImageListItem>
-                                ) : null
-                            ))}
-                        </ImageList>
-
-                        {/* <Dialog open={openSlider} onClose={handleCloseSlider} maxWidth="lg">
-        <DialogContent sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          <IconButton
-            onClick={handlePrev}
-            sx={{ position: 'absolute', left: 0, zIndex: 10 }}
-          >
-            <ArrowBack />
-          </IconButton>
-          <img
-            src={photos[currentIndex]}
-            alt={`Фото ${currentIndex + 1}`}
-            style={{ maxHeight: '80vh', maxWidth: '100%' }}
-          />
-          <IconButton
-            onClick={handleNext}
-            sx={{ position: 'absolute', right: 0, zIndex: 10 }}
-          >
-            <ArrowForward />
-          </IconButton>
-          <IconButton
-            onClick={handleCloseSlider}
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              zIndex: 20,
-              backgroundColor: 'white',
-              '&:hover': { backgroundColor: '#f0f0f0' },
-            }}
-          >
-            <Close />
-          </IconButton>
-        </DialogContent>
-      </Dialog> */}
-
-                    </Paper>
-
-                    <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Обо мне</Typography>
-                        <Typography sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '16px', textAlign: 'left' }}>
-                            Добрый день, меня зовут Лера я очень люблю животных и готова позаботиться о ваших любимцах пока вы занимаетесь делами✨
-
-                            Мой опыт:
-                            -Жила в большой семье где всегда были питомцы
-                            -Увлекаюсь дрессировкой исключительно на позитивном подкреплении
-                            -У меня есть маленькая дружелюбная и активная собачка (на фото видно) которая станет отличной компанией вашему питомцу
-
-                            🔥Работаю из дома так что они всегда будут под присмотром
-
-                            Могу взять маленьких и средних собачек или не агрессивную по отношению к собачкам кошку
-                        </Typography>
-                    </Paper>
-
-                    <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Отзывы</Typography>
-                        {(auth?.role?.includes('Owner') && auth?.userId !== sitter?.sitterId) &&
-                            <>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px', marginLeft: '83px', marginBottom: '30px' }}>
-
-                                    <Rating
-                                        sx={{ marginBottom: '10px' }}
-                                        name="rate-from-owner"
-                                        value={1}
-                                        onChange={(event, newValue) => {
-                                            setValue(newValue);
-                                        }}
-                                        icon={
-                                            <StarIcon
-                                                sx={{
-                                                    fill: '#FFD700',
-                                                    stroke: '#9B2D20',
-                                                    strokeWidth: 1.5,
-                                                    marginRight: '5px',
-                                                }} />
-                                        }
-                                        emptyIcon={
-                                            <StarIcon
-                                                sx={{
-                                                    fill: 'transparent',
-                                                    stroke: '#6b7280',
-                                                    strokeWidth: 1.5,
-                                                    marginRight: '5px',
-                                                }}
-                                            />
-                                        }
-                                    />
-
-                                    <TextareaAutosize
-                                        id='review'
-                                        minRows={4}
-                                        placeholder="Оставить отзыв ситтеру..."
-                                        style={{
-                                            width: '90%',
-                                            marginTop: '10px',
-                                            fontSize: '16px',
-                                            padding: '8px 15px',
-                                            border: '1px solid #ccc',
-                                            borderRadius: '4px',
-                                            resize: 'none',
-                                            background: '#e0e0e0'
-                                        }}
-                                    />
-
-                                    <Button variant="contained" sx={{ marginTop: '20px', alignSelf: 'center', alignSelf: 'flex-start' }}>Отправить</Button>
-
-                                </Box>
-                            </>}
-
-                        <Box sx={{ marginTop: '20px' }}>
-                            <Box sx={{ display: 'flex', gap: '20px' }}>
-                                <Avatar
-
-                                    src={`https://localhost:5000${sitter.profileImage}`}
-                                    alt="Н"
-                                    sx={{ width: 64, height: 64 }}
-                                />
-                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', width: '100%' }}>
-                                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Иван Иванов</Typography>
-                                    <Rating name="review-rating" value={4} readOnly icon={<StarIcon
-                                        sx={{
-                                            fill: '#FFD700',
-                                            stroke: '#9B2D20',
-                                            strokeWidth: 1.5,
-                                            marginRight: '5px',
-                                        }} />}
-                                        emptyIcon={
-                                            <StarIcon
-                                                sx={{
-                                                    fill: 'transparent',
-                                                    stroke: '#6b7280',
-                                                    strokeWidth: 1.5,
-                                                    marginRight: '5px',
-                                                }}
-                                            />
-                                        }
-                                    />
-
-                                    <Typography>
-                                        Мне кажется моя маленькая капризная Марфа обрела настоящую добрую няню.
-                                        С первого дня контакт. Постоянные отчеты. Отличная добрая атмосфера. Очень рекомендую
+                                {profile?.animals?.map((animal, index) => (
+                                    <Typography key={index} sx={{ color: '#6b7280', marginTop: '5px' }}>
+                                        {animalTranslations[animal] || animal}
                                     </Typography>
-                                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                        <Typography sx={{ color: '#6b7280', marginTop: '5px' }}>23.04.22</Typography>
-                                        <DeleteIcon sx={{ fill: '#f44336', cursor: 'pointer', fontSize: '30px', '&:hover': { fill: '#c9372c' } }} />
+                                ))}
+                            </Box>
+                        </Box>
+                    </Paper>
+                    {(userIdWithRoles?.roles.includes('Sitter')) &&
+                        <>
+                            <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Средний рейтинг</Typography>
+                                    <Box sx={{ display: 'flex', gap: '10px', marginTop: '10px', marginLeft: '8px' }}>
+
+
+                                        <StarIcon sx={{ fill: '#FFD700', stroke: '#9B2D20', strokeWidth: 1.5, fontSize: '40px', marginLeft: '10px' }} />
+                                        <Typography sx={{ fontSize: '25px', fontWeight: 'bold', marginTop: '5px' }}>{profile?.rating}</Typography>
+                                        <Typography sx={{ color: '#6b7280', marginTop: '13px' }}>Количество отзывов: {profile?.rateCount}</Typography>
                                     </Box>
                                 </Box>
-                            </Box>
-                        </Box>
+                            </Paper>
+                        </>
+                    }
 
-                    </Paper>
+                    {(profile?.email.trim() !== "" || profile?.phoneNumber.trim() !== "") && (
+                        <>
+                            <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', padding: '0 20px' }}>
+                                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Контакты</Typography>
+
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '15px', gap: '10px', marginLeft: '1px' }}>
+                                        {(profile?.phoneNumber.trim() !== "") && (<>
+                                            <Box sx={{ display: 'flex', gap: '10px' }}>
+                                                <PhoneRoundedIcon sx={{
+                                                    color: 'white',
+                                                    backgroundColor: '#4D7298',
+                                                    borderRadius: '50%',
+                                                    fontSize: '30px',
+                                                    padding: '6px'
+                                                }} />
+                                                <Typography sx={{ marginTop: '2px' }}>{profile?.phoneNumber}</Typography>
+                                            </Box>
+                                        </>)}
+
+                                        {(profile?.email.trim() !== "") && (<>
+                                            <Box sx={{ display: 'flex', gap: '10px' }}>
+                                                <EmailRoundedIcon sx={{
+                                                    color: 'white',
+                                                    backgroundColor: '#4D7298',
+                                                    borderRadius: '50%',
+                                                    fontSize: '30px',
+                                                    padding: '6px'
+                                                }} />
+                                                <Typography sx={{ marginTop: '2px' }}>{profile?.email}</Typography>
+                                            </Box>
+                                        </>)}
+
+                                    </Box>
+                                </Box>
+                            </Paper>
+                        </>)}
+
+                </Box>
+
+
+
+
+
+
+
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', boxSizing: 'border-box' }}>
+                    {(profile?.profilePhotos?.length === 0 && profile?.about.trim() === "") && (<>
+                        <Paper elevation={3} sx={{
+                            backgroundColor: '#D0EFB1',
+                            padding: '20px',
+                            width: '100%',
+                            boxSizing: 'border-box'
+                        }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '25px' }}>Информация о профиле</Typography>
+                                <TextSnippetIcon sx={{ color: '#6b7280', fontSize: '100px', marginTop: '100px' }} />
+
+                                {(auth?.userId === userIdWithRoles?.userId) ? (
+                                    <>
+                                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px' }}>Нет информации о профиле</Typography>
+                                        <Typography sx={{ color: '#6b7280' }}>
+                                            Напишите пару абзацев о себе.
+                                            Вы также можете добавить фото к своему профилю в личном кабинете
+                                        </Typography>
+                                        <Button onClick={navigateToProfilePersonal} variant="contained" sx={{ marginTop: '10px', marginBottom: '194px' }}>
+                                            Личный кабинет
+                                        </Button>
+                                    </>) : (
+                                    <>
+                                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px', marginBottom: '264px' }}>Нет информации о профиле</Typography>
+
+                                    </>
+                                )}
+
+                            </Box>
+                        </Paper>
+                    </>)}
+
+                    {(profile?.profilePhotos?.length > 0) &&
+                        <>
+                            <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Мои фото</Typography>
+                                <ImageList
+                                    cols={3}
+                                    gap={8}
+                                    sx={{
+                                        marginTop: '20px',
+                                        maxWidth: '100%',
+                                        height: 'auto',
+                                    }}
+                                >
+                                    {profile?.profilePhotos.map((photo, index) => (
+                                        profile?.profilePhotos.length > 6 && index === 5 ? (
+                                            <ImageListItem
+                                                key={index}
+                                                cols={1}
+                                                rows={1}
+                                                sx={{
+                                                    aspectRatio: '1 / 1',
+                                                }}
+                                                onClick={() => handleOpenSlider(5)}
+                                            >
+                                                <Box
+                                                    sx={{
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        backgroundColor: '#4D7298',
+                                                        borderRadius: 4,
+                                                        '&:hover': {
+                                                            backgroundColor: '#3B5A75',
+                                                        },
+                                                    }}
+                                                >
+                                                    <CameraAltIcon sx={{ fontSize: 40, color: 'white' }} />
+                                                    <Typography
+                                                        sx={{
+                                                            marginLeft: 1,
+                                                            fontWeight: 'bold',
+                                                            fontSize: '16px',
+                                                            color: 'white',
+                                                        }}
+                                                    >
+                                                        {photos.length} фото
+                                                    </Typography>
+                                                </Box>
+                                            </ImageListItem>
+                                        ) : index < 6 ? (
+                                            <ImageListItem
+                                                key={index}
+                                                cols={1}
+                                                rows={1}
+                                                sx={{
+                                                    position: 'relative',
+                                                    borderRadius: 4,
+                                                    overflow: 'hidden',
+                                                    aspectRatio: '1 / 1', // Квадратное соотношение сторон
+                                                    '&:hover': {
+                                                        '& img': {
+                                                            filter: 'brightness(70%)',
+                                                        },
+                                                        '& .hover-overlay': {
+                                                            opacity: 0.8,
+                                                        },
+                                                        '& .visibility-icon': {
+                                                            opacity: 1,
+                                                        },
+                                                    },
+                                                }}
+                                                onClick={() => handleOpenSlider(index)}
+                                            >
+                                                <img
+                                                    src={`https://localhost:5000${photo}`}
+                                                    alt={`Фото ${index + 1}`}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        objectFit: 'cover',
+                                                        transition: 'filter 0.2s ease',
+                                                    }}
+                                                />
+                                                {/* Overlay for background color */}
+                                                <Box
+                                                    className="hover-overlay"
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        top: 0,
+                                                        left: 0,
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        backgroundColor: '#3B5A75',
+                                                        opacity: 0,
+                                                        transition: 'opacity 0.2s ease',
+                                                    }}
+                                                />
+                                                {/* Visibility Icon */}
+                                                <Box
+                                                    className="visibility-icon"
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        top: '50%',
+                                                        left: '50%',
+                                                        transform: 'translate(-50%, -50%)',
+                                                        opacity: 0,
+                                                        transition: 'opacity 0.2s ease',
+                                                        color: 'white',
+                                                    }}
+                                                >
+                                                    <VisibilityIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
+
+                                                </Box>
+                                            </ImageListItem>
+                                        ) : null
+                                    ))}
+                                </ImageList>
+
+                                <Dialog open={open} onClose={handleCloseSlider} maxWidth="md">
+                                    <DialogContent
+                                        sx={{
+                                            position: 'relative',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            backgroundColor: '#000',
+                                        }}
+                                    >
+                                        <IconButton
+                                            onClick={handleCloseSlider}
+                                            sx={{ position: 'absolute', top: 8, right: 8, color: 'white' }}
+                                        >
+                                            <CloseIcon />
+                                        </IconButton>
+                                        {/* <Tooltip title='Удалить фото' placement="top">
+                            <IconButton
+                                onClick={handleDeletePhoto}
+                                sx={{ position: 'absolute', top: 8, right: 40, color: 'white' }}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip> */}
+                                        <IconButton
+                                            onClick={handlePrev}
+                                            sx={{ position: 'absolute', left: 8, color: 'white' }}
+                                        >
+                                            <ArrowBackIosIcon />
+                                        </IconButton>
+                                        <img
+                                            src={`https://localhost:5000${(profile?.profilePhotos[currentIndex])}`}
+                                            alt={`Фото ${currentIndex + 1}`}
+                                            style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain' }}
+                                        />
+                                        <IconButton
+                                            onClick={handleNext}
+                                            sx={{ position: 'absolute', right: 8, color: 'white' }}
+                                        >
+                                            <ArrowForwardIosIcon />
+                                        </IconButton>
+                                    </DialogContent>
+                                </Dialog>
+
+                            </Paper>
+                        </>
+                    }
+
+                    {(profile?.about) &&
+                        <>
+                            <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Обо мне</Typography>
+                                <Typography sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '16px', textAlign: 'left' }}>
+                                    {profile.about}
+                                </Typography>
+                            </Paper>
+                        </>
+                    }
+
+                    {(userIdWithRoles?.roles?.includes('Sitter')) &&
+                        <>
+                            <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Отзывы</Typography>
+                                {(auth?.role?.includes('Owner')
+                                    && auth?.userId !== profile?.sitterId
+                                    && !profile?.reviews?.some(review => review.senderId === auth.userId)
+                                ) &&
+                                    <>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px', marginLeft: '83px', marginBottom: '30px' }}>
+
+                                            <Rating
+                                                sx={{ marginBottom: '10px' }}
+                                                name="rate-from-owner"
+                                                value={starsValue}
+                                                onChange={(event, newValue) => {
+                                                    setStarsValue(newValue < 1 ? 1 : newValue);
+                                                }}
+                                                icon={
+                                                    <StarIcon
+                                                        sx={{
+                                                            fill: '#FFD700',
+                                                            stroke: '#9B2D20',
+                                                            strokeWidth: 1.5,
+                                                            marginRight: '5px',
+                                                        }} />
+                                                }
+                                                emptyIcon={
+                                                    <StarIcon
+                                                        sx={{
+                                                            fill: 'transparent',
+                                                            stroke: '#6b7280',
+                                                            strokeWidth: 1.5,
+                                                            marginRight: '5px',
+                                                        }}
+                                                    />
+                                                }
+                                            />
+
+                                            <TextareaAutosize
+                                                id='content'
+                                                minRows={4}
+                                                placeholder="Оставить отзыв ситтеру..."
+                                                value={reviewFormData.content}
+                                                onChange={handleReviewContentChange}
+                                                style={{
+                                                    width: '90%',
+                                                    marginTop: '10px',
+                                                    fontSize: '16px',
+                                                    padding: '8px 15px',
+                                                    border: '1px solid #ccc',
+                                                    borderRadius: '4px',
+                                                    resize: 'none',
+                                                    background: '#e0e0e0'
+                                                }}
+                                            />
+
+                                            <Button onClick={handleCreateReview} variant="contained" sx={{
+                                                marginTop: '20px',
+                                                alignSelf: 'flex-start'
+                                            }}>Отправить</Button>
+
+                                        </Box>
+                                    </>}
+
+                                {(profile?.reviews?.length > 0) &&
+                                    <>
+                                        {profile?.reviews?.map((review) => (
+                                            <Review key={review.reviewId} review={review} onHandleDelete={handleDeleteReview} />
+                                        ))}
+                                    </>
+                                }
+
+                            </Paper>
+                        </>
+                    }
+
+
                 </Box>
 
             </Box>

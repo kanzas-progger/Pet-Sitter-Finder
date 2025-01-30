@@ -70,9 +70,11 @@ services.AddScoped<IImagesProvider, ImagesProvider>();
 //RabbitMQ
 services.AddSingleton<IRabbitMQService, RabbitMQService>();
 services.AddSingleton<ICreateUserProfileConsumer, CreateUserProfileConsumer>();
+services.AddSingleton<IUpdateSitterRatingConsumer, UpdateSitterRatingConsumer>();
 
 //Background Services
 services.AddHostedService<CreateUserProfileBackground>();
+services.AddHostedService<UpdateSitterRatingBackground>();
 
 //gRPC
 services.AddScoped<ReviewsGrpcClient>();

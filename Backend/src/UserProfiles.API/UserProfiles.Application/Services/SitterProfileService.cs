@@ -56,4 +56,5 @@ public class SitterProfileService : ISitterProfileService
     {
         await _sitterProfilesRepository.DeleteProfilePhoto(sitterId, photoPath);
     }
+    
 }

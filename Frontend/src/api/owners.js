@@ -13,6 +13,32 @@ export const getOwnerPersonal = async () => {
     }
 }
 
+export const getShortOwnerProfile = async (ownerId) => {
+    try {
+        const response = await axios.get(`https://localhost:5000/api/owners/anonymous/profile/short/${ownerId}`,
+            {
+                withCredentials: true
+            })
+        return response
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getFullOwnerProfile = async (ownerId) => {
+    try {
+        const response = await axios.get(
+            `https://localhost:5000/api/owners/anonymous/profile/full/${ownerId}`,
+            {
+                withCredentials: true
+            }
+        )
+        return response
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 export const updateOwnerPersonal = async (formData) => {
     try {
         const response = await axios.put(
