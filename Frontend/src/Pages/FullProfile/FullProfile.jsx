@@ -144,23 +144,12 @@ const FullProfile = () => {
     }
 
     const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? photos.length - 1 : prevIndex - 1))
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? profile?.profilePhotos.length - 1 : prevIndex - 1))
     }
 
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === photos.length - 1 ? 0 : prevIndex + 1))
+        setCurrentIndex((prevIndex) => (prevIndex === profile?.profilePhotos.length - 1 ? 0 : prevIndex + 1))
     }
-
-    const photos = [
-        "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-        "https://images.unsplash.com/photo-1737467026661-31b5a87098fe?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-        "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-        "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-        "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-        "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-
-    ]
 
     const animalTranslations = {
         Dog: "Собаки",
@@ -435,7 +424,7 @@ const FullProfile = () => {
                                                             color: 'white',
                                                         }}
                                                     >
-                                                        {photos.length} фото
+                                                        {profile?.profilePhotos.length} фото
                                                     </Typography>
                                                 </Box>
                                             </ImageListItem>
@@ -513,18 +502,29 @@ const FullProfile = () => {
                                         sx={{
                                             position: 'relative',
                                             display: 'flex',
+                                            flexDirection: 'column',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             backgroundColor: '#000',
+                                            padding: 0
                                         }}
                                     >
-                                        <IconButton
-                                            onClick={handleCloseSlider}
-                                            sx={{ position: 'absolute', top: 8, right: 8, color: 'white' }}
-                                        >
-                                            <CloseIcon />
-                                        </IconButton>
-                                        {/* <Tooltip title='Удалить фото' placement="top">
+                                        <Box sx={{
+                                            width: '100%',
+                                            height: '40px',
+                                            backgroundColor: '#4D7298',
+                                            display: 'flex',
+                                            justifyContent: 'flex-end',
+                                            gap: '3px'
+
+                                        }}>
+                                            <IconButton
+                                                onClick={handleCloseSlider}
+                                                sx={{ color: 'white' }}
+                                            >
+                                                <CloseIcon />
+                                            </IconButton>
+                                            {/* <Tooltip title='Удалить фото' placement="top">
                             <IconButton
                                 onClick={handleDeletePhoto}
                                 sx={{ position: 'absolute', top: 8, right: 40, color: 'white' }}
@@ -532,6 +532,7 @@ const FullProfile = () => {
                                 <DeleteIcon />
                             </IconButton>
                         </Tooltip> */}
+                                        </Box>
                                         <IconButton
                                             onClick={handlePrev}
                                             sx={{ position: 'absolute', left: 8, color: 'white' }}
@@ -632,12 +633,17 @@ const FullProfile = () => {
                                         </Box>
                                     </>}
 
-                                {(profile?.reviews?.length > 0) &&
+                                {(profile?.reviews?.length > 0) ? (
                                     <>
                                         {profile?.reviews?.map((review) => (
                                             <Review key={review.reviewId} review={review} onHandleDelete={handleDeleteReview} />
                                         ))}
                                     </>
+                                ) : (
+                                    <>
+                                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px', padding: '0 20px', textAlign: 'center', marginTop: '10px' }}>Отзывов нет</Typography>
+                                    </>
+                                )
                                 }
 
                             </Paper>

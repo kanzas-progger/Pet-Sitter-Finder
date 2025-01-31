@@ -12,11 +12,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { uploadSitterProfilePhotos, deleteSitterProfilePhoto } from '../../api/sitters';
+import { uploadOwnerProfilePhotos, deleteOwnerProfilePhoto } from '../../api/owners';
 import useProfile from '../../hooks/useProfile';
 import { useNavigate } from 'react-router';
+import useAuth from '../../hooks/useAuth';
 
 const PhotoGallery = () => {
 
+    const { auth, setAuth } = useAuth()
     const { profile, setProfile } = useProfile()
     const navigate = useNavigate()
 
@@ -68,25 +71,42 @@ const PhotoGallery = () => {
 
 
     const handleUploadPhotos = async (event) => {
-        const files = Array.from(event.target.files); 
-        if (files.length === 0) return; 
+        const files = Array.from(event.target.files);
+        if (files.length === 0) return;
 
         try {
-            const response = await uploadSitterProfilePhotos(files); 
-            console.log('Загрузка успешна:', response.data);
-            navigate(0); 
+            if (auth?.role.includes('Sitter')) {
+                const response = await uploadSitterProfilePhotos(files);
+                console.log('Загрузка успешна:', response.data);
+            }
+            else if (auth?.role.includes('Owner')) {
+                const response = await uploadOwnerProfilePhotos(files);
+                console.log('Загрузка успешна:', response.data);
+            }
+            else {
+                console.log("Another role")
+            }
         } catch (error) {
             console.error('Ошибка при загрузке:', error);
         }
+        navigate(0);
     }
 
     const handleDeletePhoto = async () => {
-        const photoUrl = photos[currentIndex]; 
+        const photoUrl = photos[currentIndex];
         console.log(photoUrl);
         if (!photoUrl) return;
 
         try {
-            const response = await deleteSitterProfilePhoto(photoUrl)
+            if (auth?.role.includes('Sitter')) {
+                const response = await deleteSitterProfilePhoto(photoUrl)
+            }
+            else if (auth?.role.includes('Owner')) {
+                const response = await deleteOwnerProfilePhoto(photoUrl)
+            }
+            else {
+                console.log("Another role")
+            }
             setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo !== photoUrl))
             setOpen(false)
         } catch (error) {
@@ -278,25 +298,39 @@ const PhotoGallery = () => {
                         sx={{
                             position: 'relative',
                             display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
                             backgroundColor: '#000',
+                            padding: 0
                         }}
                     >
-                        <IconButton
-                            onClick={handleCloseSlider}
-                            sx={{ position: 'absolute', top: 8, right: 8, color: 'white' }}
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                        <Tooltip title='Удалить фото' placement="top">
+                        <Box sx={{
+                            width: '100%',
+                            height: '40px',
+                            backgroundColor: '#4D7298',
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            gap: '3px'
+
+                        }}>
+
+                            <Tooltip title='Удалить фото' placement="top">
+                                <IconButton
+                                    onClick={handleDeletePhoto}
+                                    sx={{ color: 'white' }}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
                             <IconButton
-                                onClick={handleDeletePhoto}
-                                sx={{ position: 'absolute', top: 8, right: 40, color: 'white' }}
+                                onClick={handleCloseSlider}
+                                sx={{ color: 'white' }}
                             >
-                                <DeleteIcon />
+                                <CloseIcon />
                             </IconButton>
-                        </Tooltip>
+                        </Box>
+
                         <IconButton
                             onClick={handlePrev}
                             sx={{ position: 'absolute', left: 8, color: 'white' }}
@@ -306,7 +340,7 @@ const PhotoGallery = () => {
                         <img
                             src={`https://localhost:5000${formatPhotoPath(photos[currentIndex])}`}
                             alt={`Фото ${currentIndex + 1}`}
-                            style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain' }}
+                            style={{ maxWidth: '100%', maxHeight: 'calc(80vh - 50px)', objectFit: 'contain' }}
                         />
                         <IconButton
                             onClick={handleNext}

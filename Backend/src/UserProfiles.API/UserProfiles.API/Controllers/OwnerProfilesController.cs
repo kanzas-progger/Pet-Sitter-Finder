@@ -106,7 +106,17 @@ public class OwnerProfilesController : ControllerBase
         await _ownerProfilesService.AddOwnerProfilePhotos(ownerId, photoPaths);
         
         return Ok();
+    }
+    
+    [HttpDelete("profile/personal/delete/photo")]
+    [Authorize(Roles = "Owner")]
+    public async Task<ActionResult> DeleteSitterProfilePhoto([FromBody] DeletePhotoRequest request)
+    {
+        Guid userId = GetUserIdFromClaim();
+        await _ownerProfilesService.DeleteOwnerProfilePhoto(userId, request.photoUrl);
+        _imagesService.DeleteProfilePhoto(request.photoUrl);
         
+        return Ok();
     }
 
     [HttpGet("profile/personal/edit")]
@@ -165,10 +175,22 @@ public class OwnerProfilesController : ControllerBase
     public async Task<ActionResult<OwnerProfileByIdResponse>> GetFullOwnerProfile(Guid ownerId)
     {
         List<string> animalNames = new List<string>();
-        
+        List<string> profilePhotos = new List<string>();
+               
         var ownerProfile = await _ownerProfilesService.GetOwnerProfileById(ownerId);
         var ownerProfilePhotos = await _ownerProfilesService.GetAllOwnerProfilePhotos(ownerId);
-
+        
+        if (ownerProfilePhotos.Count > 0)
+        {
+            string photoUrl;
+            foreach (var photo in ownerProfilePhotos)
+            {
+                string photoName = Path.GetFileName(photo);
+                photoUrl = $"/uploads/img/{photoName}";
+                profilePhotos.Add(photoUrl);
+            }
+        }
+        
         try
         {
             var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(ownerId);
@@ -202,7 +224,7 @@ public class OwnerProfilesController : ControllerBase
             ownerProfile.City, 
             ownerProfile.Address, 
             ownerProfile.About, 
-            ownerProfilePhotos,
+            profilePhotos,
             animalNames);
         
         return Ok(response);

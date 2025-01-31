@@ -63,9 +63,9 @@ const ProfileMenu = () => {
         {children}
       </RouterLink>
     )
-
-
   }
+
+  const avatarAlt = profile?.firstname?.[0]?.toUpperCase() || ""
 
   return (
     <>
@@ -83,7 +83,6 @@ const ProfileMenu = () => {
               <Avatar
 
                 src={`https://localhost:5000${profile.profileImage}`}
-                alt="Н"
                 sx={{ width: 64, height: 64 }}
               />
             </Link>
@@ -105,7 +104,7 @@ const ProfileMenu = () => {
 
 
             <ProfileMenuLink to={'/profile/personal/edit'}
-              lowerDividerRef={dividerRefs.personal}  >
+              lowerDividerRef={dividerRefs.personal}>
               Личная информация</ProfileMenuLink>
             <Divider ref={dividerRefs.personal} variant="middle" />
 

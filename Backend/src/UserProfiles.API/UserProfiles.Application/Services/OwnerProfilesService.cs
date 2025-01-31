@@ -54,4 +54,9 @@ public class OwnerProfilesService : IOwnerProfilesService
     {
         return await _ownerProfilesRepository.GetProfileImageUrl(ownerId);
     }
+
+    public async Task DeleteOwnerProfilePhoto(Guid ownerId, string photoPath)
+    {
+        await _ownerProfilesRepository.DeleteProfilePhoto(ownerId, photoPath);
+    }
 }

@@ -3,16 +3,20 @@ import './Navbar.css'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import Logout from '@mui/icons-material/Logout';
-import { Avatar, Box, Badge, Tooltip, Link, Button, Container, IconButton, Menu, MenuItem, Divider, ListItemIcon } from '@mui/material';
+import {
+    Avatar, Box, Badge, Tooltip, Link, Button, Container, IconButton,
+    Menu, MenuItem, Divider, ListItemIcon, Typography
+} from '@mui/material';
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { getShortOwnerProfile } from "../../api/owners";
+import { getShortSitterProfile } from "../../api/sitters";
 import { useState, useEffect } from "react";
 const Navbar = () => {
 
     const { auth, setAuth } = useAuth()
-    const [shortOwnerProfile, setShortOwnerProfile] = useState([])
+    const [shortProfile, setShortProfile] = useState([])
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -25,32 +29,41 @@ const Navbar = () => {
     };
 
     const handleLogout = async () => {
- 
-            await axios.post('https://localhost:5000/authentication/logout', {}, { withCredentials: true });
-            setAuth({})
-            localStorage.removeItem('auth')
-            navigate("/")
-            
-            // sitter newtestloginnn stringgggggggg
-            // owner ownerrrrFrontender  123456789
-            // full sitter   sitterohsitter  stringgg
-            // full owner    ownerohowner   stringgg
 
-            handleClose(); 
+        await axios.post('https://localhost:5000/authentication/logout', {}, { withCredentials: true });
+        setAuth({})
+        localStorage.removeItem('auth')
+        navigate("/")
+
+        // sitter newtestloginnn stringgggggggg
+        // owner ownerrrrFrontender  123456789
+        // full sitter   sitterohsitter  stringgg
+        // full owner    ownerohowner   stringgg
+
+        handleClose();
     }
 
     useEffect(() => {
-            const fetchShortOwnerProfile = async () => {
-                try {
+        const fetchShortProfile = async () => {
+            try {
+                if (auth?.role.includes('Owner')) {
                     const response = await getShortOwnerProfile(auth?.userId)
-                    setShortOwnerProfile(response.data)
-                    console.log("dfsssssssssssssss", response.data)
-                } catch (e) {
-                    console.error("Error of receiving short owner profile: ", e)
+                    setShortProfile(response.data)
                 }
+                else if (auth?.role.includes('Sitter')) {
+                    const response = await getShortSitterProfile(auth?.userId)
+                    setShortProfile(response.data)
+                }
+                else{
+                    console.log("Another role from Navbar")
+                }
+
+            } catch (e) {
+                console.error("Error of receiving short owner profile: ", e)
             }
-            fetchShortOwnerProfile()
-        }, [auth?.userId])
+        }
+        fetchShortProfile()
+    }, [auth?.userId])
 
     const linkStyle = {
         fontSize: '18px',
@@ -91,18 +104,18 @@ const Navbar = () => {
                     }}
                 >
                     <Link href="/" sx={linkStyle}>Ситтеры</Link>
-                        {auth?.role?.includes('Sitter') && (
-                            <>
-                                <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
-                                <Link href="/" sx={linkStyle}>Заявки</Link>
-                            </>
-                        )}
-                        {auth?.role?.includes('Owner') && (
-                            <>
-                                <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
-                                <Link href="/" sx={linkStyle}>Бронирование</Link>
-                            </>
-                        )}
+                    {auth?.role?.includes('Sitter') && (
+                        <>
+                            <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
+                            <Link href="/" sx={linkStyle}>Заявки</Link>
+                        </>
+                    )}
+                    {auth?.role?.includes('Owner') && (
+                        <>
+                            <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
+                            <Link href="/" sx={linkStyle}>Бронирование</Link>
+                        </>
+                    )}
                 </Box>
                 <Box
                     sx={{
@@ -144,7 +157,9 @@ const Navbar = () => {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar src="" sx={{ width: 32, height: 32 }}>Н</Avatar>
+                                    <Avatar src={`https://localhost:5000${shortProfile?.profileImage}`}
+                                        sx={{ width: 32, height: 32 }}>
+                                    </Avatar>
                                 </IconButton>
                             </Tooltip>
                             {/* </Box> */}
@@ -161,6 +176,7 @@ const Navbar = () => {
                                             overflow: 'visible',
                                             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                                             mt: 1.5,
+                                            bgcolor: '#D0EFB1',
                                             '& .MuiAvatar-root': {
                                                 width: 32,
                                                 height: 32,
@@ -175,9 +191,14 @@ const Navbar = () => {
                                                 right: 14,
                                                 width: 10,
                                                 height: 10,
-                                                bgcolor: 'background.paper',
+                                                bgcolor: '#D0EFB1',
                                                 transform: 'translateY(-50%) rotate(45deg)',
                                                 zIndex: 0,
+                                            },
+                                            '& .MuiMenuItem-root': {
+                                                '&:hover': {
+                                                    bgcolor: '#b3d89c',
+                                                },
                                             },
                                         },
                                     },
@@ -186,14 +207,47 @@ const Navbar = () => {
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
                                 <MenuItem onClick={handleClose}>
-                                    <Avatar /> Profile
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <Link href={`https://localhost:5173/${shortProfile?.login}`} underline="none">
+                                            <Avatar
+
+                                                src={`https://localhost:5000${shortProfile?.profileImage}`}
+                                                sx={{ width: 64, height: 64 }}
+                                            />
+                                        </Link>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                            <Link href={`https://localhost:5173/${shortProfile?.login}`} underline="none" sx={{
+                                                fontWeight: 'bold', fontSize: '18px', color: 'black', '&:hover': {
+                                                    textDecoration: 'underline',
+                                                    textDecorationColor: 'inherit',
+                                                },
+                                            }}>{shortProfile?.firstname} {shortProfile?.lastname}</Link>
+                                            <Typography sx={{ color: '#6b7280' }}>{shortProfile?.login}</Typography>
+                                        </Box>
+                                    </Box>
                                 </MenuItem>
                                 <Divider />
+                                <MenuItem>
+                                    <Link href="/profile/personal/edit" underline="none" sx={{
+                                        fontSize: '18px',
+                                        color: 'black'
+                                    }}>
+                                        Личный кабинет
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Link href="/profile/personal/edit" underline="none" sx={{
+                                        fontSize: '18px',
+                                        color: 'black'
+                                    }}>
+                                        Сообщения
+                                    </Link>
+                                </MenuItem>
                                 <MenuItem onClick={handleLogout}>
-                                    <ListItemIcon>
-                                        <Logout fontSize="small" />
-                                    </ListItemIcon>
-                                    Выход
+                                    {/* <ListItemIcon>
+                                        <Logout sx={{fontSize:"18px"}} />
+                                    </ListItemIcon> */}
+                                    <Typography sx={{ fontSize: '18px' }}>Выход</Typography>
                                 </MenuItem>
                             </Menu>
                         </>

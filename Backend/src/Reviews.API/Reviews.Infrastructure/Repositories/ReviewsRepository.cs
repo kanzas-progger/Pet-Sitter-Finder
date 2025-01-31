@@ -18,7 +18,9 @@ public class ReviewsRepository : IReviewsRepository
     public async Task<List<Review>> GetAll(Guid sitterId)
     {
         var reviewEntities = await _context.Reviews.AsNoTracking()
-            .Where(r => r.SitterId == sitterId).ToListAsync();
+            .Where(r => r.SitterId == sitterId)
+            .OrderByDescending(r => r.CreationDate)
+            .ToListAsync();
         
         var reviews = reviewEntities.Select(r => Review.Create(r.Id, r.SitterId, r.SenderId,
             r.Stars, r.Content, r.CreationDate, r.ExpirationToUpdateAndDelete).review).ToList();

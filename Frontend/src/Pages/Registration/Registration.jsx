@@ -7,6 +7,9 @@ import {
     RadioGroup, Radio, Box, TextField, Paper, Container
 } from "@mui/material";
 import axios from 'axios'
+import { jwtDecode } from "jwt-decode";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
 
@@ -43,6 +46,8 @@ const Registration = () => {
         },
     };
 
+    const { setAuth } = useAuth()
+    const navigate = useNavigate()
     const [animalName, setAnimalName] = useState([]);
     const [animalIsValid, setAnimalIsValid] = useState(false);
     const [role, setRole] = useState("owner")
@@ -77,14 +82,16 @@ const Registration = () => {
             )
             console.log("Успешная регистрация!")
             const token = response.data
+            console.log("Полученный токен: ", response.data)
             const decodedToken = jwtDecode(token)
             const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             const userId = decodedToken["id-"];
             setAuth({ userId, role })
-            navigate("/");
+            navigate("/");  
         }
         catch (error) {
-            console.log("Произошла ошибка регистрации")
+            console.error("Произошла ошибка регистрации", error.response?.data || error.message);
+            
         }
     }
 

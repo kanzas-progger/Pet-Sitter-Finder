@@ -13,5 +13,6 @@ public interface IOwnerProfilesRepository
     Task CreateProfilePhotos(Guid ownerId, List<string> photoPaths);
     Task<List<string>> GetAllProfilePhotos(Guid ownerId);
     Task<string> GetProfileImageUrl(Guid ownerId);
+    Task DeleteProfilePhoto(Guid ownerId, string photoUrl);
 
 }

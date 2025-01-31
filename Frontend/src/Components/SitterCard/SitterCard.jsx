@@ -17,6 +17,7 @@ const SitterCard = ({ sitter }) => {
   const {
     firstname,
     lastname,
+    login,
     profileImagePath,
     city,
     address,
@@ -25,6 +26,8 @@ const SitterCard = ({ sitter }) => {
     pricePerDay,
     animals
   } = sitter;
+
+  const avatarAlt = firstname?.[0]?.toUpperCase() || ""
 
 
   const animalInfo = {
@@ -46,8 +49,8 @@ const SitterCard = ({ sitter }) => {
       {/* Фото профиля */}
       <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Avatar
-          src={profileImagePath || '/placeholder.png'}
-          alt={`${firstname} ${lastname}`}
+          src={`https://localhost:5000${profileImagePath}`}
+          alt={avatarAlt}
           sx={{ width: 150, height: 150, margin: 2 }}
         />
       </CardMedia>
@@ -56,7 +59,7 @@ const SitterCard = ({ sitter }) => {
       <CardContent sx={{ flex: 1 }}>
         <Typography variant="h6" component="div" fontWeight="bold" color="primary">
           <Link
-            href="#"
+            href={`https://localhost:5173/${login}`}
             underline="none"
             color="inherit"
             sx={{

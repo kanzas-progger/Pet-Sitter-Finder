@@ -147,4 +147,11 @@ public class OwnerProfilesRepository : IOwnerProfilesRepository
 
         return photoUrls;
     }
+    
+    public async Task DeleteProfilePhoto(Guid ownerId, string photoUrl)
+    {
+        await _userProfilesDbContext.OwnerProfilePhotos
+            .Where(p => p.OwnerId == ownerId && p.PhotoUrl == photoUrl)
+            .ExecuteDeleteAsync();
+    }
 }

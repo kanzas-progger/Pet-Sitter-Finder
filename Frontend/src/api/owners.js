@@ -83,3 +83,41 @@ export const deleteOwnerProfileImage = async () => {
         console.error(e)
     }
 }
+
+export const uploadOwnerProfilePhotos = async (profilePhotos) => {
+    try {
+        const formData = new FormData();
+
+        profilePhotos.forEach((photo) => {
+            formData.append(`profilePhotos`, photo); 
+        });
+
+        const response = await axios.post(
+            "https://localhost:5000/api/owners/profile/personal/edit/photos", 
+            formData,
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+
+        return response;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export const deleteOwnerProfilePhoto = async (photoUrl) => {
+    try {
+        const response = await axios.delete("https://localhost:5000/api/owners/profile/personal/delete/photo", 
+        {
+            data: { photoUrl },
+            withCredentials: true,
+        });
+        return response
+    } catch (e) {
+        console.error(e)
+    }
+}

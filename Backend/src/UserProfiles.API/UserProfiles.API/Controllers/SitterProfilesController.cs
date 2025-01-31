@@ -48,8 +48,25 @@ public class SitterProfilesController : ControllerBase
         var profiles = await _sitterProfileService.GetAllProfiles();
         var tasks = profiles.Select(async p =>
         {
-            var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(p.SitterId);
-            var animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+            List<string> animalNames = new List<string>();
+            string profileImagePath = string.Empty;
+            
+            try
+            {
+                var animalsForProfile = await _animalsGrpcClient.GetAnimalsListForUser(p.SitterId);
+                animalNames = animalsForProfile.AnimalsForUser.Select(n => n.Name).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error of receiving animals for sitter with id: " + p.SitterId);
+                Console.WriteLine(ex.Message);
+            }
+            
+            if (!string.IsNullOrEmpty(p.ProfileImagePath))
+            {
+                string profileImage = Path.GetFileName(p.ProfileImagePath);
+                profileImagePath = $"/uploads/img/{profileImage}";
+            }
             
             return new SitterProfileResponseForAnnonymous(
                 p.Id,
@@ -57,7 +74,7 @@ public class SitterProfilesController : ControllerBase
                 p.Login, 
                 p.Firstname,
                 p.Lastname, 
-                p.ProfileImagePath,
+                profileImagePath,
                 p.Country, 
                 p.City,
                 p.Address,
@@ -71,8 +88,31 @@ public class SitterProfilesController : ControllerBase
         
         return Ok(response);
     }
+    
+    [HttpGet("anonymous/profile/short/{sitterId:guid}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ShortSitterProfileResponse>> GetShortSitterProfile(Guid sitterId)
+    {
+        string profileImagePath = string.Empty;
+        var sitterProfile = await _sitterProfileService.GetProfileById(sitterId);
+        
+        if (!string.IsNullOrEmpty(sitterProfile.ProfileImagePath))
+        {
+            string profileImage = Path.GetFileName(sitterProfile.ProfileImagePath);
+            profileImagePath = $"/uploads/img/{profileImage}";
+        }
 
-    [HttpGet("{sitterId:guid}")]
+        var response = new ShortSitterProfileResponse(
+            sitterId,
+            sitterProfile.Firstname,
+            sitterProfile.Lastname,
+            sitterProfile.Login,
+            profileImagePath);
+        
+        return Ok(response);
+    }
+
+    [HttpGet("anonymous/profile/full/{sitterId:guid}")]
     [AllowAnonymous]
     public async Task<ActionResult<SitterFullProfileResponse>> GetFullSitterProfile(Guid sitterId)
     {
@@ -295,12 +335,11 @@ public class SitterProfilesController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("profile/delete/photo")]
+    [HttpDelete("profile/personal/delete/photo")]
     [Authorize(Roles = "Sitter")]
     public async Task<ActionResult> DeleteSitterProfilePhoto([FromBody] DeletePhotoRequest request)
     {
         Guid userId = GetUserIdFromClaim();
-        Console.WriteLine("photo to delete" + request.photoUrl);
         await _sitterProfileService.DeleteSitterProfilePhoto(userId, request.photoUrl);
         _imagesService.DeleteProfilePhoto(request.photoUrl);
         

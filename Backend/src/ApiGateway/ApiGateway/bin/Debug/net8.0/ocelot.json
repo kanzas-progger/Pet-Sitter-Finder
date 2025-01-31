@@ -54,7 +54,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/sitters/{sitterId}",
+      "DownstreamPathTemplate": "/api/sitters/anonymous/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -63,7 +63,7 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/api/sitters/{sitterId}",
+      "UpstreamPathTemplate": "/api/sitters/anonymous/{everything}",
       "UpstreamHttpMethod": ["GET"]
     },
 

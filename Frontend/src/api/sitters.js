@@ -83,7 +83,7 @@ export const uploadSitterProfilePhotos = async (profilePhotos) => {
 
 export const deleteSitterProfilePhoto = async (photoUrl) => {
     try {
-        const response = await axios.delete("https://localhost:5000/api/sitters/profile/delete/photo", 
+        const response = await axios.delete("https://localhost:5000/api/sitters/profile/personal/delete/photo", 
         {
             data: { photoUrl },
             withCredentials: true,
@@ -110,7 +110,21 @@ export const deleteSitterProfileImage = async () => {
 export const getFullSitterProfile = async (sitterId) => {
     try {
         const response = await axios.get(
-            `https://localhost:5000/api/sitters/${sitterId}`,
+            `https://localhost:5000/api/sitters/anonymous/profile/full/${sitterId}`,
+            {
+                withCredentials: true
+            }
+        )
+        return response
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getShortSitterProfile = async (sitterId) => {
+    try {
+        const response = await axios.get(
+            `https://localhost:5000/api/sitters/anonymous/profile/short/${sitterId}`,
             {
                 withCredentials: true
             }
