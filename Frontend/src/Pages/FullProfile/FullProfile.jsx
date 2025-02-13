@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../../Components/Navbar/Navbar'
 import {
     Box, Paper, Link, Avatar, Typography, Button, IconButton,
     ImageList, ImageListItem, Rating, TextareaAutosize, CircularProgress, Dialog, DialogContent
@@ -23,6 +22,7 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
+import CardBoard from '../../Components/CardBoard/CardBoard';
 
 const FullProfile = () => {
 
@@ -181,7 +181,6 @@ const FullProfile = () => {
 
     return (
         <>
-            {/* <Navbar /> */}
             <Box sx={{
                 padding: '20px 10%',
                 display: 'flex',
@@ -570,6 +569,28 @@ const FullProfile = () => {
 
                     {(userIdWithRoles?.roles?.includes('Sitter')) &&
                         <>
+                            <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Мои объявления</Typography>
+                                <Box
+                                    sx={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(3, 1fr)',
+                                        gap: '20px',
+                                        justifyItems: 'center',
+                                    }}
+                                >
+                                    <CardBoard />
+                                    <CardBoard />
+
+                                    <CardBoard />
+                                    <CardBoard />
+                                    <CardBoard />
+                                    <CardBoard />
+                                    <CardBoard />
+
+                                </Box>
+                            </Paper>
+
                             <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
                                 <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Отзывы</Typography>
                                 {(auth?.role?.includes('Owner')

@@ -16,6 +16,7 @@ const ProfileMenu = () => {
     pricePerDay: React.createRef(),
     contact: React.createRef(),
     photos: React.createRef(),
+    boardings: React.createRef()
   };
 
   const linkStyle = (isActive) => ({
@@ -144,6 +145,12 @@ const ProfileMenu = () => {
                   upperDividerRef={dividerRefs.animals} >
                   Фотогаллерея</ProfileMenuLink>
                 <Divider ref={dividerRefs.photos} variant="middle" />
+
+                <ProfileMenuLink to={'/profile/boardings/edit'}
+                  lowerDividerRef={dividerRefs.boardings}
+                  upperDividerRef={dividerRefs.photos} >
+                  Объявления</ProfileMenuLink>
+                <Divider ref={dividerRefs.boardings} variant="middle" />
 
                 <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.photos}
             >Контакты</ProfileMenuLink>

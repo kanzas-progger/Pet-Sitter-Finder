@@ -57,7 +57,7 @@ const SitterCard = ({ sitter }) => {
 
       {/* Содержимое карточки */}
       <CardContent sx={{ flex: 1 }}>
-        <Typography variant="h6" component="div" fontWeight="bold" color="primary">
+        <Typography variant="h6" component="div" fontWeight="bold" color="black">
           <Link
             href={`https://localhost:5173/${login}`}
             underline="none"
@@ -103,10 +103,10 @@ const SitterCard = ({ sitter }) => {
               <Tooltip key={index} title={title} placement="top">
                 {typeof icon === 'function' ? (
                   <span style={{ display: 'flex', alignItems: 'center', fontSize }}>
-                    {React.createElement(icon, { style: { color: '#4D7298', fontSize } })}
+                    {React.createElement(icon, { style: { color: 'black', fontSize } })}
                   </span>
                 ) : (
-                  <FontAwesomeIcon icon={icon} style={{ color: '#4D7298', fontSize }} />
+                  <FontAwesomeIcon icon={icon} style={{ color: 'black', fontSize }} />
                 )}
               </Tooltip>
             );

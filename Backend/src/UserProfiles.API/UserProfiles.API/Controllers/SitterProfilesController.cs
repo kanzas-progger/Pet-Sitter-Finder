@@ -231,10 +231,11 @@ public class SitterProfilesController : ControllerBase
         //         string photoUrl = $"/uploads/img/{Path.GetFileName(photo)}";
         //         profilePhotos.Add(photoUrl);
         //     }
-        // }
+        // } 
         
         var response = new EditSitterProfileById(
             sitterProfile.Id, 
+            sitterId,
             sitterProfile.Login, 
             sitterProfile.Firstname, 
             sitterProfile.Lastname,
