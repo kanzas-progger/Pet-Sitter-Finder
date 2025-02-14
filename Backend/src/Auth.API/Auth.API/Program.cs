@@ -58,7 +58,7 @@ services.AddScoped<AnimalsGrpcClient>();
 
 var app = builder.Build();
 
-//app.UseMiddleware<ListenToOnlyApiGateway>();
+app.UseMiddleware<ListenToOnlyApiGateway>();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
