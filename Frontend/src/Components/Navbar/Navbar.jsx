@@ -107,13 +107,13 @@ const Navbar = () => {
                     {auth?.role?.includes('Sitter') && (
                         <>
                             <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
-                            <Link href="/" sx={linkStyle}>Заявки</Link>
+                            <Link href="/requests" sx={linkStyle}>Заявки</Link>
                         </>
                     )}
                     {auth?.role?.includes('Owner') && (
                         <>
                             <Link href="/profile/personal/edit" sx={linkStyle}>Личный кабинет</Link>
-                            <Link href="/" sx={linkStyle}>Бронирование</Link>
+                            <Link href="/requests" sx={linkStyle}>Заявки</Link>
                         </>
                     )}
                 </Box>

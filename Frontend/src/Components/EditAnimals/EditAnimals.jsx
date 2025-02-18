@@ -92,7 +92,7 @@ const EditAnimals = () => {
 
           <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '30px' }}>Животные <span style={{ color: '#c70000' }}>*</span></Typography>
 
-          <FormControl sx={{ width: '70%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
+          <FormControl size='small' sx={{ width: '70%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
             <Select
               id="demo-multiple-checkbox"
               multiple

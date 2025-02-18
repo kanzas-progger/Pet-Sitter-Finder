@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Paper, Box, Typography, Divider, Button, Card, CardActions, CardContent, IconButton, Tooltip, Dialog
+    Box, Typography, Button, Card, CardActions, CardContent, IconButton, Tooltip, Dialog
     , DialogTitle, DialogContent, DialogActions, TextareaAutosize, FormControl, Select, MenuItem, Checkbox,
     OutlinedInput, ListItemText, TextField
 } from "@mui/material"
@@ -80,8 +80,8 @@ const CardBoard = () => {
     const handleSubmitRequest = () => {
         navigate("/boardings/request", {
             state: {
-                animals: animals, 
-                pricePerDay: 1200 
+                animals: animals,
+                pricePerDay: 1200
             }
         });
     };
@@ -202,7 +202,7 @@ const CardBoard = () => {
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent dividers sx={{backgroundColor: '#b3d89c'}}>
+                <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Текст объявления</Typography>
                     <TextareaAutosize
                         id='about'
@@ -250,7 +250,7 @@ const CardBoard = () => {
                     />
 
                 </DialogContent>
-                <DialogActions sx={{backgroundColor: '#b3d89c'}}>
+                <DialogActions sx={{ backgroundColor: '#b3d89c' }}>
                     <Button autoFocus onClick={handleClose} variant="contained">
                         Применить изменения
                     </Button>
@@ -279,7 +279,7 @@ const CardBoard = () => {
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent dividers sx={{backgroundColor: '#b3d89c'}}>
+                <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Текст объявления</Typography>
                     <TextareaAutosize
                         id='about'
@@ -333,7 +333,7 @@ const CardBoard = () => {
                     />
 
                 </DialogContent>
-                <DialogActions sx={{backgroundColor: '#b3d89c'}}>
+                <DialogActions sx={{ backgroundColor: '#b3d89c' }}>
                     <Button autoFocus onClick={handleChangeDetails} variant="contained">
                         Изменить
                     </Button>

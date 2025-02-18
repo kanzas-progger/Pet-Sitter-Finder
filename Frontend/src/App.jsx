@@ -16,6 +16,8 @@ import PhotoGallery from './Pages/PhotoGallery/PhotoGallery'
 import NavbarLayout from './Components/Layout/NavbarLayout'
 import Boardings from './Pages/Boardings/Boardings'
 import Request from './Pages/Request/Request'
+import RequestList from './Pages/RequestList/RequestList'
+import FullAnimalProfile from './Pages/FullAnimalProfile/FullAnimalProfile'
 
 const theme = createTheme({
   palette: {
@@ -57,6 +59,8 @@ function App() {
               <Route path="sitters" element={<Sitters />} />
               <Route path=":login" element={<FullProfile />} />
               <Route path="boardings/request" element={<Request />} />
+              <Route path="requests" element={<RequestList />} />
+              <Route path="animalprofile" element={<FullAnimalProfile />} />
 
 
               {/* protected routes*/}
