@@ -8,5 +8,6 @@ public enum Animal
     Bird = 4,
     Fish = 5,
     SmallPet = 6,
-    FarmPet = 7
+    FarmPet = 7,
+    Spider = 8
 }

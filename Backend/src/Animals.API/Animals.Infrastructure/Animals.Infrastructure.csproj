@@ -35,4 +35,8 @@
       <Protobuf Include="Protos\animal.proto" GrpcServices="Server"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="uploads\img\" />
+    </ItemGroup>
+
 </Project>

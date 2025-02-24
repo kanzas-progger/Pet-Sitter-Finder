@@ -142,11 +142,25 @@
       ],
 
       "UpstreamPathTemplate": "/api/animals/{everything}",
-      "UpstreamHttpMethod": ["GET","POST"],
+      "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
+    },
+
+    {
+      "DownstreamPathTemplate": "/uploads/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+
+      "UpstreamPathTemplate": "/animals/uploads/{everything}",
+      "UpstreamHttpMethod": ["GET"]
     },
 
     {

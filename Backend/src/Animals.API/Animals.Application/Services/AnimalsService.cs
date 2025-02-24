@@ -20,4 +20,24 @@ public class AnimalsService : IAnimalsService
     {
         return await _userAnimalsRepository.GetAllAnimals();
     }
+
+    public async Task<List<string>> GetUserAnimals(Guid userId)
+    {
+        return await _userAnimalsRepository.GetUserAnimals(userId);
+    }
+
+    public async Task<Dictionary<int, string>> GetUserAnimalsDict(Guid userId)
+    {
+        return await _userAnimalsRepository.GetUserAnimalsDict(userId);
+    }
+
+    public async Task<Dictionary<int, string>> GetAllAnimalsDict()
+    {
+        return await _userAnimalsRepository.GetAllAnimalsDict();
+    }
+
+    public async Task<List<int>> GetUserAnimalsIds(Guid userId)
+    {
+        return await _userAnimalsRepository.GetUserAnimalsIds(userId);
+    }
 }

@@ -29,16 +29,7 @@ public class AuthenticationController : ControllerBase
         _usersService = usersService;
         _animalsGrpcClient = animalsGrpcClient;
     }
-
-    // [HttpGet("test")]
-    // [AllowAnonymous]
-    // public async Task<ActionResult<List<string>>> GetAnimals()
-    // {
-    //     var animals = await _animalsGrpcClient.GetListAnimals();
-    //     var response = animals.Animals.Select(a => a.Name).ToList();
-    //     return response;
-    // }
-
+    
     [HttpPost("register")]
     [AllowAnonymous]
     public async Task<ActionResult<string>> Register([FromBody] RegisterUserRequest request)

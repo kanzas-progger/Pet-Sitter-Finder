@@ -606,7 +606,10 @@
         },
         "runtime": {
           "bin/placeholder/Animals.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Animals.Infrastructure/1.0.0": {
         "type": "project",

@@ -26,7 +26,7 @@ public class RabbitMQService : IRabbitMQService, IDisposable
 
             var factory = new ConnectionFactory
             {
-                HostName = "localhost",
+                HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOSTNAME") ?? "localhost",
                 UserName = "user",
                 Password = "password123",
                 AutomaticRecoveryEnabled = true,

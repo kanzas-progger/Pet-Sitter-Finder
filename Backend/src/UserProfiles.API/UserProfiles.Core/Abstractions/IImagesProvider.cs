@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 namespace UserProfiles.Core.Abstractions;
 
 public interface IImagesProvider

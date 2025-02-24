@@ -20,12 +20,37 @@ public class UserAnimalsRepository : IUserAnimalsRepository
 
         return animals;
     }
+    
+    public async Task<Dictionary<int, string>> GetUserAnimalsDict(Guid userId)
+    {
+        var animalNames = await _animalsDbContext.UserAnimals.Where(u => u.UserId == userId)
+            .Include(u => u.Animal)
+            .ToDictionaryAsync(u => u.Animal.Id, u => u.Animal.Name);
+
+        return animalNames;
+    }
+    
+    public async Task<List<int>> GetUserAnimalsIds(Guid userId)
+    {
+        var animalIds = await _animalsDbContext.UserAnimals.Where(u => u.UserId == userId)
+            .Include(u => u.Animal)
+            .Select(u => u.Animal.Id).ToListAsync();
+
+        return animalIds;
+    }
 
     public async Task<Dictionary<string, int>> GetAllAnimals()
     {
         return await _animalsDbContext.Animals.ToDictionaryAsync(a => a.Name.ToLower(), a => a.Id);
     }
 
+    public async Task<Dictionary<int, string>> GetAllAnimalsDict()
+    {
+        return await _animalsDbContext.Animals.ToDictionaryAsync(a => a.Id, a => a.Name);
+    }
+    
+    
+    
     public async Task AddAnimalsForUser(Guid userId, List<int> animalIds)
     {
         var userAnimalsEntities = animalIds.Select(animalId => new UserAnimalsEntity

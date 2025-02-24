@@ -1158,7 +1158,10 @@
         },
         "runtime": {
           "bin/placeholder/Animals.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "SharedLibrary/1.0.0": {
         "type": "project",

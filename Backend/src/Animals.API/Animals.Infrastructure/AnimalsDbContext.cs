@@ -1,4 +1,5 @@
-﻿using Animals.Infrastructure.Configurations;
+﻿using Animals.Core.Models;
+using Animals.Infrastructure.Configurations;
 using Animals.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +11,13 @@ public class AnimalsDbContext : DbContext
     
     public DbSet<AnimalEntity> Animals { get; set; }
     public DbSet<UserAnimalsEntity> UserAnimals { get; set; }
+    
+    public DbSet<AnimalProfileEntity> AnimalProfiles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new AnimalConfiguration());
         modelBuilder.ApplyConfiguration(new UserAnimalsConfiguration());
+        modelBuilder.ApplyConfiguration(new AnimalProfileConfiguration());
     }
 }

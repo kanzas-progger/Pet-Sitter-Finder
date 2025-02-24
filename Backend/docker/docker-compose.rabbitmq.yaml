@@ -1,4 +1,34 @@
 services:
+  reviews-api:
+    build:
+      context: ..
+      dockerfile: src/Reviews.API/Dockerfile
+    container_name: reviews-api
+    ports:
+      - "5003:5003"
+      - "7000:7000"
+    networks:
+      - rabbitmq_network
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_HOSTNAME=rabbitmq
+
+  animals-api:
+    build:
+      context: ..
+      dockerfile: src/Animals.API/Dockerfile
+    container_name: animals-api
+    ports:
+      - "5004:5004"
+      - "7001:7001"
+    networks:
+      - rabbitmq_network
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_HOSTNAME=rabbitmq
+
   rabbitmq:
     image: rabbitmq:4.0-management
     container_name: rabbitmq
@@ -10,6 +40,13 @@ services:
       RABBITMQ_DEFAULT_PASS: password123
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_network
 
 volumes:
   rabbitmq_data:
+
+networks:
+  rabbitmq_network:
+    name: rabbitmq_network
+

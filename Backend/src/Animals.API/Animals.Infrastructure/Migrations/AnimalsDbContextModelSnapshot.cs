@@ -73,7 +73,59 @@ namespace Animals.Infrastructure.Migrations
                         {
                             Id = 7,
                             Name = "FarmPet"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Spider"
                         });
+                });
+
+            modelBuilder.Entity("Animals.Infrastructure.Entities.AnimalProfileEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("AnimalId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ProfileImage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnimalProfiles");
                 });
 
             modelBuilder.Entity("Animals.Infrastructure.Entities.UserAnimalsEntity", b =>
