@@ -26,7 +26,7 @@ public class AnimalProfilesController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Owner")]
-    public async Task<ActionResult<AnimalProfile>> Create([FromBody] CreateAnimalProfileRequest request)
+    public async Task<ActionResult<AnimalProfileResponse>> Create([FromForm] CreateAnimalProfileRequest request)
     {
         var ownerId = GetUserIdFromClaim();
         
@@ -36,6 +36,13 @@ public class AnimalProfilesController : ControllerBase
         
         int animalId = await _animalProfilesService.GetAnimalIdByName(request.animalName);
         
+        string profileImage = String.Empty;
+        if (request.profileImage != null)
+        {
+            string imageUrl = await _animalsProfileImageProvider.SaveImage(request.profileImage);
+            profileImage = imageUrl;
+        }
+        
         var (newAnimalProfile, error) = AnimalProfile.Create(
             Guid.NewGuid(),
             animalId,
@@ -43,23 +50,36 @@ public class AnimalProfilesController : ControllerBase
             request.name,
             request.birthday,
             request.gender,
-            request.type,
+            request.type ?? "не указано",
             request.count,
-            request.description,
-            request.profileImage
+            request.description ?? string.Empty,
+            profileImage
         );
         
         if(!string.IsNullOrEmpty(error))
             return BadRequest(error);
-
+    
         var animalProfile = await _animalProfilesService.Create(newAnimalProfile);
         
-        return Ok(animalProfile);
+        var response = new AnimalProfileResponse(
+            animalProfile.Id, 
+            animalProfile.AnimalId,
+            animalProfile.OwnerId,
+            request.animalName,
+            animalProfile.Name,
+            animalProfile.Birthday,
+            animalProfile.Gender,
+            animalProfile.Type,
+            animalProfile.Count,
+            animalProfile.Description,
+            animalProfile.ProfileImage);
+        
+        return Ok(response);
     }
-
+    
     [HttpPut]
     [Authorize(Roles = "Owner")]
-    public async Task<ActionResult<AnimalProfileResponse>> Update([FromBody] UpdateAnimalProfileRequest request)
+    public async Task<ActionResult<AnimalProfileResponse>> Update([FromForm] UpdateAnimalProfileRequest request)
     {
         var ownerId = GetUserIdFromClaim();
         
@@ -68,6 +88,23 @@ public class AnimalProfilesController : ControllerBase
             return BadRequest("Invalid animal name. Please enter your valid name from your animals");
         
         int animalId = await _animalProfilesService.GetAnimalIdByName(request.animalName);
+        
+        string profileImage = string.Empty;
+        
+        if (request.profileImage != null && !request.isProfileImageExist)
+        {
+            _animalsProfileImageProvider.DeleteImage(request.existingProfileImage);
+            
+            string imageUrl = await _animalsProfileImageProvider.SaveImage(request.profileImage);
+            await _animalProfilesService.UpdateAnimalProfileImage(request.animalProfileId, ownerId, imageUrl);
+            profileImage = imageUrl;
+        }
+
+        if (request.profileImage == null && !request.isProfileImageExist)
+        {
+            _animalsProfileImageProvider.DeleteImage(request.existingProfileImage);
+            await _animalProfilesService.UpdateAnimalProfileImage(request.animalProfileId, ownerId, profileImage);
+        }
 
         var (animalProfileToUpdate, error) = AnimalProfile.Create(
             request.animalProfileId,
@@ -76,9 +113,9 @@ public class AnimalProfilesController : ControllerBase
             request.name,
             request.birthday,
             request.gender,
-            request.type,
+            request.type ?? "не указано",
             request.count,
-            request.description,
+            request.description ?? string.Empty,
             string.Empty
         );
         
@@ -86,65 +123,58 @@ public class AnimalProfilesController : ControllerBase
             return BadRequest(error);
         
         var updatedAnimalProfile = await _animalProfilesService.Update(animalProfileToUpdate);
-        var animalsDict = await _animalsService.GetAllAnimalsDict();
         
-        var animalProfileImage = await _animalProfilesService.GetAnimalProfileImage(updatedAnimalProfile.Id);
-        if (!string.IsNullOrEmpty(animalProfileImage))
-        {
-            string fileName = Path.GetFileName(animalProfileImage);
-            animalProfileImage = $"/animals/uploads/img/{fileName}";
-        }
-
         var response = new AnimalProfileResponse(
             updatedAnimalProfile.Id,
             updatedAnimalProfile.AnimalId,
             updatedAnimalProfile.OwnerId,
-            animalsDict.GetValueOrDefault(updatedAnimalProfile.AnimalId, "Неизвестно"),
+            request.animalName,
             updatedAnimalProfile.Name,
             updatedAnimalProfile.Birthday,
             updatedAnimalProfile.Gender,
             updatedAnimalProfile.Type,
             updatedAnimalProfile.Count,
             updatedAnimalProfile.Description,
-            animalProfileImage
+            profileImage
         );
         
         return Ok(response);
     }
     
-    [HttpGet("all")]
+    [HttpGet("all/{ownerId:guid}")]
     [Authorize(Roles = "Owner, Sitter")]
-    public async Task<ActionResult<List<AnimalProfileResponse>>> GetAllAnimalProfilesForOwner()
+    public async Task<ActionResult<List<AnimalProfileResponse>>> GetAllAnimalProfilesForOwner(Guid ownerId)
     {
-        var ownerId = GetUserIdFromClaim();
+        //var ownerId = GetUserIdFromClaim();
         
         var animalProfiles = await _animalProfilesService.GetAllForOwner(ownerId);
         var animalsDict = await _animalsService.GetAllAnimalsDict();
 
-        var getAnimalProfilesTasks = animalProfiles.Select(async p =>
+        var response = new List<AnimalProfileResponse>();
+
+        foreach (var ap in animalProfiles)
         {
-            string profileImage = await _animalProfilesService.GetAnimalProfileImage(p.Id);
-            if (!string.IsNullOrEmpty(profileImage))
-            {
-                string fileName = Path.GetFileName(profileImage);
-                profileImage = $"/animals/uploads/img/{fileName}";
-            }
-
-            return new AnimalProfileResponse(
-                p.Id,
-                p.AnimalId,
-                p.OwnerId,
-                animalsDict.GetValueOrDefault(p.AnimalId, "Неизвестно"),
-                p.Name,
-                p.Birthday,
-                p.Gender,
-                p.Type,
-                p.Count,
-                p.Description,
-                profileImage);
-        });
-
-        var response = await Task.WhenAll(getAnimalProfilesTasks);
+            // string profileImage = await _animalProfilesService.GetAnimalProfileImage(ap.Id);
+            // if (!string.IsNullOrEmpty(profileImage))
+            // {
+            //     string fileName = Path.GetFileName(profileImage);
+            //     profileImage = $"/animals/uploads/img/{fileName}";
+            // }
+            
+            response.Add(new AnimalProfileResponse(
+                ap.Id,
+                ap.AnimalId,
+                ap.OwnerId,
+                animalsDict.GetValueOrDefault(ap.AnimalId, "Неизвестно"),
+                ap.Name,
+                ap.Birthday,
+                ap.Gender,
+                ap.Type,
+                ap.Count,
+                ap.Description,
+                ap.ProfileImage
+                ));
+        }
         
         return Ok(response);
     }
@@ -189,8 +219,12 @@ public class AnimalProfilesController : ControllerBase
     public async Task<ActionResult> Delete(Guid animalProfileId)
     {
         var ownerId = GetUserIdFromClaim();
+        
+        string imageUrl = await _animalProfilesService.GetAnimalProfileImage(animalProfileId);
+        _animalsProfileImageProvider.DeleteImage(imageUrl);
+        
         await _animalProfilesService.Delete(animalProfileId,ownerId);
-
+        
         return Ok();
     }
     

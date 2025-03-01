@@ -38,6 +38,7 @@ const EditAnimals = () => {
     "Рыбки": "Fish",
   };
 
+
   useEffect(() => {
     if (profile?.animals) {
       const translatedAnimals = animals.filter(
