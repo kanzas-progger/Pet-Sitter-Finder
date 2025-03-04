@@ -8,14 +8,33 @@ import { useState, useEffect } from 'react'
 import useProfile from '../../hooks/useProfile'
 import CardBoard from '../CardBoard/CardBoard'
 import CloseIcon from '@mui/icons-material/Close';
+import { createBoard, getBoardsForSitter } from '../../api/boards'
+import useAuth from '../../hooks/useAuth'
 
 const EditBoardings = () => {
 
 
     const navigate = useNavigate()
+    const [boards, setBoards] = useState([])
     const [content, setContent] = useState();
+    const [pricePerDay, setPricePerDay] = useState();
     const [animalName, setAnimalName] = useState([]);
     const { profile, setProfile } = useProfile()
+    const {auth, setAuth} = useAuth() ////
+
+     useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await getBoardsForSitter(auth.userId)
+                    setBoards(response.data)
+                    console.log("ОБЪЯВЛЕНИЯ: ", response.data)
+                } catch (e) {
+                    console.error("Error of receiving boards: ", e)
+                }
+            }
+    
+            fetchData()
+        }, [])
 
     const animals = [
         'Собаки',
@@ -66,12 +85,22 @@ const EditBoardings = () => {
         setOpenToCreate(false);
     }
 
-    const handleCreateBoarding = () => {
+    const handleCreateBoarding = async () => {
+        const animals = animalName.map(name => animalTranslations[name])
+
+        const dataToSend = { animalNames: animals, content: content, price: parseInt(pricePerDay, 10) }
+
+        try {
+            const response = await createBoard(dataToSend)
+            console.log(response.data)
+        } catch (e) {
+            console.error(e)
+        }
+
         handleCloseToCreate()
-        const animals = { animals: animalName.map(name => animalTranslations[name]) }
-        console.log(animals)
-        console.log(content)
         setAnimalName([])
+        setContent()
+        setPricePerDay()
     }
 
     return (
@@ -131,9 +160,9 @@ const EditBoardings = () => {
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent dividers sx={{backgroundColor: '#b3d89c'}}>
+                <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Текст объявления</Typography>
-                    <TextareaAutosize
+                    {/* <TextareaAutosize
                         id='content'
                         value={content || ""}
                         onChange={(e) => setContent(e.target.value)}
@@ -149,6 +178,21 @@ const EditBoardings = () => {
                             resize: 'none',
                             background: '#e0e0e0'
                         }}
+                    /> */}
+                    <TextField
+                        id='content'
+                        value={content || ""}
+                        onChange={(e) => setContent(e.target.value)}
+                        multiline
+                        minRows={4}
+                        placeholder="Введите текст объявления..."
+                        size='small'
+                        sx={{
+                            width: '100%',
+                            marginTop: '10px',
+                            '& .MuiOutlinedInput-root': { background: '#e0e0e0' },
+                            '& textarea': { overflow: 'hidden', resize: 'none' }
+                        }}
                     />
 
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Животные</Typography>
@@ -156,6 +200,7 @@ const EditBoardings = () => {
                         <Select
                             id="demo-multiple-checkbox"
                             multiple
+                            size='small'
                             value={animalName}
                             onChange={handleAnimalChange}
                             input={<OutlinedInput />}
@@ -176,6 +221,7 @@ const EditBoardings = () => {
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Цена за сутки</Typography>
                     <TextField
                         id="pricePerDay"
+                        onChange={(e) => setPricePerDay(e.target.value)}
                         size="small"
                         type="number"
                         required
@@ -183,7 +229,7 @@ const EditBoardings = () => {
                     />
 
                 </DialogContent>
-                <DialogActions sx={{backgroundColor: '#b3d89c'}}>
+                <DialogActions sx={{ backgroundColor: '#b3d89c' }}>
                     <Button type='submit' onClick={handleCreateBoarding} variant="contained">
                         Создать
                     </Button>
