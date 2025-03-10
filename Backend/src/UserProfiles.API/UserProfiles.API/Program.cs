@@ -1,4 +1,3 @@
-using System.Net.Security;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -11,6 +10,7 @@ using UserProfiles.Core.Abstractions;
 using UserProfiles.Infrastructure;
 using UserProfiles.Infrastructure.Consumers;
 using UserProfiles.Infrastructure.GrpcClients;
+using UserProfiles.Infrastructure.GrpcServices;
 using UserProfiles.Infrastructure.Protos;
 using UserProfiles.Infrastructure.Providers;
 using UserProfiles.Infrastructure.Repositories;
@@ -21,6 +21,7 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 
 services.AddControllers();
+services.AddGrpc().AddJsonTranscoding();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(); //Swagger
 
@@ -31,6 +32,11 @@ services.AddJwtAuthenticationScheme(configuration.GetSection(nameof(JwtOptions))
 services.AddDbContext<UserProfilesDbContext>(options =>
 {
     options.UseNpgsql(configuration.GetConnectionString("UserProfilesDbConnection"));
+});
+
+services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = configuration.GetConnectionString("Redis");
 });
 
 services.AddGrpcClient<ReviewsProtoService.ReviewsProtoServiceClient>(options =>
@@ -63,6 +69,8 @@ services.AddScoped<ISitterProfilesRepository, SitterProfilesRepository>();
 services.AddScoped<IOwnerProfilesService, OwnerProfilesService>();
 services.AddScoped<ISitterProfileService, SitterProfileService>();
 services.AddScoped<IImagesService, ImagesService>();
+services.AddScoped<IRedisCacheService, RedisCacheService>();
+services.AddScoped<IShortSitterProfilesCacheService, ShortSitterProfilesCacheService>();
 
 //Providers
 services.AddScoped<IImagesProvider, ImagesProvider>();
@@ -75,6 +83,7 @@ services.AddSingleton<IUpdateSitterRatingConsumer, UpdateSitterRatingConsumer>()
 //Background Services
 services.AddHostedService<CreateUserProfileBackground>();
 services.AddHostedService<UpdateSitterRatingBackground>();
+services.AddHostedService<ShortSitterProfilesCacheBackgroundService>();
 
 //gRPC
 services.AddScoped<ReviewsGrpcClient>();
@@ -118,5 +127,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<SittersGrpcService>();
 
 app.Run();

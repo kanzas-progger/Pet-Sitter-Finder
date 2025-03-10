@@ -394,6 +394,20 @@
           }
         }
       },
+      "Microsoft.Extensions.Caching.StackExchangeRedis/8.0.11": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Options": "8.0.2",
+          "StackExchange.Redis": "2.7.27"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {
+            "assemblyVersion": "8.0.11.0",
+            "fileVersion": "8.0.1124.52116"
+          }
+        }
+      },
       "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "8.0.0"
@@ -572,6 +586,17 @@
           }
         }
       },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "dependencies": {
+          "System.IO.Pipelines": "8.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.2.8.1080"
+          }
+        }
+      },
       "RabbitMQ.Client/7.0.0": {
         "dependencies": {
           "System.IO.Pipelines": "8.0.0",
@@ -581,6 +606,18 @@
           "lib/net8.0/RabbitMQ.Client.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.0.0"
+          }
+        }
+      },
+      "StackExchange.Redis/2.7.27": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
+          "Pipelines.Sockets.Unofficial": "2.2.8"
+        },
+        "runtime": {
+          "lib/net6.0/StackExchange.Redis.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.7.27.49176"
           }
         }
       },
@@ -686,7 +723,8 @@
       "Boards.Application/1.0.0": {
         "dependencies": {
           "Boards.Core": "1.0.0",
-          "Boards.Infrastructure": "1.0.0"
+          "Boards.Infrastructure": "1.0.0",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "8.0.11"
         },
         "runtime": {
           "Boards.Application.dll": {}
@@ -874,6 +912,13 @@
       "path": "microsoft.extensions.caching.memory/8.0.1",
       "hashPath": "microsoft.extensions.caching.memory.8.0.1.nupkg.sha512"
     },
+    "Microsoft.Extensions.Caching.StackExchangeRedis/8.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2FsCMLIB8pXCIXQ+0JQCp3bOF/oFI87N/V02DALoxyCNME/ACURizdMWfUwNTimjATzEVbbuXntgZ+GH+6bhCw==",
+      "path": "microsoft.extensions.caching.stackexchangeredis/8.0.11",
+      "hashPath": "microsoft.extensions.caching.stackexchangeredis.8.0.11.nupkg.sha512"
+    },
     "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1000,12 +1045,26 @@
       "path": "npgsql.entityframeworkcore.postgresql/8.0.11",
       "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512"
     },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
+    },
     "RabbitMQ.Client/7.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-8YJz22mOSMtkbIVuVSz2HbJwbpKwRoXQ1uqbczDUt1w1Ds8dxFs6dkV/oZ8AlTmkErZjtQelHv+oBu52ud00WA==",
       "path": "rabbitmq.client/7.0.0",
       "hashPath": "rabbitmq.client.7.0.0.nupkg.sha512"
+    },
+    "StackExchange.Redis/2.7.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Uqc2OQHglqj9/FfGQ6RkKFkZfHySfZlfmbCl+hc+u2I/IqunfelQ7QJi7ZhvAJxUtu80pildVX6NPLdDaUffOw==",
+      "path": "stackexchange.redis/2.7.27",
+      "hashPath": "stackexchange.redis.2.7.27.nupkg.sha512"
     },
     "System.CodeDom/4.4.0": {
       "type": "package",

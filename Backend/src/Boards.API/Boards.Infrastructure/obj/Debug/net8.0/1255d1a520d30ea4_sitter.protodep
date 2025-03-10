@@ -1,0 +1,2 @@
+obj/Debug/net8.0/Protos/Sitter.cs \
+obj/Debug/net8.0/Protos/SitterGrpc.cs: Protos/sitter.proto

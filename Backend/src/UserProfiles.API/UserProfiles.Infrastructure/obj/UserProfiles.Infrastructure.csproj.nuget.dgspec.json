@@ -171,6 +171,10 @@
               "target": "Package",
               "version": "[3.29.1, )"
             },
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.67.0, )"
+            },
             "Grpc.Net.Client": {
               "target": "Package",
               "version": "[2.67.0, )"
@@ -184,6 +188,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.67.0, )"
+            },
+            "Microsoft.AspNetCore.Grpc.JsonTranscoding": {
+              "target": "Package",
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

@@ -121,7 +121,7 @@ const Navbar = () => {
                     sx={{
                         display: 'flex',
                         gap: '25px',
-                        alignItems: 'center',
+                        alignItems: 'center'
                     }}
                 >
                     {(auth?.role?.includes('Sitter') || auth?.role?.includes('Owner')) ? (

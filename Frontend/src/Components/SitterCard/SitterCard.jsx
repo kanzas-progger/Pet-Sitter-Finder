@@ -1,6 +1,6 @@
 import React from 'react';
 import './SitterCard.css'
-import { Card, CardContent, CardMedia, Typography, Box, Avatar, Tooltip, Link } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box, Avatar, Tooltip, Link, Button } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDog, faCat, faFishFins, faHorse, faDove, faSpider } from '@fortawesome/free-solid-svg-icons';
@@ -43,8 +43,8 @@ const SitterCard = ({ sitter }) => {
 
   return (
     <Card sx={{
-      display: 'flex', maxWidth: 800, boxShadow: 3,
-      borderRadius: 3, margin: 2, backgroundColor: '#D0EFB1'
+      display: 'flex', width:'100%', boxShadow: 3,
+      borderRadius: 3, backgroundColor: '#D0EFB1'
     }}>
       {/* Фото профиля */}
       <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -116,7 +116,7 @@ const SitterCard = ({ sitter }) => {
       </CardContent>
 
       {/* Цена */}
-      <Box sx={{
+      {/* <Box sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -135,8 +135,27 @@ const SitterCard = ({ sitter }) => {
         ) : (<Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
           Цена не указана
         </Typography>)}
+      </Box> */}
 
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 2
+      }}>
+        {pricePerDay > 0 ? (
+          <>
+            <Typography variant="h6" component="div" fontWeight="bold" color="#f57c00">
+              {`${pricePerDay} ₽`}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" fontSize="14px">
+              за сутки
+            </Typography>
+          </>
+        ) : (<Button variant='contained'>Отправить заявку</Button>)}
       </Box>
+
     </Card>
   );
 };

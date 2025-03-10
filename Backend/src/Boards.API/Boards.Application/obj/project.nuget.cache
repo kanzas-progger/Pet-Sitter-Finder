@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mykr/QGln8M=",
+  "dgSpecHash": "gpykFVxOvWk=",
   "success": true,
   "projectFilePath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.Application/Boards.Application.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "/home/nikolay/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.11/microsoft.entityframeworkcore.relational.8.0.11.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.caching.memory/8.0.1/microsoft.extensions.caching.memory.8.0.1.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/microsoft.extensions.caching.stackexchangeredis/8.0.11/microsoft.extensions.caching.stackexchangeredis.8.0.11.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.1/microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
@@ -24,7 +25,10 @@
     "/home/nikolay/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
     "/home/nikolay/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/npgsql/8.0.6/npgsql.8.0.6.nupkg.sha512",
-    "/home/nikolay/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512"
+    "/home/nikolay/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/pipelines.sockets.unofficial/2.2.8/pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/stackexchange.redis/2.7.27/stackexchange.redis.2.7.27.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -110,6 +110,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -231,6 +237,10 @@
               "target": "Package",
               "version": "[3.29.1, )"
             },
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.67.0, )"
+            },
             "Grpc.Net.Client": {
               "target": "Package",
               "version": "[2.67.0, )"
@@ -244,6 +254,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.67.0, )"
+            },
+            "Microsoft.AspNetCore.Grpc.JsonTranscoding": {
+              "target": "Package",
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

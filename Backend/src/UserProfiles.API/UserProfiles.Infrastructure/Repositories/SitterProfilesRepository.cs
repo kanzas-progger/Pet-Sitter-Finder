@@ -55,7 +55,7 @@ public class SitterProfilesRepository : ISitterProfilesRepository
         
         return profiles;
     }
-
+    
     public async Task<SitterProfile> GetById(Guid sitterId)
     {
         var entity = await _userProfilesDbContext.SitterProfiles

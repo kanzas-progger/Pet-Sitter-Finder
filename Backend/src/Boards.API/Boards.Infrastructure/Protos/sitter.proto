@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "Boards.Infrastructure.Protos";
+
+package sitter;
+
+message SittersRequest { }
+
+message Sitter {
+  string sitterId = 1;
+  string login = 2;
+  string firstname = 3;
+  string lastname = 4;
+  string country = 5;
+  string city = 6;
+  string address = 7;
+  string profileImage = 8;
+  double rating = 9;
+  int32 rateCount = 10;
+}
+
+message SittersResponse {
+  repeated Sitter sitters = 1;
+}
+
+service SittersProtoService {
+  rpc GetSitters (SittersRequest) returns (SittersResponse);
+}

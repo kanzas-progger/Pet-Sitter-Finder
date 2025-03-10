@@ -15,10 +15,23 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import useProfile from '../../hooks/useProfile';
 
-const CardBoard = () => {
+
+const CardBoard = ({ board, onHandleDelete }) => {
+
+    const {
+        id,
+        sitterId,
+        animalNames,
+        content,
+        price,
+        createdAt
+    } = board
 
     const { auth, setAuth } = useAuth()
+    const { profile, setProfile } = useProfile()
+    const [animalName, setAnimalName] = useState([]);
     const navigate = useNavigate()
     const animalInfo = {
         Dog: { icon: faDog, title: 'Собаки', fontSize: '20px' },
@@ -30,6 +43,21 @@ const CardBoard = () => {
         Horse: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px' },
         SmallPet: { icon: <PestControlRodentIcon />, title: 'Грызуны', fontSize: '25px' },
     }
+
+    const animalTranslations = {
+        "Собаки": "Dog",
+        "Кошки": "Cat",
+        "Фермерские животные": "FarmPet",
+        "Пауки": "Spider",
+        "Рептилии": "Reptile",
+        "Грызуны": "SmallPet",
+        "Птички": "Bird",
+        "Рыбки": "Fish",
+    }
+
+    const reversedTranslations = Object.fromEntries(
+        Object.entries(animalTranslations).map(([ru, en]) => [en, ru])
+    )
 
     const animals = ['Dog', 'Cat', 'Fish', 'Bird', 'Reptile', 'Spider', 'Horse', 'SmallPet']
     //const animals = ['Dog','Cat']
@@ -48,6 +76,14 @@ const CardBoard = () => {
 
     const [open, setOpen] = useState(false);
     const [openDetails, setOpenDetails] = useState(false);
+
+    const [putData, setPutData] = useState({
+        boardId: id,
+        animalNames: animalName.map(name => reversedTranslations[name] || name),
+        content: content,
+        price: price,
+        createdAt: createdAt
+        })
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -68,19 +104,17 @@ const CardBoard = () => {
         handleClickOpen()
     }
 
-    const [animalName, setAnimalName] = useState([]);
     const handleAnimalChange = (e) => {
         const {
             target: { value },
-        } = e;
-        setAnimalName(typeof value === 'string' ? value.split(',') : value);
-        //setAnimalIsValid(false)
+        } = e
+        setAnimalName(typeof value === 'string' ? value.split(',') : value)
     }
 
     const handleSubmitRequest = () => {
         navigate("/boardings/request", {
             state: {
-                animals: animals,
+                animals: animalNames,
                 pricePerDay: 1200
             }
         });
@@ -103,7 +137,7 @@ const CardBoard = () => {
 
                     <Box sx={{ display: "flex", flexDirection: 'column', marginTop: "20px", alignItems: 'center' }}>
                         <Box display="flex" gap={1} justifyContent="center">
-                            {animals.map((animal, index) => {
+                            {animalNames.map((animal, index) => {
                                 const animalData = animalInfo[animal];
                                 if (!animalData) return null;
 
@@ -131,7 +165,7 @@ const CardBoard = () => {
                                 Цена
                             </Typography>
                             <Typography sx={{ marginTop: "10px", color: '#f57c00', fontWeight: 'bold', fontSize: '26px' }}>
-                                1200 ₽
+                                {price} ₽
                             </Typography>
                             <Typography sx={{ color: '#6b7280', fontSize: '16px' }}>
                                 за сутки
@@ -150,7 +184,7 @@ const CardBoard = () => {
                         </CardActions>
                     </>}
 
-                {(auth?.userId === "4567f41e-7a7f-47db-a5dd-8635e4d14a8f") &&
+                {(auth?.userId === sitterId) &&
                     <>
                         <CardActions sx={{ justifyContent: 'center' }}>
 
@@ -168,7 +202,7 @@ const CardBoard = () => {
                             </Tooltip>
 
                             <Tooltip title="Удалить" placement="top">
-                                <IconButton size="small">
+                                <IconButton size="small" onClick={() => onHandleDelete(id)}>
                                     <DeleteOutlineIcon />
                                 </IconButton>
                             </Tooltip>
@@ -208,6 +242,7 @@ const CardBoard = () => {
                         id='about'
                         minRows={4}
                         placeholder="Введите текст объявления..."
+                        value={content}
                         style={{
                             width: '100%',
                             marginTop: '10px',
@@ -221,22 +256,26 @@ const CardBoard = () => {
                     />
 
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Животные</Typography>
-                    <FormControl sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
+                    <FormControl size='small' sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
                         <Select
                             id="demo-multiple-checkbox"
                             multiple
-                            value={animalName}
+                            value={putData.animalNames}
                             onChange={handleAnimalChange}
                             input={<OutlinedInput />}
                             renderValue={(selected) => selected.join(', ')}
                             MenuProps={MenuProps}
+                            required
                         >
-                            {animals.map((name) => (
-                                <MenuItem key={name} value={name}>
-                                    <Checkbox checked={animalName.includes(name)} />
-                                    <ListItemText primary={name} />
-                                </MenuItem>
-                            ))}
+                            {profile?.animals?.map((name) => {
+                                const translatedName = reversedTranslations[name] || name;
+                                return (
+                                    <MenuItem key={name} value={translatedName}>
+                                        <Checkbox checked={putData.animalNames.includes(translatedName)} />
+                                        <ListItemText primary={translatedName} />
+                                    </MenuItem>
+                                );
+                            })}
                         </Select>
                     </FormControl>
 
@@ -245,6 +284,7 @@ const CardBoard = () => {
                         id="pricePerDay"
                         size="small"
                         type="number"
+                        value={price}
                         required
                         sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}
                     />
@@ -257,6 +297,7 @@ const CardBoard = () => {
                 </DialogActions>
             </Dialog>
 
+            {/* Подробности объявления*/}
             <Dialog
                 onClose={handleCloseDetails}
                 aria-labelledby="customized-dialog-title"
@@ -284,7 +325,7 @@ const CardBoard = () => {
                     <TextareaAutosize
                         id='about'
                         minRows={4}
-                        value={"Some input readonly value for test"}
+                        value={content}
                         style={{
                             width: '100%',
                             marginTop: '10px',
@@ -300,7 +341,7 @@ const CardBoard = () => {
                     />
 
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Животные</Typography>
-                    <FormControl sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
+                    <FormControl size='small' sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
                         <Select
                             id="demo-multiple-checkbox"
                             multiple
@@ -325,10 +366,10 @@ const CardBoard = () => {
                         id="pricePerDay"
                         size="small"
                         type="number"
+                        value={price}
                         required
                         sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}
                         readOnly
-                        value="100"
                         disabled
                     />
 

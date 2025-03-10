@@ -26,9 +26,25 @@ services.AddDbContext<BoardsDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("BoardsDbConnection"));
 });
 
+services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = configuration.GetConnectionString("Redis");
+});
+
 services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
 {
     options.Address = new Uri("https://localhost:7001");
+}).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
+{
+    var handler = new HttpClientHandler();
+    handler.ServerCertificateCustomValidationCallback = 
+        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+    return handler;
+});
+
+services.AddGrpcClient<SittersProtoService.SittersProtoServiceClient>(options =>
+{
+    options.Address = new Uri("https://localhost:7002");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();
@@ -42,8 +58,10 @@ services.AddScoped<IBoardAnimalsRepository, BoardAnimalsRepository>();
 
 services.AddScoped<IBoardsService, BoardsService>();
 services.AddScoped<IBoardAnimalsService, BoardAnimalsService>();
+services.AddScoped<IRedisCacheService, RedisCacheService>();
 
 services.AddScoped<AnimalsGrpcClient>();
+services.AddScoped<SittersGrpcClient>();
 
 var app = builder.Build();
 

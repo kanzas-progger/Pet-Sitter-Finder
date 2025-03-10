@@ -1,10 +1,10 @@
 import React from 'react'
-import { Tooltip } from '@mui/material';
+import { Tooltip, Box, Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 
-const CalendarPicker = ({ disabledDates, disableTooltip }) => {
+const CalendarPicker = ({ disabledDates, disableTooltip, sx={}, title }) => {
 
     const renderDisabledDay = (disabledDates) => (props) => {
         const { day, outsideCurrentMonth, ...other } = props;
@@ -31,7 +31,7 @@ const CalendarPicker = ({ disabledDates, disableTooltip }) => {
                 disablePast
                 sx={{
                     backgroundColor: '#b3d89c',
-                    borderRadius: "12px",
+                    borderRadius: title ? '12px 12px 0 0' : '12px',
                     padding: 0,
                     margin: 0,
                     '& .MuiPickersCalendarHeader-root': { padding: '8px' },
@@ -40,7 +40,21 @@ const CalendarPicker = ({ disabledDates, disableTooltip }) => {
                     '& .MuiPickersDay-today': {
                         border: 'none !important',
                     },
+                    ...sx
                 }} />
+                {title && (
+                <Box 
+                    sx={{ 
+                        backgroundColor: '#b3d89c', 
+                        borderRadius: '0 0 12px 12px', 
+                        padding: '10px' 
+                    }}
+                >
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', textAlign: 'center' }}>
+                        {title}
+                    </Typography>
+                </Box>
+            )}
         </>
     )
 }

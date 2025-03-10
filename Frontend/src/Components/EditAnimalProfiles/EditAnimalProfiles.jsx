@@ -146,11 +146,10 @@ const EditAnimalProfiles = () => {
             birthday: utcDate
         }
 
-        console.log("Данные создаваемого animal profile", dataToSend)
         try{
             const response = await createAnimalProfile(dataToSend)
             console.log(response.data)
-            setAnimalProfiles((prev) => [...prev, response.data])
+            setAnimalProfiles((prev) => [response.data, ...prev])
             //navigate(0)
         }catch (e){
             console.error(e)

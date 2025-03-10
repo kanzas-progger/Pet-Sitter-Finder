@@ -19,7 +19,6 @@ public class ReviewsGrpcService : ReviewsProtoService.ReviewsProtoServiceBase
     {
         
         Guid sitterId = Guid.Parse(request.SitterId);
-        Console.WriteLine($"Sitter Id: {sitterId}");
         var reviews = await _reviewsRepository.GetAll(sitterId);
         
         var response = new SitterReviewsResponse();

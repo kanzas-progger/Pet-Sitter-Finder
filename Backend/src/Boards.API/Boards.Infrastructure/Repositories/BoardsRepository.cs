@@ -1,6 +1,8 @@
 using Boards.Core.Abstractions;
 using Boards.Core.Models;
+using Boards.Core.Specifications;
 using Boards.Infrastructure.Entities;
+using Boards.Infrastructure.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace Boards.Infrastructure.Repositories;
@@ -14,6 +16,35 @@ public class BoardsRepository : IBoardsRepository
         _context = context;
     }
 
+    public async Task<List<Board>> GetFiltered(params IBoardSpecification[] specifications )
+    {
+        var entitySpecs = specifications.Select(ConvertToEntitySpecification).ToArray();
+        
+        var boardEntities = await SpecificationQueryBuilder
+            .GetQuery(_context.Boards.AsNoTracking(), entitySpecs)
+            .ToListAsync();
+        
+        var boards = boardEntities.Select(b => Board.Create(
+            b.Id, 
+            b.SitterId, 
+            new List<int>(),
+            b.Content,
+            b.Price,
+            b.CreatedAt).newBoard).ToList();
+        
+        return boards;
+    }
+    
+    private Specification<BoardEntity> ConvertToEntitySpecification(IBoardSpecification spec)
+    {
+        return spec switch
+        {
+            BoardPriceSpecification priceSpec => new BoardEntityPriceSpecification(priceSpec),
+            BoardAnimalsSpecification animalsSpec => new BoardEntityAnimalsSpecification(animalsSpec),
+            _ => throw new ArgumentException($"Unknown specification type: {spec.GetType()}")
+        };
+    }
+    
     public async Task<Board> Create(Board board)
     {
         var boardEntity = new BoardEntity
@@ -45,12 +76,27 @@ public class BoardsRepository : IBoardsRepository
         var boardEntities = await _context.Boards.AsNoTracking()
             .Include(b => b.BoardAnimals)
             .Where(b => b.SitterId == sitterId)
+            .OrderByDescending(b => b.CreatedAt)
             .ToListAsync();
         
         var boards = boardEntities.Select(b => Board.Create(
             b.Id, 
             b.SitterId, 
             b.BoardAnimals.Select(a => a.AnimalId).ToList(),
+            b.Content,
+            b.Price,
+            b.CreatedAt).newBoard).ToList();
+        
+        return boards;
+    }
+
+    public async Task<List<Board>> GetAll()
+    {
+        var boardEntities = await _context.Boards.AsNoTracking().ToListAsync();
+        var boards = boardEntities.Select(b => Board.Create(
+            b.Id, 
+            b.SitterId, 
+            new List<int>(),
             b.Content,
             b.Price,
             b.CreatedAt).newBoard).ToList();

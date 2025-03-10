@@ -1,9 +1,15 @@
 using Boards.API.Contracts;
 using Boards.Core.Abstractions;
 using Boards.Core.Models;
+using Boards.Core.Specifications;
+using Boards.Infrastructure;
 using Boards.Infrastructure.GrpcClients;
+using Boards.Infrastructure.Repositories;
+using Boards.Infrastructure.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Redis.DTO_s;
 
 namespace Boards.API.Controllers;
 
@@ -15,14 +21,51 @@ public class BoardsController : ControllerBase
     private readonly IBoardsService _boardsService;
     private readonly IBoardAnimalsService _boardAnimalsService;
     private readonly AnimalsGrpcClient _animalsGrpcClient;
+    private readonly IRedisCacheService _redisCacheService;
 
     public BoardsController(IBoardsService boardsService, AnimalsGrpcClient animalsGrpcClient,
-        IBoardAnimalsService boardAnimalsService)
+        IBoardAnimalsService boardAnimalsService, IRedisCacheService redisCacheService)
     {
         _boardsService = boardsService;
         _boardAnimalsService = boardAnimalsService;
         _animalsGrpcClient = animalsGrpcClient;
+        _redisCacheService = redisCacheService;
     }
+    
+    [HttpGet("test")]
+    [AllowAnonymous]
+    public async Task<ActionResult> GetSittersTest([FromBody] BoardFilter filter)
+    {
+        //var sitters = await _redisCacheService.GetData<List<ShortSitterProfileDto>>("ShortSitterProfiles_");
+        //var sittersDict = sitters.ToDictionary(s => s.sitterId);
+
+        var boards = await _boardsService.GetFiltered(filter.maxPrice, filter.animalIds);
+        // var result = boards
+        //     .Where(b => sittersDict.ContainsKey(b.SitterId))
+        //     .GroupBy(b => b.SitterId)
+        //     .Select(g =>
+        //     {
+        //         var sitter = sittersDict[g.Key];
+        //         var board = g.First();
+        //         return new
+        //         {
+        //             SitterId = g.Key,
+        //             Login = sitter.login,
+        //             Firstname = sitter.firstname,
+        //             Lastname = sitter.lastname,
+        //             ProfileImage = sitter.profileImage,
+        //             Rating = sitter.rating,
+        //             RateCount = sitter.rateCount,
+        //             Content = board.Content,
+        //             Price = board.Price,
+        //         };
+        //     })
+        //     .OrderByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rating)
+        //     .ThenByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rateCount);
+    
+        return Ok(boards);
+    }
+    
     
     [HttpPost]
     [Authorize(Roles = "Sitter")]

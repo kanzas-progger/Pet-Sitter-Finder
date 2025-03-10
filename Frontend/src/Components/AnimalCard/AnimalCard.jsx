@@ -149,7 +149,6 @@ const AnimalCard = ({ animalProfile, onHandleDelete, onHandleUpdate }) => {
             if (putData.gender === 'Не указано') {
                 setPutData((prevData) => ({ ...prevData, gender: 'Мужской' }))
             }
-
         }
     }
 

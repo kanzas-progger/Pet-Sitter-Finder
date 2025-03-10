@@ -1,5 +1,6 @@
 using Boards.Core.Abstractions;
 using Boards.Core.Models;
+using Boards.Core.Specifications;
 
 namespace Boards.Application.Services;
 
@@ -30,5 +31,20 @@ public class BoardsService : IBoardsService
     public async Task Delete(Guid boardId, Guid sitterId)
     {
         await _boardsRepository.Delete(boardId, sitterId);
+    }
+
+    public async Task<List<Board>> GetFiltered(decimal? maxPrice, List<int>? animalIds)
+    {
+        if (!maxPrice.HasValue && animalIds?.Count == 0)
+            return await _boardsRepository.GetAll();
+        
+        var specs = new List<IBoardSpecification>();
+        
+        if (maxPrice.HasValue)
+            specs.Add(new BoardPriceSpecification(maxPrice.Value));
+        if (animalIds?.Count > 0)
+            specs.Add(new BoardAnimalsSpecification(animalIds));
+        
+        return await _boardsRepository.GetFiltered(specs.ToArray());
     }
 }

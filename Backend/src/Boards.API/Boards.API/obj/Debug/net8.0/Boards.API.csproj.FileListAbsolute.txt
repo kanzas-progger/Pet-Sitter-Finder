@@ -126,3 +126,6 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.API/bin/Debug/net8.0/Grpc.Net.Client.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.API/bin/Debug/net8.0/Grpc.Net.ClientFactory.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.API/bin/Debug/net8.0/Grpc.Net.Common.dll
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.API/bin/Debug/net8.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.API/bin/Debug/net8.0/Pipelines.Sockets.Unofficial.dll
+/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Boards.API/Boards.API/bin/Debug/net8.0/StackExchange.Redis.dll
