@@ -8,7 +8,7 @@ services:
       - "5003:5003"
       - "7000:7000"
     networks:
-      - rabbitmq_network
+      - app_network
     depends_on:
       - rabbitmq
     environment:
@@ -23,12 +23,23 @@ services:
       - "5004:5004"
       - "7001:7001"
     networks:
-      - rabbitmq_network
+      - app_network
     depends_on:
       - rabbitmq
     environment:
       - RABBITMQ_HOSTNAME=rabbitmq
        
+  boards-api:
+    build:
+      context: ..
+      dockerfile: src/Boards.API/Dockerfile
+    container_name: boards-api
+    ports:
+      - "5005:5005"
+    networks:
+      - app_network
+    depends_on:
+      - redis
 
   rabbitmq:
     image: rabbitmq:4.0-management
@@ -42,12 +53,24 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - rabbitmq_network
+      - app_network
+      
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass redis_password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/var/lib/redis
+    networks:
+      - app_network
 
 volumes:
   rabbitmq_data:
+  redis_data:
 
 networks:
-  rabbitmq_network:
-    name: rabbitmq_network
+  app_network:
+    name: app_network
 

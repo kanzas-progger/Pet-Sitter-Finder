@@ -21,4 +21,14 @@ public class BoardAnimalsRepository : IBoardAnimalsRepository
         
         return animalIds;
     }
+    
+    public async Task<List<int>> GetAnimalIdsForBoard(Guid boardId)
+    {
+        var existingAnimalIds = await _context.BoardAnimals
+            .Where(ba => ba.BoardId == boardId)
+            .Select(ba => ba.AnimalId)
+            .ToListAsync();
+        
+        return existingAnimalIds;
+    }
 }

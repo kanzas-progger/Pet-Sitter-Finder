@@ -1,14 +1,14 @@
 import React from 'react'
 import {
     Box, Typography, Button, Card, CardActions, CardContent, IconButton, Tooltip, Dialog
-    , DialogTitle, DialogContent, DialogActions, TextareaAutosize, FormControl, Select, MenuItem, Checkbox,
+    , DialogTitle, DialogContent, DialogActions, FormControl, Select, MenuItem, Checkbox,
     OutlinedInput, ListItemText, TextField
 } from "@mui/material"
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDog, faCat, faFishFins, faHorse, faDove, faSpider } from '@fortawesome/free-solid-svg-icons';
+import { faDog, faCat, faFishFins, faDove, faSpider } from '@fortawesome/free-solid-svg-icons';
 import PestControlRodentIcon from '@mui/icons-material/PestControlRodent';
 import { GiGecko } from "react-icons/gi";
 import CloseIcon from '@mui/icons-material/Close';
@@ -16,9 +16,10 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
+import { faHorse } from '@fortawesome/free-solid-svg-icons';
 
 
-const CardBoard = ({ board, onHandleDelete }) => {
+const CardBoard = ({ board, onHandleDelete, onHandleUpdate }) => {
 
     const {
         id,
@@ -33,16 +34,27 @@ const CardBoard = ({ board, onHandleDelete }) => {
     const { profile, setProfile } = useProfile()
     const [animalName, setAnimalName] = useState([]);
     const navigate = useNavigate()
+    // const animalInfo = {
+    //     Dog: { icon: faDog, title: 'Собаки', fontSize: '20px' },
+    //     Cat: { icon: faCat, title: 'Кошки', fontSize: '20px' },
+    //     Fish: { icon: faFishFins, title: 'Рыбки', fontSize: '20px' },
+    //     Bird: { icon: faDove, title: 'Птички', fontSize: '20px' },
+    //     Reptile: { icon: <GiGecko />, title: 'Рептилии', fontSize: '20px' },
+    //     Spider: { icon: faSpider, title: 'Пауки', fontSize: '20px' },
+    //     FarmPet: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px' },
+    //     SmallPet: { icon: <PestControlRodentIcon  sx={{fontSize:'25px', p:0, m:0}}/>, title: 'Грызуны', fontSize: '25px' },
+    // }
+
     const animalInfo = {
-        Dog: { icon: faDog, title: 'Собаки', fontSize: '20px' },
-        Cat: { icon: faCat, title: 'Кошки', fontSize: '20px' },
-        Fish: { icon: faFishFins, title: 'Рыбки', fontSize: '20px' },
-        Bird: { icon: faDove, title: 'Птички', fontSize: '20px' },
-        Reptile: { icon: <GiGecko />, title: 'Рептилии', fontSize: '20px' },
-        Spider: { icon: faSpider, title: 'Пауки', fontSize: '20px' },
-        Horse: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px' },
-        SmallPet: { icon: <PestControlRodentIcon />, title: 'Грызуны', fontSize: '25px' },
-    }
+        Dog: { icon: faDog, title: 'Собаки' },
+        Cat: { icon: faCat, title: 'Кошки' },
+        Fish: { icon: faFishFins, title: 'Рыбки' },
+        Bird: { icon: faDove, title: 'Птички' },
+        Reptile: { icon: <GiGecko />, title: 'Рептилии' },
+        Spider: { icon: faSpider, title: 'Пауки' },
+        FarmPet: { icon: faHorse, title: 'Фермерские животные' },
+        SmallPet: { icon: <PestControlRodentIcon />, title: 'Грызуны' },
+    };
 
     const animalTranslations = {
         "Собаки": "Dog",
@@ -58,10 +70,6 @@ const CardBoard = ({ board, onHandleDelete }) => {
     const reversedTranslations = Object.fromEntries(
         Object.entries(animalTranslations).map(([ru, en]) => [en, ru])
     )
-
-    const animals = ['Dog', 'Cat', 'Fish', 'Bird', 'Reptile', 'Spider', 'Horse', 'SmallPet']
-    //const animals = ['Dog','Cat']
-    //const animals = ['Dog']
 
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
@@ -79,11 +87,11 @@ const CardBoard = ({ board, onHandleDelete }) => {
 
     const [putData, setPutData] = useState({
         boardId: id,
-        animalNames: animalName.map(name => reversedTranslations[name] || name),
+        animalNames: animalNames.map(name => reversedTranslations[name] || name),
         content: content,
         price: price,
         createdAt: createdAt
-        })
+    })
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -105,10 +113,23 @@ const CardBoard = ({ board, onHandleDelete }) => {
     }
 
     const handleAnimalChange = (e) => {
-        const {
-            target: { value },
-        } = e
-        setAnimalName(typeof value === 'string' ? value.split(',') : value)
+        const selectedAnimal = e.target.value
+        setPutData((prevData) => ({ ...prevData, animalNames: selectedAnimal }))
+    }
+
+    const onHandleUpdateBoard = (e) => {
+        e.preventDefault()
+
+        const animalNamesToSend = putData.animalNames.map(name => animalTranslations[name])
+
+        const dataToSend = {
+            ...putData,
+            animalNames: animalNamesToSend,
+            price: parseInt(putData.price, 10)
+        }
+
+        onHandleUpdate(dataToSend)
+        handleClose()
     }
 
     const handleSubmitRequest = () => {
@@ -119,10 +140,6 @@ const CardBoard = ({ board, onHandleDelete }) => {
             }
         });
     };
-
-
-    //https://admin24.ru/help-center/interface-applications //interface
-    // color #D0EFB1
 
     return (
         <>
@@ -136,7 +153,7 @@ const CardBoard = ({ board, onHandleDelete }) => {
                     </Typography>
 
                     <Box sx={{ display: "flex", flexDirection: 'column', marginTop: "20px", alignItems: 'center' }}>
-                        <Box display="flex" gap={1} justifyContent="center">
+                        {/* <Box display="flex" gap={1} justifyContent="center">
                             {animalNames.map((animal, index) => {
                                 const animalData = animalInfo[animal];
                                 if (!animalData) return null;
@@ -153,7 +170,36 @@ const CardBoard = ({ board, onHandleDelete }) => {
                                     </Tooltip>
                                 );
                             })}
+                        </Box> */}
+
+                        <Box display="flex" gap={1} justifyContent="center" alignItems="center" sx={{ flexWrap: 'wrap', minHeight: "90px" }}>
+                            {animalNames.map((animal, index) => {
+                                const animalData = animalInfo[animal];
+                                if (!animalData) return null;
+
+                                const { icon, title } = animalData;
+
+                                return (
+                                    <Tooltip key={index} title={title} placement="top">
+                                        <Box
+                                            display="flex"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            width={40}
+                                            height={40}
+                                        >
+                                            {React.isValidElement(icon) ? (
+                                                React.cloneElement(icon, { style: { fontSize: '24px', color: 'black' } })
+                                            ) : (
+                                                <FontAwesomeIcon icon={icon} style={{ fontSize: '24px', color: 'black' }} />
+                                            )}
+                                        </Box>
+                                    </Tooltip>
+                                );
+                            })}
                         </Box>
+
+
 
                         <Box sx={{
                             display: 'flex',
@@ -221,80 +267,83 @@ const CardBoard = ({ board, onHandleDelete }) => {
                 fullWidth={true}
                 maxWidth="sm"
             >
-                <DialogTitle sx={{ m: 0, p: 2, backgroundColor: '#b3d89c', fontWeight: 'bold' }} id="customized-dialog-title">
-                    Изменить
-                </DialogTitle>
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={(theme) => ({
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: theme.palette.grey[500],
-                    })}
-                >
-                    <CloseIcon />
-                </IconButton>
-                <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Текст объявления</Typography>
-                    <TextareaAutosize
-                        id='about'
-                        minRows={4}
-                        placeholder="Введите текст объявления..."
-                        value={content}
-                        style={{
-                            width: '100%',
-                            marginTop: '10px',
-                            fontSize: '16px',
-                            padding: '8px 15px',
-                            border: '1px solid #ccc',
-                            borderRadius: '4px',
-                            resize: 'none',
-                            background: '#e0e0e0'
-                        }}
-                    />
-
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Животные</Typography>
-                    <FormControl size='small' sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
-                        <Select
-                            id="demo-multiple-checkbox"
-                            multiple
-                            value={putData.animalNames}
-                            onChange={handleAnimalChange}
-                            input={<OutlinedInput />}
-                            renderValue={(selected) => selected.join(', ')}
-                            MenuProps={MenuProps}
+                <form onSubmit={onHandleUpdateBoard}>
+                    <DialogTitle sx={{ m: 0, p: 2, backgroundColor: '#b3d89c', fontWeight: 'bold' }} id="customized-dialog-title">
+                        Изменить
+                    </DialogTitle>
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleClose}
+                        sx={(theme) => ({
+                            position: 'absolute',
+                            right: 8,
+                            top: 8,
+                            color: theme.palette.grey[500],
+                        })}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Текст объявления</Typography>
+                        <TextField
+                            id='content'
                             required
-                        >
-                            {profile?.animals?.map((name) => {
-                                const translatedName = reversedTranslations[name] || name;
-                                return (
-                                    <MenuItem key={name} value={translatedName}>
-                                        <Checkbox checked={putData.animalNames.includes(translatedName)} />
-                                        <ListItemText primary={translatedName} />
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </FormControl>
+                            value={putData.content}
+                            onChange={(e) => setPutData((prevData) => ({ ...prevData, content: e.target.value }))}
+                            multiline
+                            minRows={4}
+                            placeholder="Введите текст объявления..."
+                            size='small'
+                            sx={{
+                                width: '100%',
+                                marginTop: '10px',
+                                '& .MuiOutlinedInput-root': { background: '#e0e0e0' },
+                                '& textarea': { overflow: 'hidden', resize: 'none' }
+                            }}
+                        />
 
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Цена за сутки</Typography>
-                    <TextField
-                        id="pricePerDay"
-                        size="small"
-                        type="number"
-                        value={price}
-                        required
-                        sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}
-                    />
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Животные</Typography>
+                        <FormControl size='small' sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
+                            <Select
+                                id="demo-multiple-checkbox"
+                                multiple
+                                value={putData.animalNames}
+                                onChange={handleAnimalChange}
+                                input={<OutlinedInput />}
+                                renderValue={(selected) => selected.join(', ')}
+                                MenuProps={MenuProps}
+                                required
+                            >
+                                {profile?.animals?.map((name) => {
+                                    const translatedName = reversedTranslations[name] || name;
+                                    return (
+                                        <MenuItem key={name} value={translatedName}>
+                                            <Checkbox checked={putData.animalNames.includes(translatedName)} />
+                                            <ListItemText primary={translatedName} />
+                                        </MenuItem>
+                                    );
+                                })}
+                            </Select>
+                        </FormControl>
 
-                </DialogContent>
-                <DialogActions sx={{ backgroundColor: '#b3d89c' }}>
-                    <Button autoFocus onClick={handleClose} variant="contained">
-                        Применить изменения
-                    </Button>
-                </DialogActions>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Цена за сутки</Typography>
+                        <TextField
+                            id="pricePerDay"
+                            size="small"
+                            type="number"
+                            value={putData.price}
+                            onChange={(e) => setPutData((prevData) => ({ ...prevData, price: e.target.value }))}
+                            required
+                            sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}
+                        />
+
+                    </DialogContent>
+                    <DialogActions sx={{ backgroundColor: '#b3d89c' }}>
+                        <Button autoFocus type="submit" variant="contained">
+                            Применить изменения
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
 
             {/* Подробности объявления*/}
@@ -322,44 +371,70 @@ const CardBoard = ({ board, onHandleDelete }) => {
                 </IconButton>
                 <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Текст объявления</Typography>
-                    <TextareaAutosize
-                        id='about'
-                        minRows={4}
+                    <TextField
+                        id='content'
+                        required
                         value={content}
-                        style={{
+                        multiline
+                        minRows={4}
+                        placeholder="Введите текст объявления..."
+                        size='small'
+                        sx={{
                             width: '100%',
                             marginTop: '10px',
-                            fontSize: '16px',
-                            padding: '8px 15px',
-                            border: '1px solid #ccc',
-                            borderRadius: '4px',
-                            resize: 'none',
-                            background: '#e0e0e0'
+                            '& .MuiOutlinedInput-root': { background: '#e0e0e0' },
+                            '& textarea': { overflow: 'hidden', resize: 'none' }
                         }}
                         readOnly
                         disabled
                     />
 
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Животные</Typography>
-                    <FormControl size='small' sx={{ width: '100%', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#e0e0e0' } }}>
-                        <Select
-                            id="demo-multiple-checkbox"
-                            multiple
-                            value={animalName}
-                            onChange={handleAnimalChange}
-                            input={<OutlinedInput />}
-                            renderValue={(selected) => selected.join(', ')}
-                            MenuProps={MenuProps}
-                            disabled
-                        >
-                            {animals.map((name) => (
-                                <MenuItem key={name} value={name}>
-                                    <Checkbox checked={animalName.includes(name)} />
-                                    <ListItemText primary={name} />
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    {/* <Box display="flex" gap={1} justifyContent="left" sx={{ marginTop: '10px' }}>
+                        {animalNames.map((animal, index) => {
+                            const animalData = animalInfo[animal];
+                            if (!animalData) return null;
+
+                            const { icon, title, fontSize } = animalData;
+
+                            return (
+                                <Tooltip key={index} title={title} placement="top">
+                                    {React.isValidElement(icon) ? (
+                                        <span style={{ display: 'flex', alignItems: 'center', fontSize }}>{icon}</span>
+                                    ) : (
+                                        <FontAwesomeIcon icon={icon} style={{ color: 'black', fontSize }} />
+                                    )}
+                                </Tooltip>
+                            );
+                        })}
+                    </Box> */}
+
+                    <Box display="flex" gap={1} justifyContent="left" sx={{ marginTop: '10px' }}>
+                        {animalNames.map((animal, index) => {
+                            const animalData = animalInfo[animal];
+                            if (!animalData) return null;
+
+                            const { icon, title } = animalData;
+
+                            return (
+                                <Tooltip key={index} title={title} placement="top">
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        width={20}
+                                        height={20}
+                                    >
+                                        {React.isValidElement(icon) ? (
+                                            React.cloneElement(icon, { style: { fontSize: '20px', color: 'black' } })
+                                        ) : (
+                                            <FontAwesomeIcon icon={icon} style={{ fontSize: '20px', color: 'black' }} />
+                                        )}
+                                    </Box>
+                                </Tooltip>
+                            );
+                        })}
+                    </Box>
 
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>Цена за сутки</Typography>
                     <TextField

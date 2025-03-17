@@ -23,6 +23,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
 import CardBoard from '../../Components/CardBoard/CardBoard';
+import { getBoardsForSitter, deleteBoard, updateBoard } from '../../api/boards';
 
 const FullProfile = () => {
 
@@ -68,9 +69,15 @@ const FullProfile = () => {
             setIsLoading(true);
             try {
                 if (userIdWithRoles.roles.includes('Sitter')) {
-                    const response = await getFullSitterProfile(userIdWithRoles.userId)
-                    setProfile(response.data)
-                    console.log(response.data)
+                    const [profileResponse, boardsResponse] = await Promise.all([
+                        getFullSitterProfile(userIdWithRoles.userId),
+                        getBoardsForSitter(userIdWithRoles.userId)
+                    ])
+                    setProfile({
+                        ...profileResponse.data,
+                        boards: boardsResponse.data
+                    })
+                    console.log(boardsResponse.data)
                 }
                 else if (userIdWithRoles.roles.includes('Owner')) {
                     const response = await getFullOwnerProfile(userIdWithRoles.userId)
@@ -151,6 +158,38 @@ const FullProfile = () => {
         setCurrentIndex((prevIndex) => (prevIndex === profile?.profilePhotos.length - 1 ? 0 : prevIndex + 1))
     }
 
+    //Boards
+
+    const handleDeleteBoard = async (id) => {
+        try {
+            await deleteBoard(id)
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                boards: prevProfile.boards.filter((board) => board.id !== id)
+            }))
+        } catch (e) {
+            console.error("Error with delete board", e)
+        }
+
+    }
+
+    const handleUpdateBoard = async (data) => {
+        try {
+            const response = await updateBoard(data)
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                boards: prevProfile.boards.map(board =>
+                    board.id === response?.data?.id ? response.data : board
+                )
+            }))
+            
+        } catch (e) {
+            console.error("Error with update board", e)
+        }
+
+    }
+
+
     const animalTranslations = {
         Dog: "Собаки",
         Cat: "Кошки",
@@ -224,7 +263,10 @@ const FullProfile = () => {
                                     </>
                                 )}
 
-                                <Typography sx={{ color: '#6b7280' }}>{profile?.country}, {profile?.city}, {profile?.address}</Typography>
+                                <Typography sx={{ color: '#6b7280' }}>
+                                    {profile?.country || 'Страна не указана'}, {profile?.city || 'город не указан'}, {profile?.address || 'адрес не указан'}
+                                </Typography>
+
                                 {auth?.role?.includes('Sitter') || auth?.role?.includes('Owner') ? (
                                     (auth?.userId !== userIdWithRoles.userId) ? (
                                         <Button variant="contained" sx={{ marginTop: '10px' }}>Отправить сообщение</Button>
@@ -579,14 +621,9 @@ const FullProfile = () => {
                                         justifyItems: 'center',
                                     }}
                                 >
-                                    <CardBoard />
-                                    <CardBoard />
-
-                                    <CardBoard />
-                                    <CardBoard />
-                                    <CardBoard />
-                                    <CardBoard />
-                                    <CardBoard />
+                                    {profile?.boards.map((b) => (
+                                        <CardBoard key={b.id} board={b} onHandleDelete={handleDeleteBoard} onHandleUpdate={handleUpdateBoard} />
+                                    ))}
 
                                 </Box>
                             </Paper>

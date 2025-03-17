@@ -15,4 +15,9 @@ public class BoardAnimalsService : IBoardAnimalsService
     {
         return await _boardAnimalsRepository.GetBoardAnimalsForSitter(sitterId);
     }
+    
+    public async Task<List<int>> GetAnimalIdsForBoard(Guid boardId)
+    {
+        return await _boardAnimalsRepository.GetAnimalIdsForBoard(boardId);
+    }
 }

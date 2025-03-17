@@ -11,37 +11,114 @@ import {
     OutlinedInput, TextField, Button
 } from "@mui/material";
 import CalendarPicker from "../../Components/CalendarPicker/CalendarPicker";
+import { getAllFilteredBoards } from "../../api/boards";
 
 const Sitters = () => {
 
+    const [boardSitters, setBoardSitters] = useState([])
     const [sliderValue, setSliderValue] = useState(3000)
-    const [animalName, setAnimalName] = useState([]);
-
-    const handleAnimalChange = (e) => {
-        const {
-            target: { value },
-        } = e;
-        setAnimalName(typeof value === 'string' ? value.split(',') : value);
-    }
-
-    const [sitters, setSitters] = useState([])
+    const [animalName, setAnimalName] = useState(["Любые"]);
+    const [isAnySelected, setIsAnySelected] = useState(true);
+    const [filteredData, setFilteredData] = useState({
+        maxPrice: null,
+        animalNames: null
+    })
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchBoardData = async () => {
             try {
-                const response = await getSitters()
-                setSitters(response.data)
+                const response = await getAllFilteredBoards(filteredData)
+                setBoardSitters(response.data)
             } catch (e) {
-                console.error("Error of receiving sitters: ", e)
+                console.error("Error of receiving filtered boards: ", e)
             }
         }
 
-        fetchData()
-    }, [])
+        fetchBoardData()
+    }, [filteredData])
+
+    // const handleAnimalChange = (e) => {
+    //     const { value } = e.target;
+    //     let selectedAnimals = typeof value === "string" ? value.split(",") : value;
+    
+    //     if (selectedAnimals.includes("Любые")) {
+    //       setAnimalName(["Любые"]);
+    //       setAnyAnimalsIsChecked(true)
+    //       setFilteredData(prevState => ({
+    //         ...prevState,
+    //         animalNames: null
+    //       }));
+    //     } else {
+
+    //       setAnyAnimalsIsChecked(false)
+    //       selectedAnimals = selectedAnimals.filter(animal => animal !== "Любые");
+    
+    //       const translatedAnimals = selectedAnimals.map(animal => animalTranslations[animal] || animal);
+    
+    //       setAnimalName(selectedAnimals);
+    //       setFilteredData(prevState => ({
+    //         ...prevState,
+    //         animalNames: translatedAnimals.length > 0 ? translatedAnimals : null
+    //       }));
+    //     }
+    //   };
+
+    const handleAnimalChange = (e) => {
+        const { value } = e.target;
+        let selectedAnimals = typeof value === "string" ? value.split(",") : value;
+    
+        if (selectedAnimals.includes("Любые")) {
+            if (selectedAnimals.length > 1) {
+                selectedAnimals = selectedAnimals.filter(animal => animal !== "Любые");
+                setIsAnySelected(false);
+            } else {
+                setIsAnySelected(true);
+                setAnimalName(["Любые"]);
+                setFilteredData(prevState => ({
+                    ...prevState,
+                    animalNames: null
+                }));
+                return;
+            }
+        }
+    
+        if (selectedAnimals.length === 0) {
+            setIsAnySelected(true);
+            setAnimalName(["Любые"]);
+            setFilteredData(prevState => ({
+                ...prevState,
+                animalNames: null
+            }));
+            return;
+        }
+    
+        const translatedAnimals = selectedAnimals.map(animal => animalTranslations[animal] || animal);
+        setIsAnySelected(false);
+        setAnimalName(selectedAnimals);
+        setFilteredData(prevState => ({
+            ...prevState,
+            animalNames: translatedAnimals
+        }));
+    };
+
 
     const handleSliderChange = (event, newValue) => {
+        const filteredValue = newValue === 3000 ? null : newValue;
+
         setSliderValue(newValue);
+
+        setFilteredData(prevState => ({
+            ...prevState,
+            maxPrice: filteredValue
+        }));
+
+        console.log("FILTERED DATA IS", {
+            ...filteredData,
+            maxPrice: filteredValue
+        });
     };
+
+
     const disabledDates = [
         dayjs("2025-02-15"),
         dayjs("2025-02-20"),
@@ -61,6 +138,7 @@ const Sitters = () => {
 
 
     const animals = [
+        'Любые',
         'Собаки',
         'Кошки',
         'Фермерские животные',
@@ -132,8 +210,8 @@ const Sitters = () => {
                     width: '100%'
                 }}>
                     <Box sx={{ display: 'flex', gap: '20px', width: '70%', flexDirection: 'column' }}>
-                        {sitters.map((sitter) => (
-                            <SitterCard key={sitter.profileid} sitter={sitter} />
+                        {boardSitters.map((bs) => (
+                            <SitterCard key={bs.sitterId} boardSitter={bs} />
                         ))}
                     </Box>
 

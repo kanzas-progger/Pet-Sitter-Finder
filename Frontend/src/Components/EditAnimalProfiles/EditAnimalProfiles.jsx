@@ -182,7 +182,6 @@ const EditAnimalProfiles = () => {
             //             : profile
             //     )
             // );
-            // console.log(response.data)
             navigate(0)
         }catch (e){
             console.error(e)

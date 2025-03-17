@@ -17,6 +17,7 @@ public class BoardsService : IBoardsService
     {
         return await _boardsRepository.GetAllForSitter(sitterId);
     }
+    
 
     public async Task<Board> Create(Board board)
     {
@@ -35,7 +36,7 @@ public class BoardsService : IBoardsService
 
     public async Task<List<Board>> GetFiltered(decimal? maxPrice, List<int>? animalIds)
     {
-        if (!maxPrice.HasValue && animalIds?.Count == 0)
+        if (!maxPrice.HasValue && (animalIds == null || animalIds.Count == 0))
             return await _boardsRepository.GetAll();
         
         var specs = new List<IBoardSpecification>();

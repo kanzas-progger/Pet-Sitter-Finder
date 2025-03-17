@@ -51,6 +51,7 @@ const Registration = () => {
     const [animalName, setAnimalName] = useState([]);
     const [animalIsValid, setAnimalIsValid] = useState(false);
     const [role, setRole] = useState("owner")
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -64,6 +65,7 @@ const Registration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
 
         const translatedAnimals = animalName.map(name => animalTranslations[name]);
 
@@ -88,6 +90,7 @@ const Registration = () => {
             const userId = decodedToken["id-"];
             setAuth({ userId, role })
             navigate("/");  
+            setIsLoading(false)
         }
         catch (error) {
             console.error("Произошла ошибка регистрации", error.response?.data || error.message);
@@ -208,7 +211,7 @@ const Registration = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Button type="submit" variant="contained" sx={{ fontSize: '16px' }}>Создать аккаунт</Button>
+                                <Button type="submit" loading={isLoading}variant="contained" sx={{ fontSize: '16px' }}>Создать аккаунт</Button>
                             </Box>
                         </Box>
 

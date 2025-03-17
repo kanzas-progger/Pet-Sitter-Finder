@@ -11,4 +11,5 @@ public interface IBoardsRepository
     Task Delete(Guid boardId, Guid sitterId);
     Task<List<Board>> GetFiltered(params IBoardSpecification[] specifications);
     Task<List<Board>> GetAll();
+
 }

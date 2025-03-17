@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import useProfile from '../../hooks/useProfile'
 import CardBoard from '../CardBoard/CardBoard'
 import CloseIcon from '@mui/icons-material/Close';
-import { createBoard, getBoardsForSitter, deleteBoard } from '../../api/boards'
+import { createBoard, getBoardsForSitter, deleteBoard, updateBoard } from '../../api/boards'
 import useAuth from '../../hooks/useAuth'
 
 const EditBoardings = () => {
@@ -105,11 +105,32 @@ const EditBoardings = () => {
     }
 
     const handleDeleteBoard = async (id) => {
+        try{
             await deleteBoard(id)
             setBoards((prevState) =>
                 prevState.filter((board) => board.id !== id)
             )
+        } catch(e)
+        {
+            console.error("Error with delete board", e)
         }
+            
+    }
+
+    const handleUpdateBoard = async (data) => {
+        try{
+            const response = await updateBoard(data)
+            setBoards((prevState) => 
+                prevState.map(board => 
+                    board.id === response?.data?.id ? response.data : board
+                )
+            )
+        }catch(e)
+        {
+            console.error("Error with update board", e)
+        }
+        
+    }
 
     return (
         <>
@@ -135,7 +156,7 @@ const EditBoardings = () => {
                     }}
                 >
                     {boards.map((b) => (
-                        <CardBoard key={b.id} board={b} onHandleDelete={handleDeleteBoard}/>
+                        <CardBoard key={b.id} board={b} onHandleDelete={handleDeleteBoard} onHandleUpdate={handleUpdateBoard}/>
                     ))}
 
                 </Box>

@@ -27,7 +27,7 @@ public class BoardsRepository : IBoardsRepository
         var boards = boardEntities.Select(b => Board.Create(
             b.Id, 
             b.SitterId, 
-            new List<int>(),
+            b.BoardAnimals.Select(ba => ba.AnimalId).ToList(),
             b.Content,
             b.Price,
             b.CreatedAt).newBoard).ToList();
@@ -89,14 +89,17 @@ public class BoardsRepository : IBoardsRepository
         
         return boards;
     }
-
+    
     public async Task<List<Board>> GetAll()
     {
-        var boardEntities = await _context.Boards.AsNoTracking().ToListAsync();
+        var boardEntities = await _context.Boards.AsNoTracking()
+            .Include(b => b.BoardAnimals)
+            .ToListAsync();
+        
         var boards = boardEntities.Select(b => Board.Create(
             b.Id, 
             b.SitterId, 
-            new List<int>(),
+            b.BoardAnimals.Select(a => a.AnimalId).ToList(),
             b.Content,
             b.Price,
             b.CreatedAt).newBoard).ToList();

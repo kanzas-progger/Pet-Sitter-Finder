@@ -91,16 +91,17 @@ public class AnimalProfilesController : ControllerBase
         
         string profileImage = string.Empty;
         
-        if (request.profileImage != null && !request.isProfileImageExist)
+        if (request.profileImage != null && !request.isProfileImageExist) // update profileImage and delete existing
         {
-            _animalsProfileImageProvider.DeleteImage(request.existingProfileImage);
+            if (request.existingProfileImage != null)
+                _animalsProfileImageProvider.DeleteImage(request.existingProfileImage);
             
             string imageUrl = await _animalsProfileImageProvider.SaveImage(request.profileImage);
             await _animalProfilesService.UpdateAnimalProfileImage(request.animalProfileId, ownerId, imageUrl);
             profileImage = imageUrl;
         }
 
-        if (request.profileImage == null && !request.isProfileImageExist)
+        if (request.profileImage == null && !request.isProfileImageExist) // delete profileImage
         {
             _animalsProfileImageProvider.DeleteImage(request.existingProfileImage);
             await _animalProfilesService.UpdateAnimalProfileImage(request.animalProfileId, ownerId, profileImage);

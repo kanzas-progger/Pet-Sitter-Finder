@@ -15,6 +15,7 @@ import useAuth from "../../hooks/useAuth";
 const Login = () => {
 
     const { setAuth } = useAuth()
+    const [isLoading, setIsLoading] = useState(false)
 
     const [formData, setFormData] = useState({
         login: '',
@@ -30,6 +31,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
 
         const dataToSend = {
             ...formData
@@ -47,6 +49,7 @@ const Login = () => {
             const userId = decodedToken["id-"];
             setAuth({ userId, role })
             navigate("/");
+            setIsLoading(false)
         }
         catch (error) {
             console.error("Произошла ошибка входа")
@@ -99,7 +102,7 @@ const Login = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Button type="submit" variant="contained" sx={{ fontSize: '16px' }}>Войти</Button>
+                                <Button type="submit" loading={isLoading} variant="contained" sx={{ fontSize: '16px' }}>Войти</Button>
                             </Box>
                         </Box>
 

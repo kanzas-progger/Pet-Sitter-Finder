@@ -29,18 +29,7 @@ public class SitterProfilesController : ControllerBase
         _animalsGrpcClient = animalsGrpcClient;
         _imagesService = imagesService;
     }
-
-    // [HttpGet("{sitterId}")]
-    // public async Task<ActionResult<List<SitterReviewResponse>>> GetReviews(Guid sitterId)
-    // {
-    //     var reviews = await _reviewsGrpcClient.GetReviews(sitterId);
-    //     var response = reviews.Reviews.Select(r => new SitterReviewResponse(Guid.Parse(r.ReviewId),
-    //         Guid.Parse(r.SitterId), Guid.Parse(r.SenderId), r.Stars, r.Content,
-    //         r.CreationDate.ToDateTime(), r.ExpirationToUpdateAndDelete.ToDateTime())).ToList();
-    //     
-    //     return Ok(response);
-    // }
-
+    
     [HttpGet]
     [AllowAnonymous]
     public async Task<ActionResult<List<SitterProfileResponseForAnnonymous>>> GetShortSitterProfiles()

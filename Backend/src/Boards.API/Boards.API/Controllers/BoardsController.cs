@@ -32,38 +32,74 @@ public class BoardsController : ControllerBase
         _redisCacheService = redisCacheService;
     }
     
-    [HttpGet("test")]
+    [HttpPost("anonymous/filtered")]
     [AllowAnonymous]
-    public async Task<ActionResult> GetSittersTest([FromBody] BoardFilter filter)
+    public async Task<ActionResult<List<BoardSitterAgregateResponse>>> GetAllFilteredBoards([FromBody] BoardFilter filter)
     {
-        //var sitters = await _redisCacheService.GetData<List<ShortSitterProfileDto>>("ShortSitterProfiles_");
-        //var sittersDict = sitters.ToDictionary(s => s.sitterId);
+        var sitters = await _redisCacheService.GetData<List<ShortSitterProfileDto>>("ShortSitterProfiles_");
+        var sittersDict = sitters.ToDictionary(s => s.sitterId);
+        var animalsGrpcResponse = await _animalsGrpcClient.GetListAnimals();
+        var animalIds = new List<int>();
 
-        var boards = await _boardsService.GetFiltered(filter.maxPrice, filter.animalIds);
-        // var result = boards
-        //     .Where(b => sittersDict.ContainsKey(b.SitterId))
-        //     .GroupBy(b => b.SitterId)
-        //     .Select(g =>
-        //     {
-        //         var sitter = sittersDict[g.Key];
-        //         var board = g.First();
-        //         return new
-        //         {
-        //             SitterId = g.Key,
-        //             Login = sitter.login,
-        //             Firstname = sitter.firstname,
-        //             Lastname = sitter.lastname,
-        //             ProfileImage = sitter.profileImage,
-        //             Rating = sitter.rating,
-        //             RateCount = sitter.rateCount,
-        //             Content = board.Content,
-        //             Price = board.Price,
-        //         };
-        //     })
-        //     .OrderByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rating)
-        //     .ThenByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rateCount);
+        if (filter.animalNames != null && filter.animalNames.Any())
+        {
+            foreach (string animalName in filter.animalNames)
+            {
+                var animal = animalsGrpcResponse.Animals
+                    .FirstOrDefault(a => a.Name.ToLower() == animalName.ToLower());
+                if (animal == null)
+                    return BadRequest("Invalid animal name");
+                animalIds.Add(animal.AnimalId);
+            }
+        }
+        
+        var boards = await _boardsService.GetFiltered(filter.maxPrice, animalIds);
+        
+        var result = boards
+            .Where(b => sittersDict.ContainsKey(b.SitterId))
+            .GroupBy(b => b.SitterId)
+            .Select(g =>
+            {
+                var sitter = sittersDict[g.Key];
+                var board = g.First();
+                return new
+                {
+                    SitterId = g.Key,
+                    Login = sitter.login,
+                    Firstname = sitter.firstname,
+                    Lastname = sitter.lastname,
+                    ProfileImage = sitter.profileImage,
+                    City = sitter.city,
+                    Address = sitter.address,
+                    Rating = sitter.rating,
+                    RateCount = sitter.rateCount,
+                    Content = board.Content,
+                    AnimalIds = board.AnimalIds,
+                    Price = board.Price,
+                };
+            })
+            .OrderByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rating)
+            .ThenByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rateCount);
+
+        string staticProfileImagePath = "/uploads/img";
+        var response = result.Select(b => new BoardSitterAgregateResponse(
+            b.SitterId,
+            b.Login,
+            b.Firstname,
+            b.Lastname,
+            $"{staticProfileImagePath}/{Path.GetFileName(b.ProfileImage)}",
+            b.City,
+            b.Address,
+            b.Rating,
+            b.RateCount,
+            b.Content,
+            animalsGrpcResponse.Animals
+                .Where(a => b.AnimalIds.Contains(a.AnimalId))
+                .Select(a => a.Name)
+                .ToList(),
+            b.Price));
     
-        return Ok(boards);
+        return Ok(response);
     }
     
     
@@ -111,19 +147,23 @@ public class BoardsController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("{sitterId:guid}")]
+    [HttpGet("anonymous/{sitterId:guid}")]
     [AllowAnonymous]
     public async Task<ActionResult<List<BoardResponse>>> GetAllForSitter(Guid sitterId)
     {
         var boards = await _boardsService.GetAllForSitter(sitterId);
         var animalsGrpcResponse = await _animalsGrpcClient.GetListAnimals();
         
-        var response = boards.Select(b => new BoardResponse(b.Id, b.SitterId,
+        var response = boards.Select(b => new BoardResponse(
+            b.Id, 
+            b.SitterId,
             animalsGrpcResponse.Animals
                 .Where(a => b.AnimalIds.Contains(a.AnimalId))
                 .Select(a => a.Name)
                 .ToList(),
-            b.Content, b.Price, b.CreatedAt)).ToList();
+            b.Content, 
+            b.Price, 
+            b.CreatedAt)).ToList();
         
         return Ok(response);
     }
@@ -147,7 +187,11 @@ public class BoardsController : ControllerBase
             animalIds.Add(animal.AnimalId);
         }
         
-        var existingAnimalIds = await _boardAnimalsService.GetBoardAnimalsForSitter(sitterId);
+        var boardAnimalIds = await _boardAnimalsService.GetAnimalIdsForBoard(request.boardId);
+        var existingAnimalIds = (await _boardAnimalsService.GetBoardAnimalsForSitter(sitterId))
+            .Except(boardAnimalIds)
+            .ToList();
+        
         var intersection = animalIds.Intersect(existingAnimalIds).ToList();
         if (intersection.Any())
             return BadRequest("Existing animals cannot be intersect");

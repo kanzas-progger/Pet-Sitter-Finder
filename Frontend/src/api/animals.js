@@ -68,7 +68,10 @@ export const updateAnimalProfile =  async (data) => {
         formData.append('profileImage', data.profileImage)
     }
     formData.append('isProfileImageExist', data.isProfileImageExist)
-    formData.append('existingProfileImage', data.existingProfileImage)
+    if (data.existingProfileImage)
+    {
+        formData.append('existingProfileImage', data.existingProfileImage)
+    }
     
     try {
         const response = await axios.put(`https://localhost:5000/api/animals/profiles`,

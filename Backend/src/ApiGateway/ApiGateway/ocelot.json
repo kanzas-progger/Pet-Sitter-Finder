@@ -182,7 +182,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/boards/{everything}",
+      "DownstreamPathTemplate": "/api/boards/anonymous/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -191,8 +191,8 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/api/boards/{everything}",
-      "UpstreamHttpMethod": ["GET"]
+      "UpstreamPathTemplate": "/api/boards/anonymous/{everything}",
+      "UpstreamHttpMethod": ["GET", "POST"]
     },
 
     {
