@@ -22,6 +22,11 @@ public class UserAnimalsBackgroundService : BackgroundService
                 await _userAnimalsConsumer.StartConsuming();
                 break;
             }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("UserAnimalsBackgroundService is shutting down...");
+                break;
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Error while starting consumer: " + ex.Message);

@@ -17,7 +17,6 @@
         
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
@@ -29,6 +28,11 @@
                         await shortSitterProfilesCacheService.SetData();
                     }
                     await Task.Delay(TimeSpan.FromMinutes(CACHE_UPDATE_MINUTES_INTERVAL), stoppingToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    Console.WriteLine("ShortSitterProfilesCacheBackgroundService is shutting down...");
+                    break;
                 }
                 catch (Exception ex)
                 {

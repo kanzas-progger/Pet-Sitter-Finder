@@ -22,6 +22,11 @@ public class CreateUserProfileBackground : BackgroundService
                 await _createUserProfileConsumer.StartConsuming();
                 break;
             }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("CreateUserProfileBackground is shutting down...");
+                break;
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Error while starting createUserProfile consumer: " + ex.Message);

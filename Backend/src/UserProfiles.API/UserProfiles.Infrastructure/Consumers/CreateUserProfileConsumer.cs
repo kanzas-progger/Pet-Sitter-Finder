@@ -39,7 +39,6 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
 
     public async Task StartConsuming()
     {
-        
         try
         {
             await SetChannel();
@@ -86,7 +85,7 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
     {
         if (_channel?.IsOpen == true && _channel != null)
             return;
-        
+
         _channel = await _rabbitMqService.CreateChannelAsync();
 
         if (_rabbitMqService.Connection != null)
@@ -94,11 +93,11 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
             _connection = _rabbitMqService.Connection;
             _connection.ConnectionShutdownAsync += async (sender, ea) =>
             {
-                if (!_isShuttingDown)
+                if(!_isShuttingDown)
                     await Reconnect();
             };
         }
-    } 
+    }
 
     private async Task Reconnect()
     {
@@ -108,9 +107,11 @@ public class CreateUserProfileConsumer : ICreateUserProfileConsumer
             {
                 Console.WriteLine("MQ connection shut down. Attempting to reconnect. Retrying...");
                 _connection?.Dispose();
+                
                 await SetChannel();
                 await SetExchangeAndQueues();
                 await SetConsumers();
+                
                 Console.WriteLine("Successfully connected");
                 break;
             }

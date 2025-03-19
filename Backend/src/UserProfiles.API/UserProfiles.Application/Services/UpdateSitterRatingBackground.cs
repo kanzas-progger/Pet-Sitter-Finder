@@ -22,6 +22,11 @@ public class UpdateSitterRatingBackground : BackgroundService
                 await _updateSitterRatingConsumer.StartConsuming();
                 break;
             }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("UpdateSitterRatingBackground is shutting down...");
+                break;
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Error while starting sitterRatingUpdate consumer: " + ex.Message);

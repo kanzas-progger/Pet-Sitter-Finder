@@ -128,15 +128,11 @@ public class UserAnimalsConsumer : IUserAnimalsConsumer
             {
                 Console.WriteLine("MQ connection shut down. Attempting to reconnect. Retrying...");
                 _connection?.Dispose();
-                // if (_connection != null)
-                // {
-                //     await _connection.CloseAsync();
-                //     _connection.Dispose();
-                // }
                 
                 await SetChannel();
                 await SetExchangeAndQueue();
                 await SetConsumer();
+                
                 Console.WriteLine("Successfully connected");
                 break;
             }
@@ -151,7 +147,4 @@ public class UserAnimalsConsumer : IUserAnimalsConsumer
             }
         }
     }
-    
-    
-
 }
