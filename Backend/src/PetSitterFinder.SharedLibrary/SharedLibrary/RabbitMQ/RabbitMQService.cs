@@ -9,21 +9,26 @@ public class RabbitMQService : IRabbitMQService, IDisposable
 {
     private IConnection? _connection;
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+    private volatile bool _isShuttingDown;
     public IConnection Connection => _connection;
 
     public async Task<IConnection> CreateConnectionAsync()
     {
+        if (_isShuttingDown)
+        {
+            throw new OperationCanceledException();
+        }
+        
         if (_connection != null && _connection.IsOpen) 
             return _connection;
 
+        await _semaphore.WaitAsync();
+        
         try
         {
-            await _semaphore.WaitAsync();
             if (_connection != null && _connection.IsOpen)
                 return _connection;
             
-            _connection?.Dispose(); // Dispose connection after reconnection
-
             var factory = new ConnectionFactory
             {
                 HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOSTNAME") ?? "localhost",
@@ -36,14 +41,29 @@ public class RabbitMQService : IRabbitMQService, IDisposable
             _connection = await factory.CreateConnectionAsync();
             return _connection;
         }
-        // catch (Exception ex)
-        // {
-        //     throw new Exception($"Could not create connection: {ex.Message}");
-        // }  /// it needs to make custom connection exception
         finally
         {
             _semaphore.Release();
         }
+    }
+
+    public async Task StopAsync()
+    {
+        _isShuttingDown = true;
+        try
+        {
+            if (_connection != null && _connection.IsOpen)
+            {
+                await _connection.CloseAsync();
+                //_connection.Dispose();
+                //_connection = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error closing connection: " + ex.Message);
+        }
+        
     }
 
     public async Task<IChannel> CreateChannelAsync()

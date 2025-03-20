@@ -135,8 +135,8 @@ const CardBoard = ({ board, onHandleDelete, onHandleUpdate }) => {
     const handleSubmitRequest = () => {
         navigate("/boardings/request", {
             state: {
-                animals: animalNames,
-                pricePerDay: 1200
+                boardAnimals: animalNames.map(name => reversedTranslations[name]),
+                boardPrice: price
             }
         });
     };

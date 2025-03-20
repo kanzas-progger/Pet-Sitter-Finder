@@ -34,6 +34,9 @@ public class UpdateSitterRatingConsumer : IUpdateSitterRatingConsumer
 
     public async Task StartConsuming()
     {
+        if(_isShuttingDown)
+            return;
+        
         try
         {
             await SetChannel();
@@ -41,27 +44,39 @@ public class UpdateSitterRatingConsumer : IUpdateSitterRatingConsumer
             await SetConsumer();
             
         }
-        catch(Exception ex)
+        catch(Exception ex) when (!_isShuttingDown)
         {
             await Reconnect();
             Console.WriteLine(ex.Message);
         }
-        
     }
     
     public async Task StopConsuming()
     {
         _isShuttingDown = true;
         
-        if (_channel != null && _channel.IsOpen)
-        {
-            await _channel.CloseAsync();
-        }
+        // if (_channel != null && _channel.IsOpen)
+        // {
+        //     await _channel.CloseAsync();
+        // }
+        //
+        // if (_connection != null && _connection.IsOpen)
+        // {
+        //     await _connection.CloseAsync();
+        // }
 
-        if (_connection != null && _connection.IsOpen)
+        try
         {
-            await _connection.CloseAsync();
+            if (_channel != null && _channel.IsOpen)
+            {
+                await _channel.CloseAsync();
+            }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error closing channel: " + ex.Message);
+        }
+        
     }
 
     private async Task SetConsumer()
@@ -80,10 +95,10 @@ public class UpdateSitterRatingConsumer : IUpdateSitterRatingConsumer
             return;
         
         _channel = await _rabbitMqService.CreateChannelAsync();
-
-        if (_rabbitMqService.Connection != null)
+        _connection = _rabbitMqService.Connection;
+        
+        if (_connection != null)
         {
-            _connection = _rabbitMqService.Connection;
             _connection.ConnectionShutdownAsync += async (sender, ea) =>
             {
                 if (!_isShuttingDown)
@@ -96,24 +111,45 @@ public class UpdateSitterRatingConsumer : IUpdateSitterRatingConsumer
     {
         while (!_isShuttingDown)
         {
+            // try
+            // {
+            //     Console.WriteLine("MQ connection shut down. Attempting to reconnect. Retrying...");
+            //     _connection?.Dispose();
+            //     await SetChannel();
+            //     await SetExchangeAndQueue();
+            //     await SetConsumer();
+            //     Console.WriteLine("Successfully connected");
+            //     break;
+            // }
+            //
+            // catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException ex)
+            // {
+            //     
+            //     Console.WriteLine(ex.Message);
+            //     Console.WriteLine("connection:" + _connection.IsOpen);
+            //     Console.WriteLine("channel: " + _channel.IsOpen);
+            //     await Task.Delay(5000);
+            // }
             try
             {
                 Console.WriteLine("MQ connection shut down. Attempting to reconnect. Retrying...");
-                _connection?.Dispose();
-                await SetChannel();
-                await SetExchangeAndQueue();
-                await SetConsumer();
-                Console.WriteLine("Successfully connected");
-                break;
-            }
-
-            catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException ex)
-            {
-                
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("connection:" + _connection.IsOpen);
-                Console.WriteLine("channel: " + _channel.IsOpen);
                 await Task.Delay(5000);
+                await StartConsuming();
+                if (_channel?.IsOpen == true)
+                {
+                    Console.WriteLine("UpdateSitterRatingConsumer successfully connected");
+                    break;
+                }
+                // await SetChannel();
+                // await SetExchangeAndQueue();
+                // await SetConsumer();
+                // Console.WriteLine("Successfully connected");
+                // break;
+            }
+            catch (Exception ex) when (!_isShuttingDown)
+            {
+                Console.WriteLine($"Reconnection failed : {ex.Message}");
+                //await Task.Delay(5000);
             }
         }
     }

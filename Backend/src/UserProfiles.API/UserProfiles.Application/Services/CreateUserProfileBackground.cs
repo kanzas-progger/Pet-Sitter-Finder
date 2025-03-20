@@ -14,24 +14,32 @@ public class CreateUserProfileBackground : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-
-        while (!stoppingToken.IsCancellationRequested)
+        try
         {
-            try
+            while (!stoppingToken.IsCancellationRequested)
             {
-                await _createUserProfileConsumer.StartConsuming();
-                break;
+                try
+                {
+                    await _createUserProfileConsumer.StartConsuming();
+                    //break;
+                    //await Task.Delay(Timeout.Infinite, stoppingToken);
+                    await Task.Delay(-1, stoppingToken);
+                }
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+                {
+                    //Console.WriteLine("CreateUserProfileBackground is shutting down...");
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error while starting createUserProfile consumer: " + ex.Message);
+                    await Task.Delay(5000, stoppingToken);
+                }
             }
-            catch (OperationCanceledException)
-            {
-                Console.WriteLine("CreateUserProfileBackground is shutting down...");
-                break;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error while starting createUserProfile consumer: " + ex.Message);
-                await Task.Delay(5000, stoppingToken);
-            }
+        }
+        finally
+        {
+            await _createUserProfileConsumer.StopConsuming();
         }
     }
 

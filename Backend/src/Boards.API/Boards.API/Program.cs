@@ -44,7 +44,7 @@ services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
 
 services.AddGrpcClient<SittersProtoService.SittersProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://host.docker.internal:7002");
+    options.Address = new Uri("https://user-profiles-api:7002");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();

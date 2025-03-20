@@ -1,4 +1,20 @@
 services:
+  user-profiles-api:
+    build:
+      context: ..
+      dockerfile: src/UserProfiles.API/Dockerfile
+    container_name: user-profiles-api
+    ports:
+      - "5002:5002"
+      - "7002:7002"
+    networks:
+      - app_network
+    depends_on:
+      - rabbitmq
+      - redis
+    environment:
+      - RABBITMQ_HOSTNAME=rabbitmq
+      
   reviews-api:
     build:
       context: ..

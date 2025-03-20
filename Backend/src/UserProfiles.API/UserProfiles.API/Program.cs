@@ -41,7 +41,7 @@ services.AddStackExchangeRedisCache(options =>
 
 services.AddGrpcClient<ReviewsProtoService.ReviewsProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://localhost:7000");
+    options.Address = new Uri("https://reviews-api:7000");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();
@@ -52,7 +52,7 @@ services.AddGrpcClient<ReviewsProtoService.ReviewsProtoServiceClient>(options =>
 
 services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://localhost:7001");
+    options.Address = new Uri("https://animals-api:7001");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();
@@ -91,6 +91,12 @@ services.AddScoped<AnimalsGrpcClient>();
 
 var app = builder.Build();
 
+app.Lifetime.ApplicationStopping.Register(async () =>
+{
+    var rabbitMQService = app.Services.GetService<IRabbitMQService>();
+    await rabbitMQService.StopAsync();
+});
+
 app.UseMiddleware<ListenToOnlyApiGateway>();
 
 app.UseSwagger();
@@ -108,10 +114,14 @@ app.UseSwaggerUI(options =>
 string infrastructurePath = Path.Combine(Directory
         .GetParent(builder.Environment.ContentRootPath).FullName,
         "UserProfiles.Infrastructure");
+string uploadsPath = Path.Combine(infrastructurePath, "uploads");
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(infrastructurePath,"uploads")),
+    FileProvider = new PhysicalFileProvider(uploadsPath),
     RequestPath = "/uploads"
 });
 
