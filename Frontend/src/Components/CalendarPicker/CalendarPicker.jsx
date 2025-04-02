@@ -69,7 +69,8 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 
-const CalendarPicker = ({ disabledPeriods = [],
+const CalendarPicker = ({ 
+    disabledPeriods = [],
     disableTooltip,
     sx = {},
     title,
@@ -88,19 +89,19 @@ const CalendarPicker = ({ disabledPeriods = [],
             return date.isBetween(start, end, 'day', '[]');
         });
     };
-
+    
     const renderDisabledDay = (props) => {
-        const { day, outsideCurrentMonth, ...other } = props
-        const isDisabled = isDateInDisabledPeriod(day)
-
+        const { day, outsideCurrentMonth, ...other } = props;
+        const isDisabled = isDateInDisabledPeriod(day);
+    
         return isDisabled ? (
             <Tooltip title={disableTooltip} arrow>
                 <span>
-                    <PickersDay {...other} day={day} disabled />
+                    <PickersDay {...other} day={day} outsideCurrentMonth={outsideCurrentMonth} disabled />
                 </span>
             </Tooltip>
         ) : (
-            <PickersDay {...other} day={day} />
+            <PickersDay {...other} day={day} outsideCurrentMonth={outsideCurrentMonth} />
         );
     };
 

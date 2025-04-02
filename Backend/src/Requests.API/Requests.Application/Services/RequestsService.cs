@@ -1,4 +1,5 @@
 using Requests.Core.Abstractions;
+using Requests.Core.DTOs;
 using Requests.Core.Enums;
 using Requests.Core.Models;
 using Requests.Infrastructure.Repositories;
@@ -29,9 +30,19 @@ public class RequestsService : IRequestsService
         return await _requestsRepository.GetAllBusyBoards(startDate, endDate);
     }
 
-    public async Task<Status> UpdateStatus(Guid requestId, Status status)
+    public async Task<List<DateRangeDto>> GetAllDisabledDatesForBoard(Guid boardId)
     {
-        return await _requestsRepository.UpdateStatus(requestId, status);
+        return await _requestsRepository.GetAllDisabledDatesForBoard(boardId);
+    }
+
+    public async Task<Status> UpdateStatus(Guid requestId, bool isDatesDisabled)
+    {
+        if (isDatesDisabled)
+        {
+            return await _requestsRepository.UpdateStatus(requestId, Status.AcceptedAndDatesIsDisabled);
+        }
+        
+        return await _requestsRepository.UpdateStatus(requestId, Status.Accepted);
     }
     
     public async Task<bool> IsRequestExisted(Guid boardId, Guid ownerId)

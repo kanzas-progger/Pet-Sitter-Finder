@@ -27,7 +27,7 @@ public class RequestsController : ControllerBase
     public async Task<ActionResult<RequestResponse>> Create([FromBody] CreateRequest httpRequest)
     {
         var ownerId = GetUserIdFromClaim();
-
+    
         bool isRequestExists = await _requestsService.IsRequestExisted(httpRequest.boardId, ownerId);
         if (isRequestExists)
             return BadRequest("Request is already existed with this board");
@@ -36,13 +36,13 @@ public class RequestsController : ControllerBase
         var animalsGrpcResponse = grpcResponse.Animals;
         
         var domainRequestAnimals = new List<RequestAnimal>();
-
+    
         foreach (var httpRequestAnimal in httpRequest.animals)
         {
             var animal = animalsGrpcResponse.FirstOrDefault(a => a.Name.ToLower() == httpRequestAnimal.name.ToLower());
             if (animal == null)
                 return BadRequest("Invalid animal name");
-
+    
             var newRequestAnimal = new RequestAnimal
             {
                 AnimalId = animal.AnimalId,
@@ -66,12 +66,12 @@ public class RequestsController : ControllerBase
             httpRequest.ownerMessage,
             DateTime.UtcNow
         );
-
+    
         if (!string.IsNullOrEmpty(error))
             return BadRequest(error);
         
         var newRequest = await _requestsService.Create(request);
-
+    
         var response = new RequestResponse(
             newRequest.Id,
             newRequest.SitterId,
@@ -130,11 +130,20 @@ public class RequestsController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("{boardId:guid}")]
+    [Authorize(Roles = "Owner, Sitter")]
+    public async Task<IActionResult> GetAllDisabledDates(Guid boardId)
+    {
+        var response = await _requestsService.GetAllDisabledDatesForBoard(boardId);
+        
+        return Ok(response);
+    }
+
     [HttpPut]
     [Authorize(Roles = "Sitter")]
     public async Task<ActionResult<Status>> UpdateStatusBySitterToAccepted(UpdateStatusRequest httpRequest)
     {
-        var response = await _requestsService.UpdateStatus(httpRequest.requestId, Status.Accepted);
+        var response = await _requestsService.UpdateStatus(httpRequest.requestId, httpRequest.isDatesDisabled);
         
         return Ok(response);
     }

@@ -59,12 +59,13 @@ function App() {
               <Route path="sitters" element={<Sitters />} />
               <Route path=":login" element={<FullProfile />} />
               <Route path="boardings/request" element={<Request />} />
-              <Route path="requests" element={<RequestList />} />
+              
               <Route path="animalprofile" element={<FullAnimalProfile />} />
 
 
               {/* protected routes*/}
               <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
+              <Route path="requests" element={<RequestList />} />
                 <Route path="profile" element=
                   {<ProfileProvider>
                     <Outlet />

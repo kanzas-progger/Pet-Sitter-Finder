@@ -8,44 +8,54 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import CalendarPicker from '../../Components/CalendarPicker/CalendarPicker';
-
+import { createRequest } from '../../api/requests';
 
 const Request = () => {
+
+    dayjs.extend(utc);
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const [selectPets, setSelectPets] = useState('fromSitterBoardAnimals')
-    //const [petCount, setPetCount] = useState(1)
-    const { boardAnimals, boardPrice } = location.state || {}
+    const { boardAnimals, boardPrice, boardId, sitterId } = location.state || {}
     const [petsCount, setPetsCount] = useState(Object.fromEntries(boardAnimals.map(a => [a, 1])))  // if owner pets set to owner pest and count
 
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs().add(1, 'day'));
     const [daysDifference, setDaysDifference] = useState(1);
+    const [ownerMessage, setOwnerMessage] = useState('')
 
     const updateDaysDifference = (start, end) => {
         const diff = end.diff(start, 'day');
         setDaysDifference(diff);
     };
 
-    useEffect(() => {
-        if (!boardAnimals || !boardPrice) {
-            navigate("/");
-        }
-    }, [boardAnimals, boardPrice, navigate]);
+    // useEffect(() => {
+    //     if (!boardAnimals || !boardPrice ) {
+    //         navigate("/");
+    //     }
+    // }, [boardAnimals, boardPrice, navigate]);
 
-    // if (!animals || !pricePerDay) return null;
+    // Инициализация начальных дат
+useEffect(() => {
+    const today = dayjs();
+    const availablePeriods = findNextAvailablePeriod(today);
+    
+    if (availablePeriods.length > 0) {
+        const firstPeriod = availablePeriods[0];
+        setStartDate(firstPeriod.start);
+        setEndDate(firstPeriod.start.add(1, 'day'));
+        updateDaysDifference(firstPeriod.start, firstPeriod.start.add(1, 'day'));
+        setError('');
+    }
+}, []);
 
-    // const disabledDates = [
-    //     dayjs("2025-02-15"),
-    //     dayjs("2025-02-20"),
-    //     dayjs("2025-02-25"),
-    // ];
     const disabledPeriods = [
-        { startDate: "2025-03-22", endDate: "2025-03-25" },
-        { startDate: "2025-03-24", endDate: "2025-03-28" }
+        { startDate: "2025-04-03T12:34:56Z", endDate: "2025-04-06T12:34:56Z" },
+        { startDate: "2025-04-09T12:34:56Z", endDate: "2025-04-13T12:34:56Z" }
     ]
 
     const ITEM_HEIGHT = 48;
@@ -97,23 +107,50 @@ const Request = () => {
     };
 
     const [animalName, setAnimalName] = useState([]);
+    const [error, setError] = useState('');
+
+    const isDateInDisabledPeriods = (date) => {
+        return disabledPeriods.some(period => {
+            const periodStart = dayjs(period.startDate);
+            const periodEnd = dayjs(period.endDate);
+            return date.isBetween(periodStart, periodEnd, 'day', '[]');
+        });
+    };
 
     const handleChangeStartDate = (newDate) => {
-        setStartDate(newDate);
         if (endDate.diff(newDate, 'day') < 1) {
             const newEndDate = newDate.add(1, 'day');
-            setEndDate(newEndDate);
-            updateDaysDifference(newDate, newEndDate);
+            
+            if (isDateInDisabledPeriods(newEndDate) || !isValidDateRange(newDate, newEndDate)) {
+                setError('Выбранный период содержит заблокированные даты');
+            } else {
+                setError('');
+                setStartDate(newDate);
+                setEndDate(newEndDate);
+                updateDaysDifference(newDate, newEndDate);
+            }
         } else {
-            updateDaysDifference(newDate, endDate);
+            if (!isValidDateRange(newDate, endDate)) {
+                setError('Выбранный период содержит заблокированные даты');
+            } else {
+                setError('');
+                setStartDate(newDate);
+                updateDaysDifference(newDate, endDate);
+            }
         }
-    }
+    };
+    
     const handleChangeEndDate = (newDate) => {
         if (newDate.diff(startDate, 'day') >= 1) {
-            setEndDate(newDate);
-            updateDaysDifference(startDate, newDate);
+            if (isDateInDisabledPeriods(newDate) || !isValidDateRange(startDate, newDate)) {
+                setError('Выбранный период содержит заблокированные даты');
+            } else {
+                setError('');
+                setEndDate(newDate);
+                updateDaysDifference(startDate, newDate);
+            }
         }
-    }
+    };
 
     const handleAnimalChange = (e) => {
         const {
@@ -137,15 +174,101 @@ const Request = () => {
     }
 
     const getTotalSelectedPetsCount = () => {
-        return animalName.reduce((total,animal) => total + petsCount[animal],0)
+        return animalName.reduce((total, animal) => total + petsCount[animal], 0)
     }
 
     const getValidDaysValue = () => {
         return daysDifference === 1 ? "сутки" : "суток"
     }
-    
+
     const getTotalPrice = () => {
         return boardPrice * getTotalSelectedPetsCount() * daysDifference
+    }
+
+    //new date logic
+
+    const findNextAvailablePeriod = (currentDate) => {
+        let availablePeriods = [];
+        let currentPeriodStart = null;
+        let date = currentDate.clone();
+        
+        // Проверяем следующие 365 дней
+        for (let i = 0; i < 365; i++) {
+            if (!isDateInDisabledPeriods(date)) {
+                if (!currentPeriodStart) {
+                    currentPeriodStart = date.clone();
+                }
+            } else {
+                if (currentPeriodStart) {
+                    availablePeriods.push({
+                        start: currentPeriodStart,
+                        end: date.subtract(1, 'day')
+                    });
+                    currentPeriodStart = null;
+                }
+            }
+            date = date.add(1, 'day');
+        }
+        
+        // Добавляем последний период, если он есть
+        if (currentPeriodStart) {
+            availablePeriods.push({
+                start: currentPeriodStart,
+                end: date.subtract(1, 'day')
+            });
+        }
+    
+        // Фильтруем периоды длиной более 1 дня
+        return availablePeriods.filter(period => 
+            period.end.diff(period.start, 'day') >= 1
+        );
+    };
+    
+    const isValidDateRange = (start, end) => {
+        // Проверяем, что между датами нет заблокированных периодов
+        let currentDate = start.clone();
+        while (currentDate.isBefore(end, 'day') || currentDate.isSame(end, 'day')) {
+            if (isDateInDisabledPeriods(currentDate)) {
+                return false;
+            }
+            currentDate = currentDate.add(1, 'day');
+        }
+        return true;
+    };
+
+    const handleCreateRequest = async () => {
+
+        const totalPrice = getTotalPrice()
+
+        const animalsData = animalName.map(animal => {
+
+            const animalProfileId = selectPets === 'fromAnimalProfiles' ? "4567f41e-7a7f-47db-a5dd-8635e4d14a8f" : null;
+            
+            return {
+                name: animalTranslations[animal],
+                count: petsCount[animal],
+                animalProfileId: animalProfileId
+            };
+        });
+
+        const dataToSend = {
+            boardId: boardId,
+            sitterId: sitterId,
+            animals: animalsData,
+            totalPrice: totalPrice,
+            startDate: startDate.utc().format(),
+            endDate: endDate.utc().format(),
+            ownerMessage: ownerMessage.length === 0 ? null : ownerMessage
+        }
+
+        try {
+            const response = await createRequest(dataToSend)
+            console.log(response.data)
+        } catch(e){
+            console.error(e)
+        }
+
+        console.log("SendDataToRequest: ", dataToSend)
     }
 
     return (
@@ -253,14 +376,16 @@ const Request = () => {
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                         <Typography sx={{ textAlign: 'center', marginBottom: '10px', fontWeight: 'bold', color: 'black', fontSize: '18px' }}>Отдадите</Typography>
-                                        <CalendarPicker 
+                                        <CalendarPicker
+                                            disabledPeriods={disabledPeriods}
                                             value={startDate}
                                             onChange={handleChangeStartDate} />
                                     </Box>
 
                                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                         <Typography sx={{ textAlign: 'center', marginBottom: '10px', fontWeight: 'bold', color: 'black', fontSize: '18px' }}>Заберете</Typography>
-                                        <CalendarPicker 
+                                        <CalendarPicker
+                                            disabledPeriods={disabledPeriods}
                                             value={endDate}
                                             onChange={handleChangeEndDate}
                                             minDate={startDate.add(1, 'day')} />
@@ -275,6 +400,8 @@ const Request = () => {
 
                                 <TextareaAutosize
                                     minRows={4}
+                                    value={ownerMessage}
+                                    onChange={(e) => setOwnerMessage(e.target.value)}
                                     placeholder="Оставить сообщение..."
                                     style={{
                                         width: '660px',
@@ -291,22 +418,25 @@ const Request = () => {
 
                             {(animalName.length > 0) && <>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px', gap: '5px', background: '#b3d89c', width: '660px', padding: '20px', borderRadius: '12px' }}>
-                                <Typography sx={{ color: 'black', fontSize: '16px' }}>
-                                    Формула расчета: {boardPrice} ₽ x количество животных ({getTotalSelectedPetsCount()}) x {daysDifference} {getValidDaysValue()}
-                                </Typography>
-                                <Typography sx={{ fontWeight: 'bold', color: 'black', fontSize: '22px' }}>
-                                    Примерная стоимость передержки : {getTotalPrice()} ₽ 
-                                </Typography>
-                                <Typography sx={{ color: 'black', fontSize: '16px' }}>
-                                    Точную стоимость передержки необходимо согласовать с ситтером
-                                </Typography>
-                            </Box>
+                                    <Typography sx={{ color: 'black', fontSize: '16px' }}>
+                                        Формула расчета: {boardPrice} ₽ x количество животных ({getTotalSelectedPetsCount()}) x {daysDifference} {getValidDaysValue()}
+                                    </Typography>
+                                    <Typography sx={{ fontWeight: 'bold', color: 'black', fontSize: '22px' }}>
+                                        Примерная стоимость передержки : {getTotalPrice()} ₽
+                                    </Typography>
+                                    <Typography sx={{ color: 'black', fontSize: '16px' }}>
+                                        Точную стоимость передержки необходимо согласовать с ситтером
+                                    </Typography>
+                                </Box>
                             </>}
 
 
                         </Box>
 
-                        <Button variant='contained' sx={{ margin: '0 auto', marginTop: '40px', marginBottom: '20px' }}>Подтвердить</Button>
+                        <Button 
+                        variant='contained' 
+                        sx={{ margin: '0 auto', marginTop: '40px', marginBottom: '20px' }}
+                        onClick={handleCreateRequest}>Подтвердить</Button>
 
                     </Box>
                 </Paper>

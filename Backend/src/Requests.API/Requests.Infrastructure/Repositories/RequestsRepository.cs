@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Requests.Core.Abstractions;
+using Requests.Core.DTOs;
 using Requests.Core.Enums;
 using Requests.Core.Models;
 using Requests.Infrastructure.Entities;
@@ -86,8 +87,18 @@ public class RequestsRepository : IRequestsRepository
     public async Task<List<Guid>> GetAllBusyBoards(DateTime startDate, DateTime endDate)
     {
         return await _context.Requests.AsNoTracking()
-            .Where(r => r.StartDate.Date <= endDate.Date && r.EndDate.Date >= startDate.Date)
+            .Where(r => r.StartDate.Date <= endDate.Date 
+                        && r.EndDate.Date >= startDate.Date 
+                        && r.Status == Status.AcceptedAndDatesIsDisabled.ToString())
             .Select(r => r.BoardId)
+            .ToListAsync();
+    }
+
+    public async Task<List<DateRangeDto>> GetAllDisabledDatesForBoard(Guid boardId)
+    {
+        return await _context.Requests
+            .Where(r => r.BoardId == boardId && r.Status == Status.AcceptedAndDatesIsDisabled.ToString())
+            .Select(r => new DateRangeDto(r.StartDate, r.EndDate))
             .ToListAsync();
     }
 

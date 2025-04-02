@@ -34,16 +34,6 @@ const CardBoard = ({ board, onHandleDelete, onHandleUpdate }) => {
     const { profile, setProfile } = useProfile()
     const [animalName, setAnimalName] = useState([]);
     const navigate = useNavigate()
-    // const animalInfo = {
-    //     Dog: { icon: faDog, title: 'Собаки', fontSize: '20px' },
-    //     Cat: { icon: faCat, title: 'Кошки', fontSize: '20px' },
-    //     Fish: { icon: faFishFins, title: 'Рыбки', fontSize: '20px' },
-    //     Bird: { icon: faDove, title: 'Птички', fontSize: '20px' },
-    //     Reptile: { icon: <GiGecko />, title: 'Рептилии', fontSize: '20px' },
-    //     Spider: { icon: faSpider, title: 'Пауки', fontSize: '20px' },
-    //     FarmPet: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px' },
-    //     SmallPet: { icon: <PestControlRodentIcon  sx={{fontSize:'25px', p:0, m:0}}/>, title: 'Грызуны', fontSize: '25px' },
-    // }
 
     const animalInfo = {
         Dog: { icon: faDog, title: 'Собаки' },
@@ -136,7 +126,9 @@ const CardBoard = ({ board, onHandleDelete, onHandleUpdate }) => {
         navigate("/boardings/request", {
             state: {
                 boardAnimals: animalNames.map(name => reversedTranslations[name]),
-                boardPrice: price
+                boardPrice: price,
+                boardId: id,
+                sitterId: sitterId
             }
         });
     };

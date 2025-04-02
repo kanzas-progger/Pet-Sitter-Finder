@@ -1,8 +1,27 @@
 import React from 'react'
 import RequestCard from '../../Components/RequestCard/RequestCard'
 import { Box, Paper, Typography } from '@mui/material'
+import { getRequests } from '../../api/requests'
+import { useEffect, useState } from 'react'
 
 const RequestList = () => {
+
+    const [requests, setRequests] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                const response = await getRequests()
+                setRequests(response.data)
+                console.log(response.data)
+            }catch(e){
+                console.error(e)
+            }
+        }
+
+        fetchData()
+    },[])
+
     return (
         <>
 
@@ -31,9 +50,12 @@ const RequestList = () => {
                             width: '100%'
                         }}>
 
+                            {/* <RequestCard />
                             <RequestCard />
-                            <RequestCard />
-                            <RequestCard />
+                            <RequestCard /> */}
+                            {requests.map((r) =>(
+                                <RequestCard key={r.requestId} request={r}/>
+                            ))}
 
 
                         </Box>
