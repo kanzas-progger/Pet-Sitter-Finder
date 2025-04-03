@@ -1,3 +1,4 @@
+using Animals.Core.DTOs;
 using Animals.Core.Models;
 
 namespace Animals.Core.Abstractions;
@@ -14,4 +15,6 @@ public interface IAnimalProfileRepository
 
     Task UpdateAnimalProfileImage(Guid animalProfileId, Guid ownerId,
         string animalProfileImage);
+
+    Task<List<ShortAnimalProfileDto>> GetAnimalProfileData(List<string> animalNames, Guid ownerId);
 }

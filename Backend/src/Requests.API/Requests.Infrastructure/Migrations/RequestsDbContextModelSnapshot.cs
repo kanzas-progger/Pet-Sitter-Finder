@@ -24,7 +24,8 @@ namespace Requests.Infrastructure.Migrations
 
             modelBuilder.Entity("Requests.Infrastructure.Entities.RequestAnimalsEntity", b =>
                 {
-                    b.Property<Guid>("RequestId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<int>("AnimalId")
@@ -36,7 +37,12 @@ namespace Requests.Infrastructure.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("integer");
 
-                    b.HasKey("RequestId", "AnimalId");
+                    b.Property<Guid>("RequestId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
 
                     b.ToTable("RequestAnimals");
                 });

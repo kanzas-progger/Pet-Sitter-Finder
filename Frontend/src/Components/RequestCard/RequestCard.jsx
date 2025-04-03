@@ -30,6 +30,8 @@ const RequestCard = ({ request = [] }) => {
 
     const [open, setOpen] = useState(false);
     const [shortProfile, setShortProfile] = useState(null)
+    const [groupedAnimals, setGroupedAnimals] = useState([]);
+    const [animalProfileIds, setAnimalProfileIds] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,6 +49,36 @@ const RequestCard = ({ request = [] }) => {
         }
         fetchData()
     }, [shortProfile])
+
+    useEffect(() => {
+        if (requestAnimals && requestAnimals.length > 0) {
+            // Группировка животных по имени и суммирование их количества
+            const animalGroups = {};
+            const profileIds = [];
+
+            requestAnimals.forEach(animal => {
+                // Добавление в массив ID профилей
+                if (animal.animalProfileId) {
+                    profileIds.push(animal.animalProfileId);
+                }
+
+                // Группировка по имени и суммирование количества
+                if (!animalGroups[animal.name]) {
+                    animalGroups[animal.name] = {
+                        name: animal.name,
+                        count: 0
+                    };
+                }
+                animalGroups[animal.name].count += animal.count;
+            });
+
+            // Преобразование объекта групп в массив
+            const groupedAnimalsArray = Object.values(animalGroups);
+            
+            setGroupedAnimals(groupedAnimalsArray);
+            setAnimalProfileIds(profileIds);
+        }
+    }, [requestAnimals]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -89,6 +121,24 @@ const RequestCard = ({ request = [] }) => {
         "Fish": "Рыбки",
     };
 
+    const statusTranslations = {
+        "New":"Новая",
+        "Accepted":"Принятая",
+        "AcceptedAndDatesIsDisabled":"Принятая и закрытая",
+        "Rejected":"Отказанная",
+        "Cancelled":"Отмененная",
+        "Processing":"В ожидании"
+    }
+
+    const statusBackgroundColor = {
+        "New":"#4D7298",
+        "Accepted":"#31c434",
+        "AcceptedAndDatesIsDisabled":"#31c434",
+        "Rejected":"#f44336",
+        "Cancelled":"#f44336",
+        "Processing":"#6b7280"
+    }
+
     return (
         <>
             <Paper elevation={3} sx={{ border: '3px solid #6b7280', borderRadius: 3, backgroundColor: '#b3d89c', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
@@ -115,11 +165,12 @@ const RequestCard = ({ request = [] }) => {
 
                 <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', cursor: 'pointer' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Животные: </Typography>
-                    {requestAnimals.map((a) => (
+                    {groupedAnimals.map((a) => (
                         <Typography key={a.name} sx={{ color: '#6b7280', fontWeight: 'bold' }}>{animalTranslations[a.name]} ({a.count})</Typography>
                     ))}
                 </Box>
-                <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', cursor: 'pointer' }}>
+                {animalProfileIds.length > 0 && (
+                    <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', cursor: 'pointer' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Профили животных: </Typography>
                     <Typography sx={{
                         fontWeight: 'bold',
@@ -141,7 +192,8 @@ const RequestCard = ({ request = [] }) => {
                     </Typography>
 
                 </Box>
-
+                )}
+                
                 <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', alignItems: 'center', cursor: 'pointer' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Период передержки: </Typography>
                     <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#31c434', borderRadius: '12px', padding: '4px' }}>{formatDate(startDate)}</Typography>
@@ -157,7 +209,12 @@ const RequestCard = ({ request = [] }) => {
 
                 <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', alignItems: 'center', cursor: 'pointer' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Статус: </Typography>
-                    <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#4D7298', borderRadius: '12px', padding: '4px 8px' }}>{status}</Typography>
+                    <Typography sx={{ 
+                        color: '#fff', 
+                        fontWeight: 'bold',
+                         backgroundColor: statusBackgroundColor[status], 
+                         borderRadius: '12px',
+                          padding: '4px 8px' }}>{statusTranslations[status]}</Typography>
                     {/* <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#31c434', borderRadius: '12px', padding: '4px 8px' }}>Принято</Typography>
                     <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#f44336', borderRadius: '12px', padding: '4px 8px' }}>Отклонено</Typography>  */}
                     {/* <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#6b7280', borderRadius: '12px', padding: '4px 8px' }}>Просмотрено</Typography> */}

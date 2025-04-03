@@ -35,6 +35,7 @@ namespace Requests.Infrastructure.Migrations
                 name: "RequestAnimals",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     RequestId = table.Column<Guid>(type: "uuid", nullable: false),
                     AnimalId = table.Column<int>(type: "integer", nullable: false),
                     Count = table.Column<int>(type: "integer", nullable: false),
@@ -42,7 +43,7 @@ namespace Requests.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RequestAnimals", x => new { x.RequestId, x.AnimalId });
+                    table.PrimaryKey("PK_RequestAnimals", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RequestAnimals_Requests_RequestId",
                         column: x => x.RequestId,
@@ -50,6 +51,11 @@ namespace Requests.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestAnimals_RequestId",
+                table: "RequestAnimals",
+                column: "RequestId");
         }
 
         /// <inheritdoc />

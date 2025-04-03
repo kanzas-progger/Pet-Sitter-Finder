@@ -12,6 +12,18 @@ export const getAllOwnerAnimalProfiles = async (ownerId) => {
     }
 }
 
+export const getShortOwnerAnimalProfilesData = async (animalNames) => {
+    try {
+        const response = await axios.post('https://localhost:5000/api/animals/profiles/shortProfiles', animalNames,{
+            withCredentials: true
+        })
+
+        return response
+    } catch(e){
+        console.error(e)
+    }
+}
+
 export const createAnimalProfile = async (data) => {
 
     const formData = new FormData()

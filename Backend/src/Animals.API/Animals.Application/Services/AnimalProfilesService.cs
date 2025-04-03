@@ -1,4 +1,5 @@
 using Animals.Core.Abstractions;
+using Animals.Core.DTOs;
 using Animals.Core.Models;
 using Animals.Infrastructure.Providers;
 
@@ -46,5 +47,10 @@ public class AnimalProfilesService : IAnimalProfilesService
     public async Task<string> GetAnimalProfileImage(Guid animalProfileId)
     {
         return await _animalProfileRepository.GetAnimalProfileImage(animalProfileId);
+    }
+
+    public async Task<List<ShortAnimalProfileDto>> GetAnimalProfileData(List<string> animalNames, Guid ownerId)
+    {
+        return await _animalProfileRepository.GetAnimalProfileData(animalNames, ownerId);
     }
 }

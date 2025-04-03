@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import CalendarPicker from '../../Components/CalendarPicker/CalendarPicker';
 import { createRequest } from '../../api/requests';
+import { getShortOwnerAnimalProfilesData } from '../../api/animals';
 
 const Request = () => {
 
@@ -22,6 +23,7 @@ const Request = () => {
     const [selectPets, setSelectPets] = useState('fromSitterBoardAnimals')
     const { boardAnimals, boardPrice, boardId, sitterId } = location.state || {}
     const [petsCount, setPetsCount] = useState(Object.fromEntries(boardAnimals.map(a => [a, 1])))  // if owner pets set to owner pest and count
+    const [ownerAnimalProfiles, setOwnerAnimalProfiles] = useState([])
 
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs().add(1, 'day'));
@@ -32,6 +34,22 @@ const Request = () => {
         const diff = end.diff(start, 'day');
         setDaysDifference(diff);
     };
+
+    useEffect(() => {
+        const fetchOwnerAnimals = async() => {
+            try{
+                const translatedBoardAnimals = boardAnimals.map(a => animalTranslations[a])
+                const response = await getShortOwnerAnimalProfilesData(translatedBoardAnimals)
+                setOwnerAnimalProfiles(response.data)
+                console.log("ownerAnimals is ", response.data)
+                console.log("board animals is ", boardAnimals)
+            }catch(e){
+                console.error(e)
+            }
+        }
+
+        fetchOwnerAnimals()
+    }, [])
 
     // useEffect(() => {
     //     if (!boardAnimals || !boardPrice ) {
@@ -91,9 +109,11 @@ useEffect(() => {
         "Рыбки": "рыбок",
     }
 
-    const ownerAnimals = [
-        'Метяся (собака)', 'Женька (кошка)'
-    ];
+    // const ownerAnimals = [
+    //     'Метяся (собака)',
+    //     'Женька (кошка)'
+    // ];
+    const ownerAnimals = ownerAnimalProfiles?.map(a => a.name)
 
     const animalTranslations = {
         "Собаки": "Dog",
@@ -173,8 +193,18 @@ useEffect(() => {
         }))
     }
 
+    // const getTotalSelectedPetsCount = () => {
+    //     return animalName.reduce((total, animal) => total + petsCount[animal], 0)
+    // }
     const getTotalSelectedPetsCount = () => {
-        return animalName.reduce((total, animal) => total + petsCount[animal], 0)
+        if (selectPets === 'fromAnimalProfiles') {
+            return animalName.reduce((total, animal) => {
+                const animalProfile = ownerAnimalProfiles.find(profile => profile.name === animal);
+                return total + (animalProfile ? animalProfile.count : 0);
+            }, 0);
+        } else {
+            return animalName.reduce((total, animal) => total + petsCount[animal], 0);
+        }
     }
 
     const getValidDaysValue = () => {
@@ -236,21 +266,66 @@ useEffect(() => {
         return true;
     };
 
+    // const handleCreateRequest = async () => {
+
+    //     const totalPrice = getTotalPrice()
+
+    //     const animalsData = animalName.map(animal => {
+
+    //         const animalProfileId = selectPets === 'fromAnimalProfiles' ? "4567f41e-7a7f-47db-a5dd-8635e4d14a8f" : null;
+            
+    //         return {
+    //             name: animalTranslations[animal],
+    //             count: petsCount[animal],
+    //             animalProfileId: animalProfileId
+    //         };
+    //     });
+
+    //     const dataToSend = {
+    //         boardId: boardId,
+    //         sitterId: sitterId,
+    //         animals: animalsData,
+    //         totalPrice: totalPrice,
+    //         startDate: startDate.utc().format(),
+    //         endDate: endDate.utc().format(),
+    //         ownerMessage: ownerMessage.length === 0 ? null : ownerMessage
+    //     }
+
+    //     try {
+    //         const response = await createRequest(dataToSend)
+    //         console.log(response.data)
+    //     } catch(e){
+    //         console.error(e)
+    //     }
+
+    //     console.log("SendDataToRequest: ", dataToSend)
+    // }
+
     const handleCreateRequest = async () => {
-
         const totalPrice = getTotalPrice()
-
+    
         const animalsData = animalName.map(animal => {
-
-            const animalProfileId = selectPets === 'fromAnimalProfiles' ? "4567f41e-7a7f-47db-a5dd-8635e4d14a8f" : null;
+            // Если выбираем из профилей владельца, находим соответствующий профиль животного
+            let animalProfileId = null;
+            let count = petsCount[animal];
+            
+            if (selectPets === 'fromAnimalProfiles') {
+                const animalProfile = ownerAnimalProfiles.find(profile => profile.name === animal);
+                if (animalProfile) {
+                    animalProfileId = animalProfile.animalProfileId;
+                    count = animalProfile.count; // Используем количество из профиля
+                }
+            }
             
             return {
-                name: animalTranslations[animal],
-                count: petsCount[animal],
+                name: selectPets === 'fromAnimalProfiles' ? 
+                      ownerAnimalProfiles.find(profile => profile.name === animal)?.animalName : 
+                      animalTranslations[animal],
+                count: count,
                 animalProfileId: animalProfileId
             };
         });
-
+    
         const dataToSend = {
             boardId: boardId,
             sitterId: sitterId,
@@ -260,14 +335,14 @@ useEffect(() => {
             endDate: endDate.utc().format(),
             ownerMessage: ownerMessage.length === 0 ? null : ownerMessage
         }
-
+    
         try {
             const response = await createRequest(dataToSend)
             console.log(response.data)
         } catch(e){
             console.error(e)
         }
-
+    
         console.log("SendDataToRequest: ", dataToSend)
     }
 
@@ -358,7 +433,9 @@ useEffect(() => {
                                                 type="number"
                                                 size='small'
                                                 onChange={(e) => handlePetsCount(e, animal)}
-                                                value={petsCount[animal]}
+                                                value={selectPets === 'fromAnimalProfiles' ? 
+                                                    ownerAnimalProfiles.find(profile => profile.name === animal)?.count : 
+                                                    petsCount[animal]}
                                                 required
                                                 disabled={selectPets === 'fromAnimalProfiles'}
                                                 sx={{ width: '320px', marginTop: '10px', '& .MuiOutlinedInput-root': { background: '#b3d89c' } }}

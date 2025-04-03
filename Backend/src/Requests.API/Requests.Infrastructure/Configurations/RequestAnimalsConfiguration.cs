@@ -8,7 +8,8 @@ public class RequestAnimalsConfiguration : IEntityTypeConfiguration<RequestAnima
 {
     public void Configure(EntityTypeBuilder<RequestAnimalsEntity> builder)
     {
-        builder.HasKey(ra => new {ra.RequestId, ra.AnimalId});
+        //builder.HasKey(ra => new {ra.RequestId, ra.AnimalId});
+        builder.HasKey(ra => ra.Id);
         
         builder.Property(ra => ra.AnimalId).IsRequired();
         builder.Property(ra => ra.Count).IsRequired();

@@ -180,6 +180,24 @@ public class AnimalProfilesController : ControllerBase
         return Ok(response);
     }
 
+    [HttpPost("shortProfiles")]
+    [Authorize(Roles = "Owner")]
+    public async Task<ActionResult<List<ShortAnimalProfileResponse>>> GetShortAnimalProfiles(
+    [FromBody] List<string> animalNames)
+    {
+        var ownerId = GetUserIdFromClaim();
+        var profiles = await _animalProfilesService.GetAnimalProfileData(animalNames, ownerId);
+        
+        var response = profiles.Select(p => new ShortAnimalProfileResponse(
+            p.animalProfileId,
+            p.animalName,
+            p.name,
+            p.count)
+        ).ToList();
+        
+        return Ok(response);
+    }
+
     [HttpPost("image")]
     [Authorize(Roles = "Owner")]
     public async Task<ActionResult> UploadImage([FromForm] UploadAnimalProfileImageRequest request)

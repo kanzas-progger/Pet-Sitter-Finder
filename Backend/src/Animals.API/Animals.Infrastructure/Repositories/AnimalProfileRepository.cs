@@ -1,4 +1,5 @@
 using Animals.Core.Abstractions;
+using Animals.Core.DTOs;
 using Animals.Core.Models;
 using Animals.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -100,6 +101,27 @@ public class AnimalProfileRepository : IAnimalProfileRepository
             .FirstOrDefaultAsync();
         
         return animalId;
+    }
+
+    public async Task<List<ShortAnimalProfileDto>> GetAnimalProfileData(List<string> animalNames, Guid ownerId)
+    {
+        var animalIds = await _animalsDbContext.Animals
+            .Where(a => animalNames.Contains(a.Name))
+            .Select(a => new { a.Id, a.Name })
+            .ToListAsync();
+
+        var profiles = await _animalsDbContext.AnimalProfiles
+            .Where(a => animalIds.Select(animal => animal.Id).Contains(a.AnimalId) && a.OwnerId == ownerId)
+            .ToListAsync(); 
+
+        var result = profiles.Select(a => new ShortAnimalProfileDto(
+            a.Id,
+            animalIds.FirstOrDefault(animal => animal.Id == a.AnimalId)?.Name ?? "Unknown",
+            a.Name,
+            a.Count
+        )).ToList();
+
+        return result;
     }
     
     public async Task<string> GetAnimalNameByAnimalId(int animalId)
