@@ -132,9 +132,12 @@ public class RequestsController : ControllerBase
 
     [HttpGet("{boardId:guid}")]
     [Authorize(Roles = "Owner, Sitter")]
-    public async Task<IActionResult> GetAllDisabledDates(Guid boardId)
+    public async Task <ActionResult<List<DisabledDatesResponse>>> GetAllDisabledDates(Guid boardId)
     {
-        var response = await _requestsService.GetAllDisabledDatesForBoard(boardId);
+        var disabledDates = await _requestsService.GetAllDisabledDatesForBoard(boardId);
+        var response = disabledDates
+            .Select(d => new DisabledDatesResponse(d.startDate, d.endDate))
+            .ToList();
         
         return Ok(response);
     }

@@ -13,4 +13,5 @@ public interface IAnimalProfilesService
     Task<string> GetAnimalProfileImage(Guid animalProfileId);
     Task UpdateAnimalProfileImage(Guid animalProfileId, Guid ownerId, string image);
     Task<List<ShortAnimalProfileDto>> GetAnimalProfileData(List<string> animalNames, Guid ownerId);
+    Task<AnimalProfile> GetById(Guid animalProfileId);
 }

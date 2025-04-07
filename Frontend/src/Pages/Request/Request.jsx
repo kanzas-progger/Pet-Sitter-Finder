@@ -10,8 +10,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import CalendarPicker from '../../Components/CalendarPicker/CalendarPicker';
-import { createRequest } from '../../api/requests';
+import { createRequest, getDisabledDates } from '../../api/requests';
 import { getShortOwnerAnimalProfilesData } from '../../api/animals';
+import { getShortSitterProfile } from '../../api/sitters';
 
 const Request = () => {
 
@@ -24,7 +25,9 @@ const Request = () => {
     const { boardAnimals, boardPrice, boardId, sitterId } = location.state || {}
     const [petsCount, setPetsCount] = useState(Object.fromEntries(boardAnimals.map(a => [a, 1])))  // if owner pets set to owner pest and count
     const [ownerAnimalProfiles, setOwnerAnimalProfiles] = useState([])
+    const [shortSitterProfile, setShortSitterProfile] = useState(null)
 
+    const [disabledPeriods, setDisabledPeriods] = useState([])
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs().add(1, 'day'));
     const [daysDifference, setDaysDifference] = useState(1);
@@ -36,14 +39,14 @@ const Request = () => {
     };
 
     useEffect(() => {
-        const fetchOwnerAnimals = async() => {
-            try{
+        const fetchOwnerAnimals = async () => {
+            try {
                 const translatedBoardAnimals = boardAnimals.map(a => animalTranslations[a])
                 const response = await getShortOwnerAnimalProfilesData(translatedBoardAnimals)
                 setOwnerAnimalProfiles(response.data)
                 console.log("ownerAnimals is ", response.data)
                 console.log("board animals is ", boardAnimals)
-            }catch(e){
+            } catch (e) {
                 console.error(e)
             }
         }
@@ -51,30 +54,45 @@ const Request = () => {
         fetchOwnerAnimals()
     }, [])
 
-    // useEffect(() => {
-    //     if (!boardAnimals || !boardPrice ) {
-    //         navigate("/");
-    //     }
-    // }, [boardAnimals, boardPrice, navigate]);
+    useEffect(() => {
+        const fetchDisabledDates = async () => {
+            try {
+                const response = await getDisabledDates(boardId)
+                console.log("disabled dates is ", response.data)
+                setDisabledPeriods(response.data)
+            }
+            catch (e) {
+                console.error(e)
+            }
+        }
+        fetchDisabledDates()
+    }, [])
 
-    // Инициализация начальных дат
-useEffect(() => {
-    const today = dayjs();
-    const availablePeriods = findNextAvailablePeriod(today);
-    
-    if (availablePeriods.length > 0) {
-        const firstPeriod = availablePeriods[0];
-        setStartDate(firstPeriod.start);
-        setEndDate(firstPeriod.start.add(1, 'day'));
-        updateDaysDifference(firstPeriod.start, firstPeriod.start.add(1, 'day'));
-        setError('');
-    }
-}, []);
+    useEffect(() => {
+        const today = dayjs();
+        const availablePeriods = findNextAvailablePeriod(today);
 
-    const disabledPeriods = [
-        { startDate: "2025-04-03T12:34:56Z", endDate: "2025-04-06T12:34:56Z" },
-        { startDate: "2025-04-09T12:34:56Z", endDate: "2025-04-13T12:34:56Z" }
-    ]
+        if (availablePeriods.length > 0) {
+            const firstPeriod = availablePeriods[0];
+            setStartDate(firstPeriod.start);
+            setEndDate(firstPeriod.start.add(1, 'day'));
+            updateDaysDifference(firstPeriod.start, firstPeriod.start.add(1, 'day'));
+            setError('');
+        }
+    }, []);
+
+    useEffect(() => {
+        const fetchShortSitterProfile = async () => {
+            try {
+                const response = await getShortSitterProfile(sitterId)
+                console.log("shortProfile is ", response.data)
+                setShortSitterProfile(response.data)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+        fetchShortSitterProfile()
+    }, [])
 
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
@@ -109,10 +127,6 @@ useEffect(() => {
         "Рыбки": "рыбок",
     }
 
-    // const ownerAnimals = [
-    //     'Метяся (собака)',
-    //     'Женька (кошка)'
-    // ];
     const ownerAnimals = ownerAnimalProfiles?.map(a => a.name)
 
     const animalTranslations = {
@@ -130,7 +144,7 @@ useEffect(() => {
     const [error, setError] = useState('');
 
     const isDateInDisabledPeriods = (date) => {
-        return disabledPeriods.some(period => {
+        return disabledPeriods?.some(period => {
             const periodStart = dayjs(period.startDate);
             const periodEnd = dayjs(period.endDate);
             return date.isBetween(periodStart, periodEnd, 'day', '[]');
@@ -140,7 +154,7 @@ useEffect(() => {
     const handleChangeStartDate = (newDate) => {
         if (endDate.diff(newDate, 'day') < 1) {
             const newEndDate = newDate.add(1, 'day');
-            
+
             if (isDateInDisabledPeriods(newEndDate) || !isValidDateRange(newDate, newEndDate)) {
                 setError('Выбранный период содержит заблокированные даты');
             } else {
@@ -159,7 +173,7 @@ useEffect(() => {
             }
         }
     };
-    
+
     const handleChangeEndDate = (newDate) => {
         if (newDate.diff(startDate, 'day') >= 1) {
             if (isDateInDisabledPeriods(newDate) || !isValidDateRange(startDate, newDate)) {
@@ -193,9 +207,6 @@ useEffect(() => {
         }))
     }
 
-    // const getTotalSelectedPetsCount = () => {
-    //     return animalName.reduce((total, animal) => total + petsCount[animal], 0)
-    // }
     const getTotalSelectedPetsCount = () => {
         if (selectPets === 'fromAnimalProfiles') {
             return animalName.reduce((total, animal) => {
@@ -221,7 +232,7 @@ useEffect(() => {
         let availablePeriods = [];
         let currentPeriodStart = null;
         let date = currentDate.clone();
-        
+
         // Проверяем следующие 365 дней
         for (let i = 0; i < 365; i++) {
             if (!isDateInDisabledPeriods(date)) {
@@ -239,7 +250,7 @@ useEffect(() => {
             }
             date = date.add(1, 'day');
         }
-        
+
         // Добавляем последний период, если он есть
         if (currentPeriodStart) {
             availablePeriods.push({
@@ -247,13 +258,13 @@ useEffect(() => {
                 end: date.subtract(1, 'day')
             });
         }
-    
+
         // Фильтруем периоды длиной более 1 дня
-        return availablePeriods.filter(period => 
+        return availablePeriods.filter(period =>
             period.end.diff(period.start, 'day') >= 1
         );
     };
-    
+
     const isValidDateRange = (start, end) => {
         // Проверяем, что между датами нет заблокированных периодов
         let currentDate = start.clone();
@@ -266,49 +277,14 @@ useEffect(() => {
         return true;
     };
 
-    // const handleCreateRequest = async () => {
-
-    //     const totalPrice = getTotalPrice()
-
-    //     const animalsData = animalName.map(animal => {
-
-    //         const animalProfileId = selectPets === 'fromAnimalProfiles' ? "4567f41e-7a7f-47db-a5dd-8635e4d14a8f" : null;
-            
-    //         return {
-    //             name: animalTranslations[animal],
-    //             count: petsCount[animal],
-    //             animalProfileId: animalProfileId
-    //         };
-    //     });
-
-    //     const dataToSend = {
-    //         boardId: boardId,
-    //         sitterId: sitterId,
-    //         animals: animalsData,
-    //         totalPrice: totalPrice,
-    //         startDate: startDate.utc().format(),
-    //         endDate: endDate.utc().format(),
-    //         ownerMessage: ownerMessage.length === 0 ? null : ownerMessage
-    //     }
-
-    //     try {
-    //         const response = await createRequest(dataToSend)
-    //         console.log(response.data)
-    //     } catch(e){
-    //         console.error(e)
-    //     }
-
-    //     console.log("SendDataToRequest: ", dataToSend)
-    // }
-
     const handleCreateRequest = async () => {
         const totalPrice = getTotalPrice()
-    
+
         const animalsData = animalName.map(animal => {
             // Если выбираем из профилей владельца, находим соответствующий профиль животного
             let animalProfileId = null;
             let count = petsCount[animal];
-            
+
             if (selectPets === 'fromAnimalProfiles') {
                 const animalProfile = ownerAnimalProfiles.find(profile => profile.name === animal);
                 if (animalProfile) {
@@ -316,16 +292,16 @@ useEffect(() => {
                     count = animalProfile.count; // Используем количество из профиля
                 }
             }
-            
+
             return {
-                name: selectPets === 'fromAnimalProfiles' ? 
-                      ownerAnimalProfiles.find(profile => profile.name === animal)?.animalName : 
-                      animalTranslations[animal],
+                name: selectPets === 'fromAnimalProfiles' ?
+                    ownerAnimalProfiles.find(profile => profile.name === animal)?.animalName :
+                    animalTranslations[animal],
                 count: count,
                 animalProfileId: animalProfileId
             };
         });
-    
+
         const dataToSend = {
             boardId: boardId,
             sitterId: sitterId,
@@ -335,15 +311,13 @@ useEffect(() => {
             endDate: endDate.utc().format(),
             ownerMessage: ownerMessage.length === 0 ? null : ownerMessage
         }
-    
+
         try {
-            const response = await createRequest(dataToSend)
-            console.log(response.data)
-        } catch(e){
+            await createRequest(dataToSend)
+            navigate("/requests")
+        } catch (e) {
             console.error(e)
         }
-    
-        console.log("SendDataToRequest: ", dataToSend)
     }
 
     return (
@@ -358,15 +332,17 @@ useEffect(() => {
                 <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', width: '100%', boxSizing: 'border-box', padding: '20px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-                            <Avatar sx={{ width: 64, height: 64 }}>
+                            <Avatar
+                                sx={{ width: 64, height: 64 }}
+                                src={`https://localhost:5000${shortSitterProfile?.profileImage}`}>
 
                             </Avatar>
-                            <Link href="#" underline="none" sx={{
+                            <Link href={`https://localhost:5173/${shortSitterProfile?.login}`} underline="none" sx={{
                                 fontWeight: 'bold', fontSize: '18px', color: 'black', '&:hover': {
                                     textDecoration: 'underline',
                                     textDecorationColor: 'inherit',
                                 },
-                            }}>Ситтер Ситтеров</Link>
+                            }}>{shortSitterProfile?.firstname} {shortSitterProfile?.lastname}</Link>
                         </Box>
 
                     </Box>
@@ -433,8 +409,8 @@ useEffect(() => {
                                                 type="number"
                                                 size='small'
                                                 onChange={(e) => handlePetsCount(e, animal)}
-                                                value={selectPets === 'fromAnimalProfiles' ? 
-                                                    ownerAnimalProfiles.find(profile => profile.name === animal)?.count : 
+                                                value={selectPets === 'fromAnimalProfiles' ?
+                                                    ownerAnimalProfiles.find(profile => profile.name === animal)?.count :
                                                     petsCount[animal]}
                                                 required
                                                 disabled={selectPets === 'fromAnimalProfiles'}
@@ -510,10 +486,10 @@ useEffect(() => {
 
                         </Box>
 
-                        <Button 
-                        variant='contained' 
-                        sx={{ margin: '0 auto', marginTop: '40px', marginBottom: '20px' }}
-                        onClick={handleCreateRequest}>Подтвердить</Button>
+                        <Button
+                            variant='contained'
+                            sx={{ margin: '0 auto', marginTop: '40px', marginBottom: '20px' }}
+                            onClick={handleCreateRequest}>Подтвердить</Button>
 
                     </Box>
                 </Paper>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Paper, Dialog, DialogContent, DialogTitle, Typography, Box, Link, Button, IconButton, Tooltip } from '@mui/material'
+import { Paper, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Typography, Box, Link, Button, IconButton, Tooltip } from '@mui/material'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import InfoIcon from '@mui/icons-material/Info';
 import CloseIcon from '@mui/icons-material/Close';
@@ -8,9 +8,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { getShortSitterProfile } from '../../api/sitters';
 import { getShortOwnerProfile } from '../../api/owners';
+import { updateStatus, deleteRequest } from '../../api/requests';
+import { useNavigate } from 'react-router-dom';
 
 const RequestCard = ({ request = [] }) => {
 
+    const navigate = useNavigate()
     const {
         requestId,
         sitterId,
@@ -29,6 +32,7 @@ const RequestCard = ({ request = [] }) => {
     const hasProfileAnimals = true
 
     const [open, setOpen] = useState(false);
+    const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
     const [shortProfile, setShortProfile] = useState(null)
     const [groupedAnimals, setGroupedAnimals] = useState([]);
     const [animalProfileIds, setAnimalProfileIds] = useState([]);
@@ -74,7 +78,7 @@ const RequestCard = ({ request = [] }) => {
 
             // Преобразование объекта групп в массив
             const groupedAnimalsArray = Object.values(animalGroups);
-            
+
             setGroupedAnimals(groupedAnimalsArray);
             setAnimalProfileIds(profileIds);
         }
@@ -110,6 +114,56 @@ const RequestCard = ({ request = [] }) => {
         return diffDaysValidString;
     }
 
+    const handleConfirmDialogClose = () => {
+        setIsConfirmDialogOpen(false)
+    }
+
+    const handleConfirmDialogOpen = () => {
+        setIsConfirmDialogOpen(true)
+    }
+
+    const updateRequestStatusWithDisabledDates = async () => {
+        const dataToSend = {
+            "requestId": requestId,
+            "isDatesDisabled": true
+        }
+        try {
+            const response = await updateStatus(dataToSend)
+            console.log(response.data)
+            handleConfirmDialogClose()
+            navigate(0)
+        }catch(e){
+            console.error(e)
+        }
+    }
+
+    const updateRequestStatusWithoutDisabledDates = async () => {
+        const dataToSend = {
+            "requestId": requestId,
+            "isDatesDisabled": false
+        }
+        try {
+            const response = await updateStatus(dataToSend)
+            console.log(response.data)
+            handleConfirmDialogClose()
+            navigate(0)
+        }catch(e){
+            console.error(e)
+        }
+    }
+
+    const handleDeleteRequest = async () => {
+        try{
+            const response = await deleteRequest(requestId)
+            console.log(response.data)
+            navigate(0)
+        }
+        catch(e){
+            console.error(e)
+        }
+    }
+
+
     const animalTranslations = {
         "Dog": "Собаки",
         "Cat": "Кошки",
@@ -122,21 +176,21 @@ const RequestCard = ({ request = [] }) => {
     };
 
     const statusTranslations = {
-        "New":"Новая",
-        "Accepted":"Принятая",
-        "AcceptedAndDatesIsDisabled":"Принятая и закрытая",
-        "Rejected":"Отказанная",
-        "Cancelled":"Отмененная",
-        "Processing":"В ожидании"
+        "New": "Новая",
+        "Accepted": "Принятая",
+        "AcceptedAndDatesIsDisabled": "Принятая и закрытая",
+        "Rejected": "Отказанная",
+        "Cancelled": "Отмененная",
+        "Processing": "В ожидании"
     }
 
     const statusBackgroundColor = {
-        "New":"#4D7298",
-        "Accepted":"#31c434",
-        "AcceptedAndDatesIsDisabled":"#31c434",
-        "Rejected":"#f44336",
-        "Cancelled":"#f44336",
-        "Processing":"#6b7280"
+        "New": "#4D7298",
+        "Accepted": "#31c434",
+        "AcceptedAndDatesIsDisabled": "#31c434",
+        "Rejected": "#f44336",
+        "Cancelled": "#f44336",
+        "Processing": "#6b7280"
     }
 
     return (
@@ -171,29 +225,29 @@ const RequestCard = ({ request = [] }) => {
                 </Box>
                 {animalProfileIds.length > 0 && (
                     <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', cursor: 'pointer' }}>
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Профили животных: </Typography>
-                    <Typography sx={{
-                        fontWeight: 'bold',
-                        color: '#6b7280',
-                        '&:hover': {
-                            textDecoration: 'underline',
-                            textDecorationColor: 'inherit',
-                        },
-                    }}>Бася
-                    </Typography>
-                    <Typography sx={{
-                        fontWeight: 'bold',
-                        color: '#6b7280',
-                        '&:hover': {
-                            textDecoration: 'underline',
-                            textDecorationColor: 'inherit',
-                        },
-                    }}>Метяся
-                    </Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Профили животных: </Typography>
+                        <Typography sx={{
+                            fontWeight: 'bold',
+                            color: '#6b7280',
+                            '&:hover': {
+                                textDecoration: 'underline',
+                                textDecorationColor: 'inherit',
+                            },
+                        }}>Бася
+                        </Typography>
+                        <Typography sx={{
+                            fontWeight: 'bold',
+                            color: '#6b7280',
+                            '&:hover': {
+                                textDecoration: 'underline',
+                                textDecorationColor: 'inherit',
+                            },
+                        }}>Метяся
+                        </Typography>
 
-                </Box>
+                    </Box>
                 )}
-                
+
                 <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', alignItems: 'center', cursor: 'pointer' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Период передержки: </Typography>
                     <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#31c434', borderRadius: '12px', padding: '4px' }}>{formatDate(startDate)}</Typography>
@@ -209,12 +263,13 @@ const RequestCard = ({ request = [] }) => {
 
                 <Box sx={{ display: 'flex', maxWidth: 'fit-content', gap: '10px', marginTop: '10px', alignItems: 'center', cursor: 'pointer' }}>
                     <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Статус: </Typography>
-                    <Typography sx={{ 
-                        color: '#fff', 
+                    <Typography sx={{
+                        color: '#fff',
                         fontWeight: 'bold',
-                         backgroundColor: statusBackgroundColor[status], 
-                         borderRadius: '12px',
-                          padding: '4px 8px' }}>{statusTranslations[status]}</Typography>
+                        backgroundColor: statusBackgroundColor[status],
+                        borderRadius: '12px',
+                        padding: '4px 8px'
+                    }}>{statusTranslations[status]}</Typography>
                     {/* <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#31c434', borderRadius: '12px', padding: '4px 8px' }}>Принято</Typography>
                     <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#f44336', borderRadius: '12px', padding: '4px 8px' }}>Отклонено</Typography>  */}
                     {/* <Typography sx={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#6b7280', borderRadius: '12px', padding: '4px 8px' }}>Просмотрено</Typography> */}
@@ -222,11 +277,15 @@ const RequestCard = ({ request = [] }) => {
 
                 <Box sx={{ display: 'flex', marginTop: '20px', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', gap: '10px' }}>
-                        {auth?.role?.includes('Sitter') ? (<>
-                            <Button variant='contained'>Принять</Button>
-                            <Button variant='contained' color='error'>Отклонить</Button>
-                        </>) : (<>
-                            <Button variant='contained' color='error'>Отозвать</Button>
+                        {auth?.role?.includes('Sitter') ? (
+                            status == 'New' || status == 'Processing' ? (<>
+                                <Button variant='contained' onClick={handleConfirmDialogOpen} >Принять</Button>
+                                <Button variant='contained' color='error' onClick={handleDeleteRequest}>Отклонить</Button>
+                            </>) : (<>
+                            <Typography sx={{ color: '#6b7280', fontWeight: 'bold' }}>Принятые заявки автоматически удаляются после окончания передержки</Typography>
+                            </>)
+                            ) : (<>
+                            <Button variant='contained' color='error' onClick={handleDeleteRequest}>Отозвать</Button>
                         </>)}
 
                     </Box>
@@ -242,6 +301,31 @@ const RequestCard = ({ request = [] }) => {
 
                 </Box>
             </Paper>
+
+            <Dialog
+                open={isConfirmDialogOpen}
+                onClose={handleConfirmDialogClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle sx={{ p: 2, backgroundColor: '#b3d89c', textAlign: 'center' }} id="alert-dialog-title">
+                <Typography sx={{ fontWeight: 'bold', fontSize: '18px', cursor: 'pointer' }}>{"Отметить даты заявки занятыми?"}</Typography>
+                </DialogTitle>
+                <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
+                    <DialogContentText id="alert-dialog-description">
+                    <Typography sx={{ color: '#6b7280', fontWeight: 'bold', cursor: 'pointer'}}>
+                        {"Это делается для того, чтобы другие владельцы могли видеть только свободные даты"}
+                    </Typography>
+                        
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions sx={{justifyContent:'center', gap:2, backgroundColor: '#b3d89c'}}>
+                    <Button onClick={updateRequestStatusWithDisabledDates} variant='contained'>ок</Button>
+                    <Button onClick={updateRequestStatusWithoutDisabledDates} variant='contained' autoFocus>
+                        не отмечать
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
 
             <Dialog
@@ -267,7 +351,7 @@ const RequestCard = ({ request = [] }) => {
                             <Typography sx={{ fontWeight: 'bold', fontSize: '18px', cursor: 'pointer' }}>Запрос к ситтеру</Typography>
                         )}
 
-                        <Link href={`https://localhost:5173/${shortProfile?.login}`} target="_blank"  underline="none" sx={{
+                        <Link href={`https://localhost:5173/${shortProfile?.login}`} target="_blank" underline="none" sx={{
                             fontWeight: 'bold', fontSize: '18px', whiteSpace: 'nowrap', color: 'black', '&:hover': {
                                 textDecoration: 'underline',
                                 textDecorationColor: 'inherit',

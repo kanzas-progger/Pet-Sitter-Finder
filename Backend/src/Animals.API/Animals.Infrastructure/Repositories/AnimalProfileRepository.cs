@@ -57,6 +57,26 @@ public class AnimalProfileRepository : IAnimalProfileRepository
         return animalProfiles;
     }
 
+    public async Task<AnimalProfile> GetById(Guid animalProfileId)
+    {
+        var animalProfile = await _animalsDbContext.AnimalProfiles
+            .Where(a => a.Id == animalProfileId)
+            .Select(a => AnimalProfile.Create(
+                a.Id,
+                a.AnimalId,
+                a.OwnerId,
+                a.Name,
+                a.Birthday,
+                a.Gender,
+                a.Type,
+                a.Count,
+                a.Description,
+                a.ProfileImage).animalProfile)
+            .FirstOrDefaultAsync();
+        
+        return animalProfile;
+    }
+
     public async Task<AnimalProfile> Update(AnimalProfile animalProfile)
     {
         await _animalsDbContext.AnimalProfiles.Where(a => a.Id == animalProfile.Id 

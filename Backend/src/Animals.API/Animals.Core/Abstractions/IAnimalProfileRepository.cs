@@ -17,4 +17,5 @@ public interface IAnimalProfileRepository
         string animalProfileImage);
 
     Task<List<ShortAnimalProfileDto>> GetAnimalProfileData(List<string> animalNames, Guid ownerId);
+    Task<AnimalProfile> GetById(Guid animalProfileId);
 }

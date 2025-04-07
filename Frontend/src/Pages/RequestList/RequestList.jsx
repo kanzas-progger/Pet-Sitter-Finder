@@ -50,12 +50,14 @@ const RequestList = () => {
                             width: '100%'
                         }}>
 
-                            {/* <RequestCard />
-                            <RequestCard />
-                            <RequestCard /> */}
-                            {requests.map((r) =>(
-                                <RequestCard key={r.requestId} request={r}/>
-                            ))}
+                            {requests.length > 0 ? (
+                                requests.map((r) =>(
+                                    <RequestCard key={r.requestId} request={r}/>
+                                ))
+                            ) : (<>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '16px', textAlign: 'center' }}>Нет активных заявок</Typography>
+                            </>)}
+                            
 
 
                         </Box>

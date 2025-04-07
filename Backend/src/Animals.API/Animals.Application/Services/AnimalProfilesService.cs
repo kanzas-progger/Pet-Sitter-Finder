@@ -53,4 +53,9 @@ public class AnimalProfilesService : IAnimalProfilesService
     {
         return await _animalProfileRepository.GetAnimalProfileData(animalNames, ownerId);
     }
+
+    public async Task<AnimalProfile> GetById(Guid animalProfileId)
+    {
+        return await _animalProfileRepository.GetById(animalProfileId);
+    }
 }

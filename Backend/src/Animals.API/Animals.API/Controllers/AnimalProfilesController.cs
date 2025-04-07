@@ -180,6 +180,30 @@ public class AnimalProfilesController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("{animalProfileId:guid}")]
+    [Authorize(Roles = "Owner,Sitter")]
+    public async Task<ActionResult<AnimalProfileResponse>> GetAnimalProfile(Guid animalProfileId)
+    {
+        var animalsDict = await _animalsService.GetAllAnimalsDict();
+        var animalProfile = await _animalProfilesService.GetById(animalProfileId);
+
+        var response = new AnimalProfileResponse(
+            animalProfileId,
+            animalProfile.AnimalId,
+            animalProfile.OwnerId,
+            animalsDict.GetValueOrDefault(animalProfile.AnimalId, "Неизвестно"),
+            animalProfile.Name,
+            animalProfile.Birthday,
+            animalProfile.Gender,
+            animalProfile.Type,
+            animalProfile.Count,
+            animalProfile.Description,
+            animalProfile.ProfileImage
+        );
+        
+        return Ok(response);
+    }
+
     [HttpPost("shortProfiles")]
     [Authorize(Roles = "Owner")]
     public async Task<ActionResult<List<ShortAnimalProfileResponse>>> GetShortAnimalProfiles(
