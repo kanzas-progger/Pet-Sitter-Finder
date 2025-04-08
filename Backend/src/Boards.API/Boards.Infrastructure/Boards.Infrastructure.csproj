@@ -33,6 +33,7 @@
     <ItemGroup>
         <Protobuf Include="Protos\animal.proto" GrpcServices="Client"/>
         <Protobuf Include="Protos\sitter.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\boardId.proto" GrpcServices="Client" />
     </ItemGroup>
 
 </Project>

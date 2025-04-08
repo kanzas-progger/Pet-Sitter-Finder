@@ -1,16 +1,20 @@
 using Boards.Core.Abstractions;
 using Boards.Core.Models;
 using Boards.Core.Specifications;
+using Boards.Infrastructure.GrpcClients;
 
 namespace Boards.Application.Services;
 
 public class BoardsService : IBoardsService
 {
     private readonly IBoardsRepository _boardsRepository;
+    private readonly BoardIdsGrpcClient _boardIdsGrpcClient;
 
-    public BoardsService(IBoardsRepository boardsRepository)
+    public BoardsService(IBoardsRepository boardsRepository, BoardIdsGrpcClient
+        boardIdsGrpcClient)
     {
         _boardsRepository = boardsRepository;
+        _boardIdsGrpcClient = boardIdsGrpcClient;
     }
 
     public async Task<List<Board>> GetAllForSitter(Guid sitterId)
@@ -34,10 +38,16 @@ public class BoardsService : IBoardsService
         await _boardsRepository.Delete(boardId, sitterId);
     }
 
-    public async Task<List<Board>> GetFiltered(decimal? maxPrice, List<int>? animalIds)
+    public async Task<List<Board>> GetFiltered(decimal? maxPrice, List<int>? animalIds,
+        DateTime? startDate, DateTime? endDate)
     {
-        if (!maxPrice.HasValue && (animalIds == null || animalIds.Count == 0))
+        if (!maxPrice.HasValue
+            && (animalIds == null || animalIds.Count == 0)
+            && !startDate.HasValue
+            && !endDate.HasValue)
+        {
             return await _boardsRepository.GetAll();
+        }
         
         var specs = new List<IBoardSpecification>();
         
@@ -45,6 +55,12 @@ public class BoardsService : IBoardsService
             specs.Add(new BoardPriceSpecification(maxPrice.Value));
         if (animalIds?.Count > 0)
             specs.Add(new BoardAnimalsSpecification(animalIds));
+        if (startDate.HasValue && endDate.HasValue)
+        {
+            var grpcResponse = await _boardIdsGrpcClient.GetBusyBoardIds(startDate.Value, endDate.Value);
+            List<Guid> busyBoards = grpcResponse.BoardIds.Select(b => new Guid(b.BoardId_)).ToList();
+            specs.Add(new BoardBusySpecification(busyBoards));
+        }
         
         return await _boardsRepository.GetFiltered(specs.ToArray());
     }

@@ -4,6 +4,7 @@ using Requests.Application.Services;
 using Requests.Core.Abstractions;
 using Requests.Infrastructure;
 using Requests.Infrastructure.GrpcClients;
+using Requests.Infrastructure.GrpcServices;
 using Requests.Infrastructure.Protos;
 using Requests.Infrastructure.Repositories;
 using SharedLibrary.Configurations;
@@ -16,6 +17,7 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 
 services.AddControllers();
+services.AddGrpc();
 
 services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
@@ -28,7 +30,7 @@ services.AddDbContext<RequestsDbContext>(options =>
 
 services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://localhost:7001");
+    options.Address = new Uri("https://animals-api:7001");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();
@@ -61,5 +63,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<BoardIdGrpcService>();
 
 app.Run();

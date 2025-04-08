@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "Boards.Infrastructure.Protos";
+
+import "google/protobuf/timestamp.proto";
+
+package animal;
+
+message ListBoardIdRequest {
+  google.protobuf.Timestamp startDate = 1;
+  google.protobuf.Timestamp endDate = 2;
+}
+
+message BoardId {
+  string boardId = 1;
+}
+
+message ListBoardIdResponse {
+  repeated BoardId boardIds = 1;
+}
+
+service BoardIdProtoService {
+  rpc GetBusyBoardIds (ListBoardIdRequest) returns (ListBoardIdResponse);
+}

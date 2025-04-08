@@ -41,6 +41,7 @@ public class BoardsRepository : IBoardsRepository
         {
             BoardPriceSpecification priceSpec => new BoardEntityPriceSpecification(priceSpec),
             BoardAnimalsSpecification animalsSpec => new BoardEntityAnimalsSpecification(animalsSpec),
+            BoardBusySpecification busySpec => new BoardEntityBusySpecification(busySpec),
             _ => throw new ArgumentException($"Unknown specification type: {spec.GetType()}")
         };
     }

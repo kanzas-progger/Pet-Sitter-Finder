@@ -53,6 +53,17 @@ services.AddGrpcClient<SittersProtoService.SittersProtoServiceClient>(options =>
     return handler;
 });
 
+services.AddGrpcClient<BoardIdProtoService.BoardIdProtoServiceClient>(options =>
+{
+    options.Address = new Uri("https://requests-api:7004");
+}).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
+{
+    var handler = new HttpClientHandler();
+    handler.ServerCertificateCustomValidationCallback = 
+        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+    return handler;
+});
+
 services.AddScoped<IBoardsRepository, BoardsRepository>();
 services.AddScoped<IBoardAnimalsRepository, BoardAnimalsRepository>();
 
@@ -62,6 +73,7 @@ services.AddScoped<IRedisCacheService, RedisCacheService>();
 
 services.AddScoped<AnimalsGrpcClient>();
 services.AddScoped<SittersGrpcClient>();
+services.AddScoped<BoardIdsGrpcClient>();
 
 var app = builder.Build();
 

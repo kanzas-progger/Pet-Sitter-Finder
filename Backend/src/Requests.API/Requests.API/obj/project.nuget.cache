@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "lSVjwhNpuXE=",
+  "dgSpecHash": "20yFgFlzIag=",
   "success": true,
   "projectFilePath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Requests.API/Requests.API/Requests.API.csproj",
   "expectedPackageFiles": [
     "/home/nikolay/.nuget/packages/google.protobuf/3.29.1/google.protobuf.3.29.1.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.aspnetcore/2.67.0/grpc.aspnetcore.2.67.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.aspnetcore.server/2.67.0/grpc.aspnetcore.server.2.67.0.nupkg.sha512",
+    "/home/nikolay/.nuget/packages/grpc.aspnetcore.server.clientfactory/2.67.0/grpc.aspnetcore.server.clientfactory.2.67.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/grpc.core.api/2.67.0/grpc.core.api.2.67.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/grpc.net.client/2.67.0/grpc.net.client.2.67.0.nupkg.sha512",
     "/home/nikolay/.nuget/packages/grpc.net.clientfactory/2.67.0/grpc.net.clientfactory.2.67.0.nupkg.sha512",

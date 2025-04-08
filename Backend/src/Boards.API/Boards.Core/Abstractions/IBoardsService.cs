@@ -8,5 +8,5 @@ public interface IBoardsService
     Task<Board> Create(Board board);
     Task<Board> Update(Board board);
     Task Delete(Guid boardId, Guid sitterId);
-    Task<List<Board>> GetFiltered(decimal? maxPrice, List<int>? animalIds);
+    Task<List<Board>> GetFiltered(decimal? maxPrice, List<int>? animalIds,DateTime? startDate, DateTime? endDate);
 }

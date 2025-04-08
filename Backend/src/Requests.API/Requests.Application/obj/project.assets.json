@@ -15,6 +15,59 @@
           }
         }
       },
+      "Grpc.AspNetCore/2.67.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Protobuf": "3.27.0",
+          "Grpc.AspNetCore.Server.ClientFactory": "2.67.0",
+          "Grpc.Tools": "2.67.0"
+        },
+        "compile": {
+          "lib/net8.0/_._": {}
+        },
+        "runtime": {
+          "lib/net8.0/_._": {}
+        }
+      },
+      "Grpc.AspNetCore.Server/2.67.0": {
+        "type": "package",
+        "dependencies": {
+          "Grpc.Net.Common": "2.67.0"
+        },
+        "compile": {
+          "lib/net8.0/Grpc.AspNetCore.Server.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Grpc.AspNetCore.Server.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Grpc.AspNetCore.Server.ClientFactory/2.67.0": {
+        "type": "package",
+        "dependencies": {
+          "Grpc.AspNetCore.Server": "2.67.0",
+          "Grpc.Net.ClientFactory": "2.67.0"
+        },
+        "compile": {
+          "lib/net8.0/Grpc.AspNetCore.Server.ClientFactory.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Grpc.AspNetCore.Server.ClientFactory.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Grpc.Core.Api/2.67.0": {
         "type": "package",
         "compile": {
@@ -560,6 +613,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Google.Protobuf": "3.29.1",
+          "Grpc.AspNetCore": "2.67.0",
           "Grpc.Net.Client": "2.67.0",
           "Grpc.Net.ClientFactory": "2.67.0",
           "Microsoft.EntityFrameworkCore": "8.0.11",
@@ -615,6 +669,72 @@
         "lib/netstandard2.0/Google.Protobuf.dll",
         "lib/netstandard2.0/Google.Protobuf.pdb",
         "lib/netstandard2.0/Google.Protobuf.xml"
+      ]
+    },
+    "Grpc.AspNetCore/2.67.0": {
+      "sha512": "WjC3+Ri748j6IHYY73zwRPzJV0WFN97h9IkXrgcghk0WAgewDr03uUJzaSMC+qW1O7PcQNdUg3Pfb+73v0pxIQ==",
+      "type": "package",
+      "path": "grpc.aspnetcore/2.67.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "grpc.aspnetcore.2.67.0.nupkg.sha512",
+        "grpc.aspnetcore.nuspec",
+        "lib/net6.0/_._",
+        "lib/net7.0/_._",
+        "lib/net8.0/_._",
+        "lib/net9.0/_._",
+        "packageIcon.png"
+      ]
+    },
+    "Grpc.AspNetCore.Server/2.67.0": {
+      "sha512": "CDWB7GLhi4XN2Luw7gDbZQhGaMuMb9yDDwbBc9MMfmXFJvzALEK1hsbBaILzd8uDmX9E5VPMcqQ4mQyHvQ2HmA==",
+      "type": "package",
+      "path": "grpc.aspnetcore.server/2.67.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "grpc.aspnetcore.server.2.67.0.nupkg.sha512",
+        "grpc.aspnetcore.server.nuspec",
+        "lib/net6.0/Grpc.AspNetCore.Server.dll",
+        "lib/net6.0/Grpc.AspNetCore.Server.pdb",
+        "lib/net6.0/Grpc.AspNetCore.Server.xml",
+        "lib/net7.0/Grpc.AspNetCore.Server.dll",
+        "lib/net7.0/Grpc.AspNetCore.Server.pdb",
+        "lib/net7.0/Grpc.AspNetCore.Server.xml",
+        "lib/net8.0/Grpc.AspNetCore.Server.dll",
+        "lib/net8.0/Grpc.AspNetCore.Server.pdb",
+        "lib/net8.0/Grpc.AspNetCore.Server.xml",
+        "lib/net9.0/Grpc.AspNetCore.Server.dll",
+        "lib/net9.0/Grpc.AspNetCore.Server.pdb",
+        "lib/net9.0/Grpc.AspNetCore.Server.xml",
+        "packageIcon.png"
+      ]
+    },
+    "Grpc.AspNetCore.Server.ClientFactory/2.67.0": {
+      "sha512": "O5qaBd7T8yph5JHikA3lafYqsn+2QPM7Dwk0e/7HniiM4cIHpfdiBX5TSy/+5IIppZ27QeLYFgftK7QsG9uIkQ==",
+      "type": "package",
+      "path": "grpc.aspnetcore.server.clientfactory/2.67.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "grpc.aspnetcore.server.clientfactory.2.67.0.nupkg.sha512",
+        "grpc.aspnetcore.server.clientfactory.nuspec",
+        "lib/net6.0/Grpc.AspNetCore.Server.ClientFactory.dll",
+        "lib/net6.0/Grpc.AspNetCore.Server.ClientFactory.pdb",
+        "lib/net6.0/Grpc.AspNetCore.Server.ClientFactory.xml",
+        "lib/net7.0/Grpc.AspNetCore.Server.ClientFactory.dll",
+        "lib/net7.0/Grpc.AspNetCore.Server.ClientFactory.pdb",
+        "lib/net7.0/Grpc.AspNetCore.Server.ClientFactory.xml",
+        "lib/net8.0/Grpc.AspNetCore.Server.ClientFactory.dll",
+        "lib/net8.0/Grpc.AspNetCore.Server.ClientFactory.pdb",
+        "lib/net8.0/Grpc.AspNetCore.Server.ClientFactory.xml",
+        "lib/net9.0/Grpc.AspNetCore.Server.ClientFactory.dll",
+        "lib/net9.0/Grpc.AspNetCore.Server.ClientFactory.pdb",
+        "lib/net9.0/Grpc.AspNetCore.Server.ClientFactory.xml",
+        "packageIcon.png"
       ]
     },
     "Grpc.Core.Api/2.67.0": {

@@ -1,0 +1,3 @@
+obj/Debug/net8.0/BoardId.cs \
+obj/Debug/net8.0/BoardIdGrpc.cs: /home/nikolay/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/timestamp.proto\
+ Protos/boardId.proto

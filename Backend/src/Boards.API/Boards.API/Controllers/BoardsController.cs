@@ -31,6 +31,20 @@ public class BoardsController : ControllerBase
         _animalsGrpcClient = animalsGrpcClient;
         _redisCacheService = redisCacheService;
     }
+
+    // [HttpPost("anonymous/test")]
+    // [AllowAnonymous]
+    // public async Task<ActionResult<List<Guid>>> GetBusyBoardsTest([FromBody] BoardFilter filter)
+    // {
+    //     var startDate = filter.startDate ?? DateTime.MinValue;
+    //     var endDate = filter.endDate ?? DateTime.MaxValue;
+    //     
+    //     var grpcResponse = await _boardIdsGrpcClient.GetBusyBoardIds(startDate, endDate);
+    //     var response = grpcResponse.BoardIds.Select(b => new Guid(b.BoardId_)).ToList();
+    //     
+    //     return Ok(response);
+    //     
+    // }
     
     [HttpPost("anonymous/filtered")]
     [AllowAnonymous]
@@ -53,7 +67,8 @@ public class BoardsController : ControllerBase
             }
         }
         
-        var boards = await _boardsService.GetFiltered(filter.maxPrice, animalIds);
+        var boards = await _boardsService.GetFiltered(filter.maxPrice, animalIds, 
+            filter.startDate, filter.endDate);
         
         var result = boards
             .Where(b => sittersDict.ContainsKey(b.SitterId))
