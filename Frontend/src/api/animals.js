@@ -14,12 +14,25 @@ export const getAllOwnerAnimalProfiles = async (ownerId) => {
 
 export const getShortOwnerAnimalProfilesData = async (animalNames) => {
     try {
-        const response = await axios.post('https://localhost:5000/api/animals/profiles/shortProfiles', animalNames,{
+        const response = await axios.post('https://localhost:5000/api/animals/profiles/shortProfiles', animalNames, {
             withCredentials: true
         })
 
         return response
-    } catch(e){
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getOwnerAnimalProfileById = async (animalProfileId) => {
+    try {
+        const response = await axios.get(`https://localhost:5000/api/animals/profiles/${animalProfileId}`,
+            {
+                withCredentials: true
+            })
+
+        return response
+    } catch (e) {
         console.error(e)
     }
 }
@@ -31,7 +44,7 @@ export const createAnimalProfile = async (data) => {
     formData.append('name', data.name)
     formData.append('birthday', data.birthday)
     formData.append('gender', data.gender)
-    if(data.type){
+    if (data.type) {
         formData.append('type', data.type)
     }
     formData.append('count', data.count)
@@ -42,7 +55,7 @@ export const createAnimalProfile = async (data) => {
     if (data.profileImage) {
         formData.append('profileImage', data.profileImage)
     }
-    
+
 
 
     try {
@@ -60,15 +73,15 @@ export const createAnimalProfile = async (data) => {
     }
 }
 
-export const updateAnimalProfile =  async (data) => {
+export const updateAnimalProfile = async (data) => {
 
     const formData = new FormData()
     formData.append('animalProfileId', data.animalProfileId)
-    formData.append('animalName',data.animalName)
-    formData.append('name',data.name)
-    formData.append('birthday',data.birthday)
-    formData.append('gender',data.gender)
-    if(data.type){
+    formData.append('animalName', data.animalName)
+    formData.append('name', data.name)
+    formData.append('birthday', data.birthday)
+    formData.append('gender', data.gender)
+    if (data.type) {
         formData.append('type', data.type)
     }
     formData.append('count', data.count)
@@ -80,11 +93,10 @@ export const updateAnimalProfile =  async (data) => {
         formData.append('profileImage', data.profileImage)
     }
     formData.append('isProfileImageExist', data.isProfileImageExist)
-    if (data.existingProfileImage)
-    {
+    if (data.existingProfileImage) {
         formData.append('existingProfileImage', data.existingProfileImage)
     }
-    
+
     try {
         const response = await axios.put(`https://localhost:5000/api/animals/profiles`,
             formData,

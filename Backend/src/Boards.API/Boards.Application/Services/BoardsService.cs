@@ -43,8 +43,7 @@ public class BoardsService : IBoardsService
     {
         if (!maxPrice.HasValue
             && (animalIds == null || animalIds.Count == 0)
-            && !startDate.HasValue
-            && !endDate.HasValue)
+            && (!startDate.HasValue || !endDate.HasValue))
         {
             return await _boardsRepository.GetAll();
         }

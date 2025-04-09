@@ -121,7 +121,8 @@ public class RequestsRepository : IRequestsRepository
     public async Task DeleteAccepted()
     {
         await _context.Requests
-            .Where(r => r.Status == Status.Accepted.ToString() 
+            .Where(r => (r.Status == Status.Accepted.ToString() 
+                         || r.Status == Status.AcceptedAndDatesIsDisabled.ToString()) 
                         && r.EndDate.Date >= DateTime.UtcNow.Date)
             .ExecuteDeleteAsync();
     }

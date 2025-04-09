@@ -33,7 +33,7 @@ services.AddStackExchangeRedisCache(options =>
 
 services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://animals-api:7001");
+    options.Address = new Uri("https://localhost:7001");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();
@@ -44,7 +44,7 @@ services.AddGrpcClient<AnimalsProtoService.AnimalsProtoServiceClient>(options =>
 
 services.AddGrpcClient<SittersProtoService.SittersProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://user-profiles-api:7002");
+    options.Address = new Uri("https://localhost:7002");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();
@@ -55,7 +55,7 @@ services.AddGrpcClient<SittersProtoService.SittersProtoServiceClient>(options =>
 
 services.AddGrpcClient<BoardIdProtoService.BoardIdProtoServiceClient>(options =>
 {
-    options.Address = new Uri("https://requests-api:7004");
+    options.Address = new Uri("https://localhost:7004");
 }).ConfigurePrimaryHttpMessageHandler(() =>    // In production it needs to use HTTPS Sertificate!!!
 {
     var handler = new HttpClientHandler();

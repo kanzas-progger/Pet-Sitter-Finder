@@ -60,7 +60,7 @@ function App() {
               <Route path=":login" element={<FullProfile />} />
               <Route path="boardings/request" element={<Request />} />
               
-              <Route path="animalprofile" element={<FullAnimalProfile />} />
+              {/* <Route path="animalprofile" element={<FullAnimalProfile />} /> */}
 
 
               {/* protected routes*/}

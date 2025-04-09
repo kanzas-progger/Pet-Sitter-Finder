@@ -46,7 +46,8 @@ const SitterCard = ({ boardSitter }) => {
   return (
     <Card sx={{
       display: 'flex', width: '100%', boxShadow: 3,
-      borderRadius: 3, backgroundColor: '#D0EFB1'
+      //borderRadius: 3, 
+      backgroundColor: '#D0EFB1'
     }}>
       {/* Фото профиля */}
       <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
