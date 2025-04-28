@@ -51,6 +51,7 @@ const Sitters = () => {
                 const response = await getAllFilteredBoards(filteredData)
                 setBoardSitters(response.data)
                 setBoardCount(response.data.length)
+                console.log("BOARD DATA IS ",response.data)
             } catch (e) {
                 console.error("Error of receiving filtered boards: ", e)
             }

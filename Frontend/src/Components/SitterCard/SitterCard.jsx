@@ -7,6 +7,7 @@ import { faDog, faCat, faFishFins, faHorse, faDove, faSpider } from '@fortawesom
 import PestControlRodentIcon from '@mui/icons-material/PestControlRodent';
 import { GiGecko } from "react-icons/gi";
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,8 +15,11 @@ import useAuth from '../../hooks/useAuth';
 const SitterCard = ({ boardSitter }) => {
 
   const { auth, setAuth } = useAuth()
+  const navigate = useNavigate()
 
   const {
+    sitterId,
+    boardId,
     firstname,
     lastname,
     login,
@@ -42,6 +46,32 @@ const SitterCard = ({ boardSitter }) => {
     FarmPet: { icon: faHorse, title: 'Фермерские животные', fontSize: '20px' },
     SmallPet: { icon: <PestControlRodentIcon sx={{ fontSize: '25px', p: 0, m: 0 }} />, title: 'Грызуны', fontSize: '25px' },
   }
+
+  const animalTranslations = {
+    "Собаки": "Dog",
+    "Кошки": "Cat",
+    "Фермерские животные": "FarmPet",
+    "Пауки": "Spider",
+    "Рептилии": "Reptile",
+    "Грызуны": "SmallPet",
+    "Птички": "Bird",
+    "Рыбки": "Fish",
+  }
+
+  const reversedTranslations = Object.fromEntries(
+    Object.entries(animalTranslations).map(([ru, en]) => [en, ru])
+  )
+
+  const handleSubmitRequest = () => {
+    navigate("/boardings/request", {
+      state: {
+        boardAnimals: animalNames.map(name => reversedTranslations[name]),
+        boardPrice: price,
+        boardId: boardId,
+        sitterId: sitterId
+      }
+    });
+  };
 
   return (
     <Card sx={{
@@ -140,7 +170,7 @@ const SitterCard = ({ boardSitter }) => {
 
           <Box sx={{ marginRight: 2, marginLeft: 2 }}>
             {auth?.role?.includes('Owner') ? (<>
-              <Button variant='contained' sx={{ whiteSpace: 'nowrap' }}>Отправить заявку</Button>
+              <Button variant='contained' onClick={handleSubmitRequest} sx={{ whiteSpace: 'nowrap' }}>Отправить заявку</Button>
             </>) : (auth?.role?.includes('Sitter') ? (<> </>) : (<>
               <Tooltip
                 title={<p style={{

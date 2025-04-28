@@ -96,16 +96,6 @@ const RequestList = () => {
                     width: '100%'
                 }}>
 
-                    {/* <Box sx={{ display: 'flex', gap: '20px', width: '70%', flexDirection: 'column' }}>
-                    {requests.length > 0 ? (
-                                requests.map((r) =>(
-                                    <RequestCard key={r.requestId} request={r}/>
-                                ))
-                            ) : (<>
-                                <Typography sx={{ fontWeight: 'bold', fontSize: '16px', textAlign: 'center' }}>Нет активных заявок</Typography>
-                            </>)}
-                    </Box> */}
-
                     <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '70%', boxSizing: 'border-box' }}>
                         <Box sx={{
                             display: 'flex',
@@ -113,16 +103,21 @@ const RequestList = () => {
                             gap: '20px',
                             width: '100%'
                         }}>
-
-                            {filteredRequests.length > 0 ? (
-                                filteredRequests.map((r) => (
-                                    <RequestCard key={r.requestId} request={r} />
-                                ))
-                            ) : (
-                                <Typography sx={{ fontWeight: 'bold', fontSize: '16px', textAlign: 'center' }}>
-                                    Заявок с таким статусом нет
+                            {requests.length === 0 ? (
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '16px', textAlign: 'center', marginTop:'20px'}}>
+                                    Заявки еще не созданы
                                 </Typography>
-                            )}
+                            ) :
+                                filteredRequests.length > 0 ? (
+                                    filteredRequests.map((r) => (
+                                        <RequestCard key={r.requestId} request={r} />
+                                    ))
+                                ) : (
+                                    <Typography sx={{ fontWeight: 'bold', fontSize: '16px', textAlign: 'center', marginTop:'20px' }}>
+                                        Заявок с таким статусом нет
+                                    </Typography>
+                                )
+                            }
                         </Box>
 
                     </Paper>

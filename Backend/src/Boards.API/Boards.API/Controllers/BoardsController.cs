@@ -88,9 +88,10 @@ public class BoardsController : ControllerBase
                     Address = sitter.address,
                     Rating = sitter.rating,
                     RateCount = sitter.rateCount,
+                    BoardId = board.Id,
                     Content = board.Content,
                     AnimalIds = board.AnimalIds,
-                    Price = board.Price,
+                    Price = board.Price
                 };
             })
             .OrderByDescending(s => sitters.First(b => b.sitterId == s.SitterId).rating)
@@ -107,6 +108,7 @@ public class BoardsController : ControllerBase
             b.Address,
             b.Rating,
             b.RateCount,
+            b.BoardId,
             b.Content,
             animalsGrpcResponse.Animals
                 .Where(a => b.AnimalIds.Contains(a.AnimalId))
