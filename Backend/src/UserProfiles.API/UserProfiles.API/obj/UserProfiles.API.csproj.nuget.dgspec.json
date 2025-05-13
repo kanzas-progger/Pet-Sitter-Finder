@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj": {}
+    "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj": {}
   },
   "projects": {
-    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
+    "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
+        "projectUniqueName": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
         "projectName": "SharedLibrary",
-        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
-        "packagesPath": "/home/nikolay/.nuget/packages/",
-        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/",
+        "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj",
+        "packagesPath": "/home/kanzas-progger/.nuget/packages/",
+        "outputPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+          "/home/kanzas-progger/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -66,21 +66,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.114/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj": {
+    "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj",
+        "projectUniqueName": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj",
         "projectName": "UserProfiles.API",
-        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj",
-        "packagesPath": "/home/nikolay/.nuget/packages/",
-        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.API/obj/",
+        "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.API/UserProfiles.API.csproj",
+        "packagesPath": "/home/kanzas-progger/.nuget/packages/",
+        "outputPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+          "/home/kanzas-progger/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -92,17 +92,17 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj"
               },
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj"
               },
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
               },
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj"
               }
             }
           }
@@ -159,21 +159,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.114/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj": {
+    "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj",
+        "projectUniqueName": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj",
         "projectName": "UserProfiles.Application",
-        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj",
-        "packagesPath": "/home/nikolay/.nuget/packages/",
-        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Application/obj/",
+        "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Application/UserProfiles.Application.csproj",
+        "packagesPath": "/home/kanzas-progger/.nuget/packages/",
+        "outputPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+          "/home/kanzas-progger/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -185,11 +185,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
               },
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj"
               }
             }
           }
@@ -225,21 +225,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.114/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+    "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj",
+        "projectUniqueName": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj",
         "projectName": "UserProfiles.Core",
-        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj",
-        "packagesPath": "/home/nikolay/.nuget/packages/",
-        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/",
+        "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj",
+        "packagesPath": "/home/kanzas-progger/.nuget/packages/",
+        "outputPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+          "/home/kanzas-progger/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -281,21 +281,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.114/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
+    "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj",
+        "projectUniqueName": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj",
         "projectName": "UserProfiles.Infrastructure",
-        "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj",
-        "packagesPath": "/home/nikolay/.nuget/packages/",
-        "outputPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/",
+        "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/UserProfiles.Infrastructure.csproj",
+        "packagesPath": "/home/kanzas-progger/.nuget/packages/",
+        "outputPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nikolay/.nuget/NuGet/NuGet.Config"
+          "/home/kanzas-progger/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -307,11 +307,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/SharedLibrary.csproj"
               },
-              "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
-                "projectPath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
+              "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj": {
+                "projectPath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/UserProfiles.Core.csproj"
               }
             }
           }
@@ -393,7 +393,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.114/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

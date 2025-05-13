@@ -189,26 +189,6 @@ const SitterCard = ({ boardSitter }) => {
 
         </Box>
 
-        {/* <Box display="flex" alignItems="center" mt={1} mb={2} gap={1}>
-          {animalNames.map((animal, index) => {
-            const animalData = animalInfo[animal];
-            if (!animalData) return null;
-
-            const { icon, title, fontSize } = animalData;
-
-            return (
-              <Tooltip key={index} title={title} placement="top">
-                {typeof icon === 'function' ? (
-                  <span style={{ display: 'flex', alignItems: 'center', fontSize }}>
-                    {React.createElement(icon, { style: { color: 'black', fontSize } })}
-                  </span>
-                ) : (
-                  <FontAwesomeIcon icon={icon} style={{ color: 'black', fontSize }} />
-                )}
-              </Tooltip>
-            );
-          })}
-        </Box> */}
         <Box display="flex" alignItems="center" mt={1} mb={2} gap={1}>
           {animalNames.map((animal, index) => {
             const animalData = animalInfo[animal];

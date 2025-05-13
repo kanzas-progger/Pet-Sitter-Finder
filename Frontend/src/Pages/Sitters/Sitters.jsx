@@ -1,7 +1,6 @@
 import React from "react";
 import './Sitters.css'
 import SitterCard from '../../Components/SitterCard/SitterCard'
-import { getSitters } from "../../api/sitters"
 import { useEffect, useState } from "react";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,7 +12,6 @@ import {
     Box, Paper, Typography, Slider, FormControl, Select, MenuItem, Checkbox, ListItemText,
     OutlinedInput, TextField, Button
 } from "@mui/material";
-import CalendarPicker from "../../Components/CalendarPicker/CalendarPicker";
 import { getAllFilteredBoards } from "../../api/boards";
 import { ruRU } from '@mui/x-date-pickers/locales';
 dayjs.extend(utc);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4Nbsj4rS+I0=",
+  "dgSpecHash": "LSlQ76RqkCOJVBq3+NAnh+RF5jYg6oW+yHe2wctsNzwCGqvn2w+7OPI+OgY8OgjZ9w+A1NOSqhY5sU/wK47onw==",
   "success": true,
-  "projectFilePath": "/home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Animals.API/Animals.Core/Animals.Core.csproj",
+  "projectFilePath": "/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Core/Animals.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

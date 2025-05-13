@@ -100,7 +100,6 @@ namespace Auth.Infrastructure.Migrations
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { 1, adminId });
-            
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_UserId",

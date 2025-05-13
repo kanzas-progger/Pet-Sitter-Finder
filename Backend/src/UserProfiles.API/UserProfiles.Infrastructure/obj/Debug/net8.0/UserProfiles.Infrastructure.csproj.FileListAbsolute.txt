@@ -18,3 +18,23 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.genruntimeconfig.cache
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/ref/UserProfiles.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.runtimeconfig.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Infrastructure.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/SharedLibrary.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/bin/Debug/net8.0/UserProfiles.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.AssemblyReference.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.csproj.CopyComplete
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/refint/UserProfiles.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/UserProfiles.Infrastructure.genruntimeconfig.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Infrastructure/obj/Debug/net8.0/ref/UserProfiles.Infrastructure.dll

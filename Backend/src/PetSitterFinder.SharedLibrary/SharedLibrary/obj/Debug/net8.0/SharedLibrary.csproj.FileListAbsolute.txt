@@ -11,3 +11,16 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/refint/SharedLibrary.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/ref/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/bin/Debug/net8.0/SharedLibrary.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.csproj.AssemblyReference.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/refint/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/SharedLibrary.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/PetSitterFinder.SharedLibrary/SharedLibrary/obj/Debug/net8.0/ref/SharedLibrary.dll

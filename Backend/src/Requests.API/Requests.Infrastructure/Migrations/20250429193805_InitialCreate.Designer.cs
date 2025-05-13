@@ -12,7 +12,7 @@ using Requests.Infrastructure;
 namespace Requests.Infrastructure.Migrations
 {
     [DbContext(typeof(RequestsDbContext))]
-    [Migration("20250403143932_InitialCreate")]
+    [Migration("20250429193805_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

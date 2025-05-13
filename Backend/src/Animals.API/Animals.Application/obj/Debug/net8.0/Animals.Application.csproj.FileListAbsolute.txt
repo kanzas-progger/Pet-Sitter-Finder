@@ -18,3 +18,23 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/refint/Animals.Application.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/ref/Animals.Application.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Application.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Application.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Application.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/Animals.Infrastructure.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/bin/Debug/net8.0/SharedLibrary.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.csproj.AssemblyReference.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.csproj.CopyComplete
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/refint/Animals.Application.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/Animals.Application.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Animals.API/Animals.Application/obj/Debug/net8.0/ref/Animals.Application.dll

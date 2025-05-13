@@ -1,7 +1,7 @@
 import React from 'react'
 import {
     Box, Paper, Link, Avatar, Typography, Button, IconButton,
-    ImageList, ImageListItem, Rating, TextareaAutosize, CircularProgress, Dialog, DialogContent
+    ImageList, ImageListItem, Rating, TextareaAutosize, CircularProgress, Dialog, DialogContent, DialogTitle
 } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
@@ -24,10 +24,16 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
 import CardBoard from '../../Components/CardBoard/CardBoard';
 import { getBoardsForSitter, deleteBoard, updateBoard } from '../../api/boards';
+import { AnalizeReviewsWithAi } from '../../api/ai';
 
 const FullProfile = () => {
 
     const { login } = useParams();
+
+    const [aiDialogOpen, setAiDialogOpen] = useState(false)
+    const [aiResponse, setAiResponse] = useState(null);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+
     const [isLoading, setIsLoading] = useState(true);
     const [userIdWithRoles, setUserIdWithRoles] = useState(null);
     const { auth, setAuth } = useAuth()
@@ -77,7 +83,7 @@ const FullProfile = () => {
                         ...profileResponse.data,
                         boards: boardsResponse.data
                     })
-                    console.log(boardsResponse.data)
+                    console.log(profileResponse.data)
                 }
                 else if (userIdWithRoles.roles.includes('Owner')) {
                     const response = await getFullOwnerProfile(userIdWithRoles.userId)
@@ -182,7 +188,7 @@ const FullProfile = () => {
                     board.id === response?.data?.id ? response.data : board
                 )
             }))
-            
+
         } catch (e) {
             console.error("Error with update board", e)
         }
@@ -216,6 +222,38 @@ const FullProfile = () => {
                 <Typography sx={{ marginLeft: '20px', fontSize: '18px' }}>Идет загрузка...</Typography>
             </Box>
         );
+    }
+
+    // Ai analys
+
+    const handleAiDialogOpen = () => {
+        setAiDialogOpen(true)
+    }
+
+    const handleAiDialogClose = () => {
+        setAiDialogOpen(false)
+    }
+
+    const handleReviewsPost = async () => {
+
+        setIsAnalyzing(true);
+
+        const reviewsData = profile?.reviews?.map(review => ({
+            content: review.content,
+            stars: review.stars
+        }));
+
+
+        try {
+            const response = await AnalizeReviewsWithAi(reviewsData)
+            const aiResponse = response.data.response
+            setAiResponse(aiResponse)
+            setIsAnalyzing(false);
+        } catch (e) {
+            console.error(e)
+            setAiResponse("Произошла ошибка")
+            setIsAnalyzing(false);
+        }
     }
 
     return (
@@ -630,6 +668,14 @@ const FullProfile = () => {
 
                             <Paper elevation={3} sx={{ backgroundColor: '#D0EFB1', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
                                 <Typography sx={{ fontWeight: 'bold', fontSize: '25px', textAlign: 'center' }}>Отзывы</Typography>
+                                <Box sx={{
+                                    display: 'flex',
+                                    justifyContent: 'flex-end',
+                                    marginTop: '20px'
+                                }}>
+                                    <Button variant="contained" onClick={handleAiDialogOpen}>ИИ-анализ</Button>
+                                </Box>
+
                                 {(auth?.role?.includes('Owner')
                                     && auth?.userId !== profile?.sitterId
                                     && !profile?.reviews?.some(review => review.senderId === auth.userId)
@@ -712,6 +758,55 @@ const FullProfile = () => {
                 </Box>
 
             </Box>
+
+            <Dialog
+                onClose={handleAiDialogClose}
+                aria-labelledby="customized-dialog-title"
+                open={aiDialogOpen}
+                fullWidth={true}
+                maxWidth="md"
+            >
+                <DialogTitle sx={{ m: 0, p: 2, backgroundColor: '#b3d89c', fontWeight: 'bold' }} id="customized-dialog-title">
+                    ИИ-анализ отзывов ситтера
+                </DialogTitle>
+                <IconButton
+                    aria-label="close"
+                    onClick={handleAiDialogClose}
+                    sx={(theme) => ({
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: theme.palette.grey[500],
+                    })}
+                >
+                    <CloseIcon />
+                </IconButton>
+                <DialogContent dividers sx={{ backgroundColor: '#b3d89c' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+                        {!aiResponse && !isAnalyzing && (
+                            <>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>
+                                    У ситтера есть {profile?.reviews?.length} отзывов. Провести анализ отзывов на достоверность с помощью ИИ?
+                                </Typography>
+
+                                <Button variant='contained' onClick={handleReviewsPost}>Провести ИИ-анализ</Button>
+                            </>)}
+
+                        {isAnalyzing && !aiResponse && (
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <CircularProgress />
+                                <Typography sx={{ fontStyle: 'italic' }}>
+                                    Анализ отзывов... Пожалуйста, подождите.
+                                </Typography>
+                            </Box>
+                        )}
+                    </Box>
+                    <Typography sx={{ whiteSpace: "pre-line" }}>
+                    {aiResponse?.replace(/\*\*/g, '')}
+                    </Typography>
+
+                </DialogContent>
+            </Dialog>
         </>
     )
 }

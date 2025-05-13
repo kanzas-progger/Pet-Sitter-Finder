@@ -10,3 +10,15 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/refint/Reviews.Core.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/ref/Reviews.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/bin/Debug/net8.0/Reviews.Core.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/bin/Debug/net8.0/Reviews.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/bin/Debug/net8.0/Reviews.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/refint/Reviews.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/Reviews.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Reviews.API/Reviews.Core/obj/Debug/net8.0/ref/Reviews.Core.dll

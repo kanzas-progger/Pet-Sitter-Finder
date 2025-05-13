@@ -18,3 +18,23 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.genruntimeconfig.cache
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/ref/Requests.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/Requests.Infrastructure.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/Requests.Infrastructure.runtimeconfig.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/Requests.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/Requests.Infrastructure.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/Requests.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/SharedLibrary.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/SharedLibrary.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/bin/Debug/net8.0/Requests.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.csproj.AssemblyReference.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.csproj.CopyComplete
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/refint/Requests.Infrastructure.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/Requests.Infrastructure.genruntimeconfig.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Requests.API/Requests.Infrastructure/obj/Debug/net8.0/ref/Requests.Infrastructure.dll

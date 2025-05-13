@@ -10,3 +10,15 @@
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/refint/UserProfiles.Core.dll
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.pdb
 /home/nikolay/Graduation Project/Pet Sitter Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/ref/UserProfiles.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/bin/Debug/net8.0/UserProfiles.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/refint/UserProfiles.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/UserProfiles.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/UserProfiles.API/UserProfiles.Core/obj/Debug/net8.0/ref/UserProfiles.Core.dll

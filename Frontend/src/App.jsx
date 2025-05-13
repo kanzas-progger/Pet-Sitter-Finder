@@ -61,7 +61,7 @@ function App() {
               <Route path="boardings/request" element={<Request />} />
               
               {/* <Route path="animalprofile" element={<FullAnimalProfile />} /> */}
-
+              
 
               {/* protected routes*/}
               <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
