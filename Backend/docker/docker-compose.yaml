@@ -67,6 +67,26 @@ services:
       - app_network
     depends_on:
       - redis
+      
+  ai-analyzer-api:
+    build:
+      context: ..
+      dockerfile: src/AiAnalyzerV1.API/Dockerfile
+    container_name: ai-analyzer-api
+    ports:
+      - "5101:5101"
+    networks:
+      - app_network
+      
+  ai-analyzer2-api:
+    build:
+      context: ..
+      dockerfile: src/AiAnalyzerV2.API/Dockerfile
+    container_name: ai-analyzer2-api
+    ports:
+      - "5100:5100"
+    networks:
+      - app_network
 
   rabbitmq:
     image: rabbitmq:4.0-management

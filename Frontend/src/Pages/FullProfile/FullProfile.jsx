@@ -24,7 +24,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
 import CardBoard from '../../Components/CardBoard/CardBoard';
 import { getBoardsForSitter, deleteBoard, updateBoard } from '../../api/boards';
-import { AnalizeReviewsWithAi } from '../../api/ai';
+import { AnalizeReviewsWithAi, AiReviewsAnalyze } from '../../api/ai';
 
 const FullProfile = () => {
 
@@ -244,16 +244,32 @@ const FullProfile = () => {
         }));
 
 
+        //DeepSeekVersion
+
         try {
             const response = await AnalizeReviewsWithAi(reviewsData)
             const aiResponse = response.data.response
-            setAiResponse(aiResponse)
+            setAiResponse(aiResponse?.replace(/\*\*/g, ''))
             setIsAnalyzing(false);
         } catch (e) {
             console.error(e)
             setAiResponse("Произошла ошибка")
             setIsAnalyzing(false);
         }
+
+        //OwnModelVersion
+
+        // try {
+        //     const response = await AiReviewsAnalyze(reviewsData)
+        //     const aiResponse = response.data
+        //     setAiResponse(aiResponse)
+        //     console.log(aiResponse.positive)
+        //     setIsAnalyzing(false);
+        // } catch (e) {
+        //     console.error(e)
+        //     setAiResponse("Произошла ошибка")
+        //     setIsAnalyzing(false);
+        // }
     }
 
     return (
@@ -801,9 +817,30 @@ const FullProfile = () => {
                             </Box>
                         )}
                     </Box>
-                    <Typography sx={{ whiteSpace: "pre-line" }}>
-                    {aiResponse?.replace(/\*\*/g, '')}
+
+
+                    {aiResponse && (<>
+                        <Typography sx={{ whiteSpace: "pre-line" }}>
+                            {aiResponse}
+                        </Typography>
+                    </>)}
+
+
+
+                    {/* {aiResponse && (<>
+                        <Typography sx={{ whiteSpace: 'pre-line' }}>
+                        {`
+                            Общая статистика отзывов ситтера
+                            Всего отзывов — ${profile?.reviews?.length}
+                            Общий рейтинг — ${profile?.rating}
+                            Достоверность отзывов — ${aiResponse.reliability}
+                            Позитивные отзывы — ${aiResponse.positive}
+                            Нейтральные отзывы — ${aiResponse.neutral}
+                            Негативные отзывы — ${aiResponse.negative}
+                        `.trim()}
                     </Typography>
+                    </>)} */}
+
 
                 </DialogContent>
             </Dialog>
