@@ -16,7 +16,8 @@ const ProfileMenu = () => {
     pricePerDay: React.createRef(),
     contact: React.createRef(),
     photos: React.createRef(),
-    boardings: React.createRef()
+    boardings: React.createRef(),
+    notifications: React.createRef()
   };
 
   const linkStyle = (isActive) => ({
@@ -129,17 +130,14 @@ const ProfileMenu = () => {
                   Фотогаллерея</ProfileMenuLink>
                 <Divider ref={dividerRefs.photos} variant="middle" />
 
-                <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.photos}
-            >Контакты</ProfileMenuLink>
+                <ProfileMenuLink to={'/profile/contact/edit'}
+                  upperDividerRef={dividerRefs.photos}
+                  lowerDividerRef={dividerRefs.notifications}
+                >Контакты</ProfileMenuLink>
+                <Divider ref={dividerRefs.photos} variant="middle" />
 
               </>) : (
               <>
-                {/* <ProfileMenuLink to={'/profile/animals/profiles'}
-              lowerDividerRef={dividerRefs.pricePerDay}
-              upperDividerRef={dividerRefs.animals} >
-              Цена за сутки</ProfileMenuLink>
-            <Divider ref={dividerRefs.pricePerDay} variant="middle" /> */}
-
                 <ProfileMenuLink to={'/profile/photos/edit'}
                   lowerDividerRef={dividerRefs.photos}
                   upperDividerRef={dividerRefs.animals} >
@@ -152,13 +150,20 @@ const ProfileMenu = () => {
                   Объявления</ProfileMenuLink>
                 <Divider ref={dividerRefs.boardings} variant="middle" />
 
-                <ProfileMenuLink to={'/profile/contact/edit'} upperDividerRef={dividerRefs.photos}
-            >Контакты</ProfileMenuLink>
+                <ProfileMenuLink to={'/profile/contact/edit'}
+                  upperDividerRef={dividerRefs.photos}
+                  lowerDividerRef={dividerRefs.notifications}
+                >Контакты</ProfileMenuLink>
+                <Divider ref={dividerRefs.photos} variant="middle" />
 
-              </> )}
+              </>)}
+
+            <ProfileMenuLink to={'/profile/notifications'}
+              upperDividerRef={dividerRefs.contact} />
 
 
-            
+
+
           </Box>
         </Paper>
       </Box>

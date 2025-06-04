@@ -18,6 +18,7 @@ import Boardings from './Pages/Boardings/Boardings'
 import Request from './Pages/Request/Request'
 import RequestList from './Pages/RequestList/RequestList'
 import FullAnimalProfile from './Pages/FullAnimalProfile/FullAnimalProfile'
+import { Notifications } from '@mui/icons-material'
 
 const theme = createTheme({
   palette: {
@@ -73,6 +74,7 @@ function App() {
                   <Route index element={<Navigate to="/profile/personal/edit" replace />} />
                   <Route path="personal/edit" element={<Personal />}></Route>
                   <Route path="contact/edit" element={<Contact />}></Route>
+                  <Route path="notifications" element={<Notifications />}></Route>
                   <Route path="animals/edit" element={<Animals />}></Route>
                   <Route path="animals/profiles" element={<AnimalProfiles />}></Route>
                   <Route path="photos/edit" element={<PhotoGallery />}></Route>
