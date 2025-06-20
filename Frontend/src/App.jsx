@@ -17,8 +17,8 @@ import NavbarLayout from './Components/Layout/NavbarLayout'
 import Boardings from './Pages/Boardings/Boardings'
 import Request from './Pages/Request/Request'
 import RequestList from './Pages/RequestList/RequestList'
-import FullAnimalProfile from './Pages/FullAnimalProfile/FullAnimalProfile'
-import { Notifications } from '@mui/icons-material'
+import Notifications from './Pages/Notifications/Notifications'
+import useNotificationHub from './hooks/useNotificationHub'
 
 const theme = createTheme({
   palette: {
@@ -27,7 +27,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `"PT Sans", serif`, // Ваш шрифт по умолчанию
+    fontFamily: `"PT Sans", serif`,
   },
   components: {
     MuiButton: {
@@ -35,18 +35,15 @@ const theme = createTheme({
         root: {
           fontSize: '14px',
           fontWeight: '700',
-          //fontFamily: `"PT Sans", serif`,
         },
       },
     },
   },
 })
 
-//#9DC3C2    #77A6B6
-
-// owner:  nadya_gorodetskaya   stringgg
-
 function App() {
+
+  useNotificationHub()
 
   return (
     <>
@@ -55,15 +52,12 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route element={<NavbarLayout />}>
               <Route index element={<Navigate to="/sitters" replace />} />
+              
               {/* public routes*/}
-
               <Route path="sitters" element={<Sitters />} />
               <Route path=":login" element={<FullProfile />} />
               <Route path="boardings/request" element={<Request />} />
               
-              {/* <Route path="animalprofile" element={<FullAnimalProfile />} /> */}
-              
-
               {/* protected routes*/}
               <Route element={<RequireAuth allowedRoles={['Sitter', 'Owner']} />}>
               <Route path="requests" element={<RequestList />} />

@@ -5,9 +5,14 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    
+    <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\" />
+      <ProjectReference Include="..\Notifications.Core\Notifications.Core.csproj" />
+      <ProjectReference Include="..\Notifications.Infrastructure\Notifications.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,12 @@
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/bin/Debug/net8.0/Notifications.Core.deps.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/bin/Debug/net8.0/Notifications.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/bin/Debug/net8.0/Notifications.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.AssemblyInfoInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.AssemblyInfo.cs
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.csproj.CoreCompileInputs.cache
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.sourcelink.json
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/refint/Notifications.Core.dll
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/Notifications.Core.pdb
+/home/kanzas-progger/Pet-Sitter-Finder/Backend/src/Notifications.API/Notifications.Core/obj/Debug/net8.0/ref/Notifications.Core.dll

@@ -6,6 +6,7 @@ public interface INotificationsRepository
 {
     Task<int> GetUnreadNotificationsCount(Guid userId);
     Task<List<Notification>> GetAllNotificationsForUser(Guid userId);
-    Task DeleteNotifications(List<Guid> notificationIds);
-    Task UpdateNotificationStatus(List<Guid> notificationIds);
+    Task DeleteNotification();
+    Task UpdateNotificationReadStatus(List<Guid> notificationIds);
+    Task<Notification> CreateNotification(Notification notification);
 }

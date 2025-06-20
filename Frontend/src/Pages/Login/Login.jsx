@@ -47,7 +47,7 @@ const Login = () => {
             const decodedToken = jwtDecode(token)
             const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             const userId = decodedToken["id-"];
-            setAuth({ userId, role })
+            setAuth({ userId, role, token })
             navigate("/");
             setIsLoading(false)
         }

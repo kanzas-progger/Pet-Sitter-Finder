@@ -13,9 +13,8 @@ public class NotificationConfiguration : IEntityTypeConfiguration<NotificationEn
         builder.Property(n => n.SenderId).IsRequired();
         builder.Property(n => n.RecipientId).IsRequired();
         builder.Property(n => n.Type).IsRequired();
-        builder.Property(n => n.Header).IsRequired().HasMaxLength(Notification.MAX_HEADER_LENGTH);
-        builder.Property(n => n.Body).IsRequired(false).HasMaxLength(Notification.MAX_BODY_LENGTH);
+        builder.Property(n => n.Description).IsRequired(false).HasMaxLength(Notification.MAX_DESCRIPTION_LENGTH);
         builder.Property(n => n.IsRead).IsRequired();
-        builder.Property(n => n.IsRead).IsRequired();
+        builder.Property(n => n.CreatedAt).IsRequired();
     }
 }

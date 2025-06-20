@@ -2,20 +2,22 @@ import React from "react";
 import './Navbar.css'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
-import Logout from '@mui/icons-material/Logout';
 import {
     Avatar, Box, Badge, Tooltip, Link, Button, Container, IconButton,
     Menu, MenuItem, Divider, ListItemIcon, Typography
 } from '@mui/material';
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from 'react-router-dom';
 import useAuth from "../../hooks/useAuth";
 import { getShortOwnerProfile } from "../../api/owners";
 import { getShortSitterProfile } from "../../api/sitters";
 import { useState, useEffect } from "react";
+import useNotificationsCount from "../../hooks/useNotificationsCount";
 const Navbar = () => {
 
     const { auth, setAuth } = useAuth()
+    const {unreadCount} = useNotificationsCount()
     const [shortProfile, setShortProfile] = useState([])
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -126,9 +128,9 @@ const Navbar = () => {
                 >
                     {(auth?.role?.includes('Sitter') || auth?.role?.includes('Owner')) ? (
                         <>
-                            <Badge color="error" badgeContent={0} max={99}>
+                            <Badge color="error" badgeContent={unreadCount} max={99}>
                                 <Tooltip title="Уведомления" placement="right-end" enterDelay={1500}>
-                                    <Link href="#" underline="none">
+                                    <Link component={RouterLink}  to="/profile/notifications" underline="none">
                                         <NotificationsRoundedIcon style={{ color: '#6b7280' }} />
                                     </Link>
                                 </Tooltip>

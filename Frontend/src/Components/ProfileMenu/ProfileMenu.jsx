@@ -159,7 +159,9 @@ const ProfileMenu = () => {
               </>)}
 
             <ProfileMenuLink to={'/profile/notifications'}
-              upperDividerRef={dividerRefs.contact} />
+              upperDividerRef={dividerRefs.contact}>
+                Уведомления
+              </ProfileMenuLink>
 
 
 
